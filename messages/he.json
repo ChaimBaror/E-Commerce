@@ -1,0 +1,69 @@
+{
+    "HomePage": {
+        "storeName": "החנות שלי",
+        "home": "בית",
+        "categories": "קטגוריות",
+        "deals": "מבצעים",
+        "contact": "צור קשר",
+        "searchPlaceholder": "חפש מוצרים...",
+        "specialOffer": "מבצע מיוחד!",
+        "upToDiscount": "עד 50% הנחה על מוצרים נבחרים",
+        "buyNow": "קנה עכשיו",
+        "all": "הכל",
+        "electronics": "אלקטרוניקה",
+        "fashion": "אופנה",
+        "accessories": "אקססוריז",
+        "homeKitchen": "בית ומטבח",
+        "addToCart": "הוסף לעגלה",
+        "reviews": "ביקורות",
+        "cart": "עגלת קניות",
+        "emptyCart": "העגלה שלך ריקה",
+        "total": "סה\"כ:",
+        "proceedToCheckout": "המשך לתשלום",
+        "payment": "תשלום",
+        "orderSummary": "סיכום הזמנה",
+        "fullName": "שם מלא",
+        "address": "כתובת",
+        "phone": "טלפון",
+        "creditCard": "מספר כרטיס אשראי",
+        "expiryDate": "תאריך תפוגה",
+        "cvv": "CVV",
+        "securePayment": "תשלום מאובטח",
+        "freeShipping": "משלוח חינם",
+        "pay": "שלם",
+        "orderComplete": "ההזמנה בוצעה!",
+        "thankYou": "תודה על הקנייה שלך. נשלח אליך מייל עם פרטי ההזמנה.",
+        "close": "סגור",
+        "noProducts": "לא נמצאו מוצרים",
+        "tryDifferentSearch": "נסה חיפוש אחר או בחר קטגוריה שונה",
+        "quantity": "כמות",
+        "remove": "הסר",
+        "addedToCart": "המוצר נוסף לעגלה!",
+        "products": {
+            "headphones": {
+                "name": "אוזניות Bluetooth מקצועיות",
+                "description": "איכות צליל מעולה עם ביטול רעש אקטיבי"
+            },
+            "shirt": {
+                "name": "חולצה כותנה איכותית",
+                "description": "חולצה נוחה מכותנה 100% בגזרה מושלמת"
+            },
+            "backpack": {
+                "name": "תיק גב עמיד למחשב נייד",
+                "description": "תיק עמיד במיוחד עם תא מוגן למחשב נייד"
+            },
+            "watch": {
+                "name": "שעון חכם ספורט",
+                "description": "מעקב אחר כושר, דופק ושינה עם GPS מובנה"
+            },
+            "mug": {
+                "name": "ספל תרמי מעוצב",
+                "description": "שומר על חום המשקה עד 8 שעות"
+            },
+            "shoes": {
+                "name": "נעלי ספורט מקצועיות",
+                "description": "נעליים מותאמות לריצה ופעילות ספורטיבית"
+            }
+        }
+    }
+}

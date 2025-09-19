@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# e-com Project
 
-## Getting Started
+## Overview
+The e-com project is a modern e-commerce application built with React and TypeScript. It provides a user-friendly interface for browsing products, managing a shopping cart, and completing purchases. The application supports multiple languages and is styled using Material-UI.
 
-First, run the development server:
+## Features
+- **Product Browsing**: Users can view a list of products with details such as name, price, and description.
+- **Shopping Cart**: Users can add products to their cart, update quantities, and proceed to checkout.
+- **Multi-language Support**: The application supports English and Hebrew, allowing users to switch languages seamlessly.
+- **Responsive Design**: The application is designed to work on various screen sizes, providing a great user experience on both desktop and mobile devices.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Project Structure
+```
+e-com
+├── src
+│   ├── app
+│   │   └── page.ts
+│   ├── components
+│   │   ├── Cart
+│   │   │   ├── CartDrawer.tsx
+│   │   │   └── CheckoutDialog.tsx
+│   │   ├── Header
+│   │   │   ├── LanguageSelector.tsx
+│   │   │   └── Navbar.tsx
+│   │   ├── Product
+│   │   │   ├── ProductCard.tsx
+│   │   │   └── ProductList.tsx
+│   │   └── Shared
+│   │       ├── HeroBanner.tsx
+│   │       ├── Footer.tsx
+│   │       └── CategoryFilter.tsx
+│   ├── contexts
+│   │   ├── CartContext.tsx
+│   │   └── LanguageContext.tsx
+│   ├── hooks
+│   │   └── useProducts.ts
+│   ├── utils
+│   │   └── translations.ts
+│   ├── styles
+│   │   └── theme.ts
+│   ├── types
+│   │    └── index.ts
+│   └── i18n.ts
+├── messages
+│   ├── en.json
+│   └── he.json
+├── public
+│   └── images
+├── package.json
+├── tsconfig.json
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation
+1. Clone the repository:
+   ```
+   git clone https://github.com/yourusername/e-com.git
+   ```
+2. Navigate to the project directory:
+   ```
+   cd e-com
+   ```
+3. Install the dependencies:
+   ```
+   npm install
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
+To start the development server, run:
+```
+npm start
+```
+Open your browser and navigate to `http://localhost:3000` to view the application.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Contributing
+Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+This project is licensed under the MIT License. See the LICENSE file for more details.

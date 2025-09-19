@@ -1,0 +1,82 @@
+{
+    "HomePage": {
+        "storeName": "My Store",
+        "home": "Home",
+        "orderComplete": "Order Complete",
+        "thankYou": "Thank you for your purchase!",
+        "close": "Close",
+        "payment": "Payment",
+        "orderSummary": "Order Summary",
+        "total": "Total",
+        "fullName": "Full Name",
+        "address": "Address",
+        "phone": "Phone Number",
+        "creditCard": "Credit Card Number",
+        "expiryDate": "Expiry Date",
+        "cvv": "CVV",
+        "pay": "Pay",
+        "categories": "Categories",
+        "deals": "Deals",
+        "contact": "Contact",
+        "searchPlaceholder": "Search products...",
+        "specialOffer": "Special Offer!",
+        "upToDiscount": "Up to 50% off on selected products",
+        "buyNow": "Buy Now",
+        "all": "All",
+        "electronics": "Electronics",
+        "fashion": "Fashion",
+        "accessories": "Accessories",
+        "homeKitchen": "Home & Kitchen",
+        "addToCart": "Add to Cart",
+        "reviews": "reviews",
+        "cart": "Shopping Cart",
+        "emptyCart": "Your cart is empty",
+        "total": "Total:",
+        "proceedToCheckout": "Proceed to Checkout",
+        "payment": "Payment",
+        "orderSummary": "Order Summary",
+        "fullName": "Full Name",
+        "address": "Address",
+        "phone": "Phone",
+        "creditCard": "Credit Card Number",
+        "expiryDate": "Expiry Date",
+        "cvv": "CVV",
+        "securePayment": "Secure Payment",
+        "freeShipping": "Free Shipping",
+        "pay": "Pay",
+        "orderComplete": "Order Complete!",
+        "thankYou": "Thank you for your purchase. We'll send you an email with order details.",
+        "close": "Close",
+        "noProducts": "No products found",
+        "tryDifferentSearch": "Try a different search or select another category",
+        "quantity": "Quantity",
+        "remove": "Remove",
+        "addedToCart": "Product added to cart!",
+        "products": {
+            "headphones": {
+                "name": "Professional Bluetooth Headphones",
+                "description": "Excellent sound quality with active noise cancellation"
+            },
+            "shirt": {
+                "name": "Premium Cotton T-Shirt",
+                "description": "Comfortable 100% cotton shirt with perfect fit"
+            },
+            "backpack": {
+                "name": "Durable Laptop Backpack",
+                "description": "Extra durable backpack with protected laptop compartment"
+            },
+            "watch": {
+                "name": "Smart Sports Watch",
+                "description": "Fitness, heart rate and sleep tracking with built-in GPS"
+            },
+            "mug": {
+                "name": "Designer Thermal Mug",
+                "description": "Keeps drinks hot for up to 8 hours"
+            },
+            "shoes": {
+                "name": "Professional Sports Shoes",
+                "description": "Shoes designed for running and sports activities"
+            }
+        }
+    }
+}
