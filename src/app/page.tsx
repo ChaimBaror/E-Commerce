@@ -31,7 +31,7 @@ const OnlineStore = () => {
       image: '/images/product2.jpg',
       category: 'Category 2',
       rating: 4.0,
-      reviews:1,
+      reviews: 1,
     },
   ]);
 
@@ -43,7 +43,13 @@ const OnlineStore = () => {
     <Box sx={{ flexGrow: 1 }} dir="rtl">
       <Navbar onCartOpen={onCartOpen} />
       <HeroBanner />
-      {/* <CategoryFilter setSelectedCategory={setSelectedCategory} /> */}
+      {/* <CategoryFilter 
+        categories={['Category 1', 'Category 2']} 
+        selectedCategory="Category 1" 
+        onSelectCategory={(category) => {
+          setFilteredProducts(filteredProducts.filter(product => product.category === category));
+        }} 
+      /> */}
       <ProductList products={filteredProducts} />
       <Footer />
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />

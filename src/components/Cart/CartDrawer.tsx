@@ -1,6 +1,5 @@
 import React from 'react';
-import { Drawer, Box, Typography, IconButton, Divider, List, ListItem, Avatar, Button } from '@mui/material';
-import { Close, Add, Remove, Delete } from '@mui/icons-material';
+import { Drawer, Box, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useCart } from '@/src/contexts/CartContext';
 
