@@ -3,6 +3,7 @@ import { CartProvider } from '../contexts/CartContext';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import type { Metadata } from "next";
+import '../styles/globals.css';
 
 export const metadata: Metadata = {
   title: "E-Commerce App",
@@ -15,6 +16,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
+  console.log("Locale in layout:", locale);
+  
 
   // Providing all messages to the client
   // side is the easiest way to get started

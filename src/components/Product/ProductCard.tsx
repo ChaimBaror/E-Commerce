@@ -19,9 +19,10 @@ import { useTranslations } from 'next-intl';
 
 interface ProductCardProps {
   product: Product;
+  onAddToCart: (product: Product) => void;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [showSnackbar, setShowSnackbar] = useState(false);
   const t = useTranslations('HomePage.products');
@@ -31,6 +32,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     : 0;
 
   const handleAddToCart = () => {
+    onAddToCart(product);
     setShowSnackbar(true);
   };
 
@@ -41,7 +43,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <CardMedia
             component="img"
             height="240"
-            image={product.image}
+            image={'/images/product1.jpg'} // Replace with product.image for dynamic images
             alt={product.name}
           />
           <Box position="absolute" top={8} right={8}>

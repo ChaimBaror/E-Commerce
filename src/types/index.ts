@@ -1,9 +1,9 @@
 // This file exports TypeScript types and interfaces used throughout the application to ensure type safety.
 
 export interface Product {
-  id: number | string;
+  id: string;
   name: string;
-  price: number | string;
+  price: number;
   originalPrice?: number;
   image: string;
   category: string;

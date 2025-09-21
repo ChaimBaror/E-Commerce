@@ -16,6 +16,7 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
+          background: '#1e1e23',
           borderRadius: 16,
           boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
           transition: 'all 0.3s ease',
