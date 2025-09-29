@@ -77,6 +77,36 @@
                 "name": "Professional Sports Shoes",
                 "description": "Shoes designed for running and sports activities"
             }
+        },
+        "productPage": {
+            "loading": "Loading...",
+            "productNotFound": "Product not found",
+            "backToStore": "Back to Store",
+            "productDescription": "Product Description",
+            "quantity": "Quantity",
+            "total": "Total:",
+            "addToCart": "Add to Cart",
+            "inCart": "In Cart",
+            "reviews": "reviews",
+            "sku": "SKU:",
+            "rating": "Rating:",
+            "stars": "stars",
+            "relatedProducts": "Similar Products",
+            "addedToCartSuccess": "added to cart successfully! (Quantity: {quantity})"
+        },
+        "productList": {
+            "loadingProducts": "Loading products...",
+            "noProductsFound": "No Products Found",
+            "tryDifferentSearch": "Try adjusting your filters or browse all categories.",
+            "ourProducts": "Our Products",
+            "itemsFound": "item{count, plural, =1 {} other {s}} found"
+        },
+        "store": {
+            "shopByCategory": "Shop by Category",
+            "showing": "Showing {start}-{end} of {total} products",
+            "inCategory": "in {category}",
+            "perPage": "Per Page",
+            "page": "Page {current} of {total}"
         }
     }
 }

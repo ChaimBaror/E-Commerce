@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import {
   Box,
   Container,
-  Grid,
   Typography,
   Button,
   Rating,
@@ -32,21 +33,18 @@ import { Product } from '@/src/types';
 import { allProducts } from '@/src/data/data';
 import Navbar from '@/src/components/Header/Navbar';
 import Footer from '@/src/components/Shared/Footer';
+import { useCart } from '@/src/contexts/CartContext';
 
 interface ProductPageProps {
-  productId: string;
-  onAddToCart?: (product: Product, quantity: number) => void;
-  onBack?: () => void;
-  cartItemCount?: number;
+  params: {
+    id: string;
+  };
 }
 
-const ProductPage: React.FC<ProductPageProps> = ({ 
-  productId, 
-  onAddToCart,
-  onBack,
-  cartItemCount = 0
-}) => {
+const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
   const router = useRouter();
+  const { addToCart, getTotalItems } = useCart();
+  const t = useTranslations('HomePage.productPage');
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -56,20 +54,20 @@ const ProductPage: React.FC<ProductPageProps> = ({
 
   useEffect(() => {
     // Find product by ID
-    const foundProduct = allProducts.find(p => p.id === productId);
+    const foundProduct = allProducts.find(p => p.id === params.id);
     if (foundProduct) {
       setProduct(foundProduct);
     }
     setLoading(false);
-  }, [productId]);
+  }, [params.id]);
 
   if (loading) {
     return (
       <Box sx={{ flexGrow: 1, minHeight: '100vh' }}>
-        <Navbar onCartOpen={() => {}} cartItemCount={cartItemCount} />
+        <Navbar onCartOpen={() => {}} cartItemCount={getTotalItems()} />
         <Container maxWidth="lg" sx={{ py: 4 }}>
           <Typography variant="h4" align="center">
-            טוען...
+            {t('loading')}
           </Typography>
         </Container>
         <Footer />
@@ -80,10 +78,10 @@ const ProductPage: React.FC<ProductPageProps> = ({
   if (!product) {
     return (
       <Box sx={{ flexGrow: 1, minHeight: '100vh' }}>
-        <Navbar onCartOpen={() => {}} cartItemCount={cartItemCount} />
+        <Navbar onCartOpen={() => {}} cartItemCount={getTotalItems()} />
         <Container maxWidth="lg" sx={{ py: 4 }}>
           <Typography variant="h4" align="center" color="error">
-            מוצר לא נמצא
+            {t('productNotFound')}
           </Typography>
           <Box sx={{ textAlign: 'center', mt: 3 }}>
             <Button 
@@ -91,7 +89,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
               onClick={() => router.push('/')}
               startIcon={<ArrowBackIcon />}
             >
-              חזרה לחנות
+              {t('backToStore')}
             </Button>
           </Box>
         </Container>
@@ -105,18 +103,15 @@ const ProductPage: React.FC<ProductPageProps> = ({
   };
 
   const handleAddToCart = () => {
-    if (onAddToCart) {
-      onAddToCart(product, quantity);
+    // Add the product to cart with the specified quantity
+    for (let i = 0; i < quantity; i++) {
+      addToCart(product);
     }
     setShowSuccessMessage(true);
   };
 
   const handleBack = () => {
-    if (onBack) {
-      onBack();
-    } else {
-      router.back();
-    }
+    router.back();
   };
 
   const handleShare = async () => {
@@ -154,7 +149,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
 
   return (
     <Box sx={{ flexGrow: 1, minHeight: '100vh', bgcolor: '#fafafa' }}>
-      <Navbar onCartOpen={() => {}} cartItemCount={cartItemCount} />
+      <Navbar onCartOpen={() => {}} cartItemCount={getTotalItems()} />
       
       <Container maxWidth="lg" sx={{ py: 4 }}>
         {/* Breadcrumbs */}
@@ -174,7 +169,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
             }}
           >
             <ArrowBackIcon fontSize="small" />
-            חזרה לחנות
+            {t('backToStore')}
           </Link>
           <Typography variant="body2" color="text.secondary">
             {product.category}
@@ -184,14 +179,20 @@ const ProductPage: React.FC<ProductPageProps> = ({
           </Typography>
         </Breadcrumbs>
 
-        <Grid container spacing={4}>
+        <Box sx={{ 
+          display: 'grid', 
+          gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+          gap: 4
+        }}>
           {/* Product Images */}
-          <Grid item xs={12} md={6}>
+          <Box>
             <Paper elevation={2} sx={{ p: 2, bgcolor: 'white' }}>
               <Box sx={{ mb: 2 }}>
-                <img
+                <Image
                   src={productImages[selectedImage]}
                   alt={product.name}
+                  width={600}
+                  height={400}
                   style={{
                     width: '100%',
                     height: '400px',
@@ -222,9 +223,11 @@ const ProductPage: React.FC<ProductPageProps> = ({
                       '&:hover': { borderColor: 'primary.main' }
                     }}
                   >
-                    <img
+                    <Image
                       src={image}
                       alt={`${product.name} ${index + 1}`}
+                      width={60}
+                      height={60}
                       style={{
                         width: '100%',
                         height: '100%',
@@ -238,10 +241,10 @@ const ProductPage: React.FC<ProductPageProps> = ({
                 ))}
               </Stack>
             </Paper>
-          </Grid>
+          </Box>
 
           {/* Product Details */}
-          <Grid item xs={12} md={6}>
+          <Box>
             <Paper elevation={2} sx={{ p: 3, bgcolor: 'white', height: 'fit-content' }}>
               <Stack spacing={3}>
                 {/* Category Chip */}
@@ -260,9 +263,9 @@ const ProductPage: React.FC<ProductPageProps> = ({
 
                 {/* Rating and Reviews */}
                 <Stack direction="row" spacing={2} alignItems="center">
-                  <Rating value={product.rating} readOnly precision={0.1} />
+                  <Rating value={Number(product.rating)} readOnly precision={0.1} />
                   <Typography variant="body2" color="text.secondary">
-                    ({product.reviews} ביקורות)
+                    ({product.reviews} {t('reviews')})
                   </Typography>
                 </Stack>
 
@@ -276,7 +279,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
                 {/* Description */}
                 <Box>
                   <Typography variant="h6" gutterBottom>
-                    תיאור המוצר
+                    {t('productDescription')}
                   </Typography>
                   <Typography variant="body1" color="text.secondary" lineHeight={1.6}>
                     {product.description}
@@ -288,7 +291,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
                 {/* Quantity and Add to Cart */}
                 <Box>
                   <Typography variant="h6" gutterBottom>
-                    כמות
+                    {t('quantity')}
                   </Typography>
                   <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
                     <Stack direction="row" alignItems="center" spacing={1}>
@@ -332,7 +335,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
                     </Stack>
                     
                     <Typography variant="body2" color="text.secondary">
-                      סה"כ: ₪{(product.price * quantity).toLocaleString()}
+                      {t('total')} ₪{(product.price * quantity).toLocaleString()}
                     </Typography>
                   </Stack>
 
@@ -353,7 +356,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
                       transition: 'all 0.2s ease-in-out'
                     }}
                   >
-                    הוסף לעגלה
+                    {t('addToCart')}
                   </Button>
                 </Box>
 
@@ -395,72 +398,77 @@ const ProductPage: React.FC<ProductPageProps> = ({
                       <strong>קטגוריה:</strong> {product.category}
                     </Typography>
                     <Typography variant="body2">
-                      <strong>מק"ט:</strong> {product.id}
+                      <strong>{t('sku')}</strong> {product.id}
                     </Typography>
                     <Typography variant="body2">
-                      <strong>דירוג:</strong> {product.rating}/5 כוכבים
+                      <strong>{t('rating')}</strong> {product.rating}/5 {t('stars')}
                     </Typography>
                   </Stack>
                 </Box>
               </Stack>
             </Paper>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
 
         {/* Related Products Section */}
         <Box sx={{ mt: 6 }}>
           <Typography variant="h5" gutterBottom fontWeight="bold">
-            מוצרים דומים
+            {t('relatedProducts')}
           </Typography>
-          <Grid container spacing={2}>
+          <Box sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(4, 1fr)' },
+            gap: 2
+          }}>
             {allProducts
               .filter(p => p.category === product.category && p.id !== product.id)
               .slice(0, 4)
               .map(relatedProduct => (
-                <Grid item xs={6} sm={3} key={relatedProduct.id}>
-                  <Paper 
-                    elevation={1} 
-                    sx={{ 
-                      p: 1, 
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease-in-out',
-                      '&:hover': { 
-                        elevation: 4,
-                        transform: 'translateY(-2px)'
-                      }
+                <Paper 
+                  key={relatedProduct.id}
+                  elevation={1} 
+                  sx={{ 
+                    p: 1, 
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease-in-out',
+                    '&:hover': { 
+                      elevation: 4,
+                      transform: 'translateY(-2px)'
+                    }
+                  }}
+                  onClick={() => handleRelatedProductClick(relatedProduct.id)}
+                >
+                  <Image
+                    src={relatedProduct.image}
+                    alt={relatedProduct.name}
+                    width={200}
+                    height={120}
+                    style={{
+                      width: '100%',
+                      height: '120px',
+                      objectFit: 'cover',
+                      borderRadius: '4px'
                     }}
-                    onClick={() => handleRelatedProductClick(relatedProduct.id)}
+                  />
+                  <Typography 
+                    variant="body2" 
+                    sx={{ 
+                      mt: 1, 
+                      fontWeight: 500,
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                    }}
                   >
-                    <img
-                      src={relatedProduct.image}
-                      alt={relatedProduct.name}
-                      style={{
-                        width: '100%',
-                        height: '120px',
-                        objectFit: 'cover',
-                        borderRadius: '4px'
-                      }}
-                    />
-                    <Typography 
-                      variant="body2" 
-                      sx={{ 
-                        mt: 1, 
-                        fontWeight: 500,
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
-                        overflow: 'hidden',
-                      }}
-                    >
-                      {relatedProduct.name}
-                    </Typography>
-                    <Typography variant="body2" color="primary" fontWeight="bold">
-                      ₪{relatedProduct.price.toLocaleString()}
-                    </Typography>
-                  </Paper>
-                </Grid>
+                    {relatedProduct.name}
+                  </Typography>
+                  <Typography variant="body2" color="primary" fontWeight="bold">
+                    ₪{relatedProduct.price.toLocaleString()}
+                  </Typography>
+                </Paper>
               ))}
-          </Grid>
+          </Box>
         </Box>
       </Container>
 
@@ -478,7 +486,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
           severity="success"
           sx={{ width: '100%' }}
         >
-          {product.name} נוסף לעגלה בהצלחה! (כמות: {quantity})
+          {product.name} {t('addedToCartSuccess', { quantity })}
         </Alert>
       </Snackbar>
     </Box>

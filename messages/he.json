@@ -1,7 +1,6 @@
 {
     "HomePage": {
         
-        "reviews":"ביקורות",
         "storeName": "החנות שלי",
         "home": "בית",
         "categories": "קטגוריות",
@@ -66,6 +65,36 @@
                 "name": "נעלי ספורט מקצועיות",
                 "description": "נעליים מותאמות לריצה ופעילות ספורטיבית"
             }
+        },
+        "productPage": {
+            "loading": "טוען...",
+            "productNotFound": "מוצר לא נמצא",
+            "backToStore": "חזרה לחנות",
+            "productDescription": "תיאור המוצר",
+            "quantity": "כמות",
+            "total": "סה\"כ:",
+            "addToCart": "הוסף לעגלה",
+            "inCart": "בעגלה",
+            "reviews": "ביקורות",
+            "sku": "מק\"ט:",
+            "rating": "דירוג:",
+            "stars": "כוכבים",
+            "relatedProducts": "מוצרים דומים",
+            "addedToCartSuccess": "נוסף לעגלה בהצלחה! (כמות: {quantity})"
+        },
+        "productList": {
+            "loadingProducts": "טוען מוצרים...",
+            "noProductsFound": "לא נמצאו מוצרים",
+            "tryDifferentSearch": "נסה להתאים את המסננים שלך או עיין בכל הקטגוריות.",
+            "ourProducts": "המוצרים שלנו",
+            "itemsFound": "פריט{count, plural, =1 {} other {ים}} נמצאו"
+        },
+        "store": {
+            "shopByCategory": "קנה לפי קטגוריה",
+            "showing": "מציג {start}-{end} מתוך {total} מוצרים",
+            "inCategory": "בקטגוריה {category}",
+            "perPage": "לעמוד",
+            "page": "עמוד {current} מתוך {total}"
         }
     }
 }

@@ -22,6 +22,7 @@ import CategoryFilter from '../components/Shared/CategoryFilter';
 import { allProducts } from '../data/data';
 import { useCart } from '../contexts/CartContext';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 const OnlineStore = () => {
   const [cartOpen, setCartOpen] = useState(false);
@@ -30,6 +31,7 @@ const OnlineStore = () => {
   const [productsPerPage, setProductsPerPage] = useState(12);
   const { addToCart, getTotalItems } = useCart();
   const router = useRouter();
+  const t = useTranslations('HomePage.store');
 
   // Get unique categories
   const categories = useMemo(() => {
@@ -85,8 +87,8 @@ const OnlineStore = () => {
     });
   };
 
-  const handleProductsPerPageChange = (event: any) => {
-    setProductsPerPage(event.target.value as number);
+  const handleProductsPerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setProductsPerPage(Number(event.target.value));
   };
 
   return (
@@ -103,7 +105,7 @@ const OnlineStore = () => {
           categories={categories} 
           selectedCategory={selectedCategory}
           onSelectCategory={handleCategorySelect}
-          title="Shop by Category"
+          title={t('shopByCategory')}
           variant="buttons"
           showAllOption={true}
         />
@@ -117,17 +119,21 @@ const OnlineStore = () => {
             spacing={2}
           >
             <Typography variant="body1" color="text.secondary">
-              Showing {startIndex + 1}-{Math.min(endIndex, filteredProducts.length)} of {filteredProducts.length} products
+              {t('showing', { 
+                start: startIndex + 1, 
+                end: Math.min(endIndex, filteredProducts.length), 
+                total: filteredProducts.length 
+              })}
               {selectedCategory !== null && selectedCategory !== -1 && (
-                <span> in {categories[selectedCategory]}</span>
+                <span> {t('inCategory', { category: categories[selectedCategory] })}</span>
               )}
             </Typography>
             
             <FormControl size="small" sx={{ minWidth: 120 }}>
-              <InputLabel>Per Page</InputLabel>
+              <InputLabel>{t('perPage')}</InputLabel>
               <Select
                 value={productsPerPage}
-                label="Per Page"
+                label={t('perPage')}
                 onChange={handleProductsPerPageChange}
               >
                 <MenuItem value={6}>6</MenuItem>
@@ -166,7 +172,7 @@ const OnlineStore = () => {
                 boundaryCount={1}
               />
               <Typography variant="body2" color="text.secondary">
-                Page {currentPage} of {totalPages}
+                {t('page', { current: currentPage, total: totalPages })}
               </Typography>
             </Stack>
           </Box>

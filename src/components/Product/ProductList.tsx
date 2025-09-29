@@ -2,7 +2,6 @@ import React from 'react';
 import { 
   Box, 
   Typography, 
-  Container,
   Fade,
   useTheme,
   alpha
@@ -11,6 +10,7 @@ import ProductCard from './ProductCard';
 import { Product } from '@/src/types';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
+import { useTranslations } from 'next-intl';
 
 interface ProductListProps {
   products: Product[];
@@ -21,6 +21,7 @@ interface ProductListProps {
 
 const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: ProductListProps) => {
   const theme = useTheme();
+  const t = useTranslations('HomePage.productList');
 
   if (loading) {
     return (
@@ -49,7 +50,7 @@ const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: 
           }}
         />
         <Typography variant="h6" color="text.secondary">
-          Loading products...
+          {t('loadingProducts')}
         </Typography>
       </Box>
     );
@@ -97,7 +98,7 @@ const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: 
             mb: 1
           }}
         >
-          No Products Found
+          {t('noProductsFound')}
         </Typography>
         <Typography 
           variant="body1" 
@@ -106,7 +107,7 @@ const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: 
             maxWidth: 400
           }}
         >
-          Try adjusting your filters or browse all categories.
+          {t('tryDifferentSearch')}
         </Typography>
       </Box>
     );
@@ -138,7 +139,7 @@ const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: 
             color: theme.palette.text.primary
           }}
         >
-          Our Products
+          {t('ourProducts')}
         </Typography>
         <Typography 
           variant="body2" 
@@ -148,7 +149,7 @@ const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: 
             fontWeight: 500
           }}
         >
-          {products.length} item{products.length !== 1 ? 's' : ''} found
+          {products.length} {t('itemsFound', { count: products.length })}
         </Typography>
       </Box>
 

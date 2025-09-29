@@ -7,7 +7,7 @@ import { Product } from "../types";
     "name": "אוזניות אלחוטיות פרימיום",
     "price": 299,
     "description": "אוזניות אלחוטיות איכותיות עם ביטול רעשים אקטיבי.",
-    "image": "https://images.unsplash.com/photo-1546435770-5b65f3a22c56?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1546435770-5b65f3a22c56?auto=format&fit=crop&w=400&h=400",
     "category": "אלקטרוניקה",
     "rating": 4.5,
     "reviews": 128
@@ -17,7 +17,7 @@ import { Product } from "../types";
     "name": "שעון חכם לכושר",
     "price": 199,
     "description": "עקוב אחר יעדי הכושר שלך עם שעון חכם מתקדם זה.",
-    "image": "https://images.unsplash.com/photo-1579586337278-3befd62fd174?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1579586337278-3befd62fd174?auto=format&fit=crop&w=400&h=400",
     "category": "אלקטרוניקה",
     "rating": 4.3,
     "reviews": 89
@@ -27,7 +27,7 @@ import { Product } from "../types";
     "name": "חולצת טי-שירט מכותנה אורגנית",
     "price": 29,
     "description": "חולצת טי-שירט נוחה ובת-קיימא מכותנה אורגנית.",
-    "image": "https://images.unsplash.com/photo-1620799140403-edc9360c7f7f?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1620799140403-edc9360c7f7f?auto=format&fit=crop&w=400&h=400",
     "category": "ביגוד",
     "rating": 4.7,
     "reviews": 256
@@ -37,7 +37,7 @@ import { Product } from "../types";
     "name": "ג'ינס מעצבים",
     "price": 89,
     "description": "ג'ינס פרימיום עם גזרה מודרנית.",
-    "image": "https://images.unsplash.com/photo-1626245143004-e58f0ef2ef78?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1626245143004-e58f0ef2ef78?auto=format&fit=crop&w=400&h=400",
     "category": "ביגוד",
     "rating": 4.4,
     "reviews": 167
@@ -47,7 +47,7 @@ import { Product } from "../types";
     "name": "מכונת קפה Pro",
     "price": 149,
     "description": "מכונת קפה מקצועית להכנת הקפה המושלם.",
-    "image": "https://images.unsplash.com/photo-1541178221808-112613d289dc?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1541178221808-112613d289dc?auto=format&fit=crop&w=400&h=400",
     "category": "מטבח",
     "rating": 4.6,
     "reviews": 203
@@ -57,7 +57,7 @@ import { Product } from "../types";
     "name": "סט כלי בישול מנירוסטה",
     "price": 249,
     "description": "סט בישול מקצועי בן 10 חלקים.",
-    "image": "https://images.unsplash.com/photo-1577782165507-6f7756f7e44a?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1577782165507-6f7756f7e44a?auto=format&fit=crop&w=400&h=400",
     "category": "מטבח",
     "rating": 4.8,
     "reviews": 95
@@ -67,7 +67,7 @@ import { Product } from "../types";
     "name": "מחשב נייד קל משקל",
     "price": 1200,
     "description": "מחשב נייד חזק וקל משקל עם ביצועים מעולים.",
-    "image": "https://images.unsplash.com/photo-1504707659850-d73111f1295b?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1504707659850-d73111f1295b?auto=format&fit=crop&w=400&h=400",
     "category": "אלקטרוניקה",
     "rating": 4.9,
     "reviews": 312
@@ -77,7 +77,7 @@ import { Product } from "../types";
     "name": "כיסא משרדי ארגונומי",
     "price": 350,
     "description": "כיסא תומך נוח המיועד לשעות עבודה ארוכות.",
-    "image": "https://images.unsplash.com/photo-1596707447293-c402925b6d51?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1596707447293-c402925b6d51?auto=format&fit=crop&w=400&h=400",
     "category": "ריהוט",
     "rating": 4.7,
     "reviews": 150
@@ -87,7 +87,7 @@ import { Product } from "../types";
     "name": "מנורת שולחן מודרנית",
     "price": 65,
     "description": "מנורת שולחן אלגנטית עם תאורת LED מתכווננת.",
-    "image": "https://images.unsplash.com/photo-1588145781476-857c617b0849?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1588145781476-857c617b0849?auto=format&fit=crop&w=400&h=400",
     "category": "תאורה",
     "rating": 4.5,
     "reviews": 75
@@ -97,7 +97,7 @@ import { Product } from "../types";
     "name": "תרמיל גב חסין מים",
     "price": 75,
     "description": "תרמיל גב עמיד ופרקטי לשימוש יומיומי.",
-    "image": "https://images.unsplash.com/photo-1587326622416-522f2eddf98e?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1587326622416-522f2eddf98e?auto=format&fit=crop&w=400&h=400",
     "category": "אביזרים",
     "rating": 4.6,
     "reviews": 210
@@ -107,7 +107,7 @@ import { Product } from "../types";
     "name": "מצלמת וידאו אקסטרים 4K",
     "price": 399,
     "description": "לכוד רגעים מרגשים עם מצלמת וידאו אולטרה HD.",
-    "image": "https://images.unsplash.com/photo-1549429789-22a4921b7904?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1549429789-22a4921b7904?auto=format&fit=crop&w=400&h=400",
     "category": "אלקטרוניקה",
     "rating": 4.8,
     "reviews": 180
@@ -117,7 +117,7 @@ import { Product } from "../types";
     "name": "נעלי ריצה קלות",
     "price": 95,
     "description": "נעלי ספורט נוחות וקלילות לריצה אופטימלית.",
-    "image": "https://images.unsplash.com/photo-1522071376451-2e11893c5d6e?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1522071376451-2e11893c5d6e?auto=format&fit=crop&w=400&h=400",
     "category": "ספורט",
     "rating": 4.7,
     "reviews": 320
@@ -127,7 +127,7 @@ import { Product } from "../types";
     "name": "מטהר אוויר חכם",
     "price": 175,
     "description": "מטהר אוויר שקט ויעיל עם שליטה מרחוק.",
-    "image": "https://images.unsplash.com/photo-1620005721111-e4070a747971?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1620005721111-e4070a747971?auto=format&fit=crop&w=400&h=400",
     "category": "מוצרים לבית",
     "rating": 4.5,
     "reviews": 145
@@ -137,7 +137,7 @@ import { Product } from "../types";
     "name": "כרית שינה אורתופדית",
     "price": 55,
     "description": "כרית קצף זיכרון לתמיכה בצוואר ושינה עמוקה.",
-    "image": "https://images.unsplash.com/photo-1582210875954-5c9c61d5f308?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1582210875954-5c9c61d5f308?auto=format&fit=crop&w=400&h=400",
     "category": "מצעים",
     "rating": 4.9,
     "reviews": 290
@@ -147,7 +147,7 @@ import { Product } from "../types";
     "name": "סט כלי כתיבה יוקרתי",
     "price": 45,
     "description": "עטים אלגנטיים ועפרונות מעוצבים לעבודה או לימודים.",
-    "image": "https://images.unsplash.com/photo-1614742784770-349c12b704c3?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1614742784770-349c12b704c3?auto=format&fit=crop&w=400&h=400",
     "category": "משרד",
     "rating": 4.6,
     "reviews": 115
@@ -157,7 +157,7 @@ import { Product } from "../types";
     "name": "בלנדר עוצמתי",
     "price": 120,
     "description": "בלנדר מהיר ועוצמתי להכנת שייקים ומרקים.",
-    "image": "https://images.unsplash.com/photo-1582846931215-996a6d638c4c?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1582846931215-996a6d638c4c?auto=format&fit=crop&w=400&h=400",
     "category": "מטבח",
     "rating": 4.7,
     "reviews": 250
@@ -167,7 +167,7 @@ import { Product } from "../types";
     "name": "שואב אבק רובוטי",
     "price": 280,
     "description": "שואב אבק רובוטי עם ניווט חכם וזיהוי מכשולים.",
-    "image": "https://images.unsplash.com/photo-1522851996230-683a45c92c81?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1522851996230-683a45c92c81?auto=format&fit=crop&w=400&h=400",
     "category": "מוצרים לבית",
     "rating": 4.6,
     "reviews": 185
@@ -177,7 +177,7 @@ import { Product } from "../types";
     "name": "קופסת אוכל תרמית",
     "price": 35,
     "description": "שמור על האוכל חם או קר עם קופסה איכותית זו.",
-    "image": "https://images.unsplash.com/photo-1579758782787-8d8213824388?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1579758782787-8d8213824388?auto=format&fit=crop&w=400&h=400",
     "category": "אביזרים",
     "rating": 4.4,
     "reviews": 99
@@ -187,7 +187,7 @@ import { Product } from "../types";
     "name": "משחק מחשב AAA",
     "price": 60,
     "description": "משחק עולם פתוח עם גרפיקה מדהימה וסיפור עשיר.",
-    "image": "https://images.unsplash.com/photo-1550745165-9dd2c0502447?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1550745165-9dd2c0502447?auto=format&fit=crop&w=400&h=400",
     "category": "גיימינג",
     "rating": 4.8,
     "reviews": 450
@@ -197,7 +197,7 @@ import { Product } from "../types";
     "name": "ספר בישול טבעוני",
     "price": 25,
     "description": "מתכונים טעימים ובריאים מהמטבח הטבעוני.",
-    "image": "https://images.unsplash.com/photo-1543888562-b43a9b1c737f?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1543888562-b43a9b1c737f?auto=format&fit=crop&w=400&h=400",
     "category": "ספרים",
     "rating": 4.7,
     "reviews": 85
@@ -207,7 +207,7 @@ import { Product } from "../types";
     "name": "מארז ציוד יוגה",
     "price": 70,
     "description": "כולל מזרן יוגה, בלוקים ורצועה לאימון מושלם.",
-    "image": "https://images.unsplash.com/photo-1581057492211-e63a8a3a9b9a?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1581057492211-e63a8a3a9b9a?auto=format&fit=crop&w=400&h=400",
     "category": "ספורט",
     "rating": 4.6,
     "reviews": 130
@@ -217,7 +217,7 @@ import { Product } from "../types";
     "name": "סט מברשות איפור מקצועי",
     "price": 40,
     "description": "12 מברשות איכותיות ליצירת מראה מושלם.",
-    "image": "https://images.unsplash.com/photo-1558962002-3171897d286d?auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1558962002-3171897d286d?auto=format&fit=crop&w=400&h=400",
     "category": "טיפוח ויופי",
     "rating": 4.8,
     "reviews": 210

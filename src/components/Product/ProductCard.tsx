@@ -17,6 +17,7 @@ import {
 } from '@mui/icons-material';
 import { Product } from '../../types';
 import { useCart } from '../../contexts/CartContext';
+import { useTranslations } from 'next-intl';
 
 interface ProductCardProps {
   product: Product;
@@ -31,6 +32,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const [isFavorite, setIsFavorite] = React.useState(false);
   const { isInCart } = useCart();
+  const t = useTranslations('HomePage');
 
   const handleCardClick = (e: React.MouseEvent) => {
     // Don't trigger card click if clicking on buttons
@@ -191,7 +193,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             transition: 'all 0.2s ease-in-out',
           }}
         >
-          {isInCart(product.id) ? 'בעגלה' : 'הוסף לעגלה'}
+          {isInCart(product.id) ? t('productPage.inCart') : t('addToCart')}
         </Button>
       </CardActions>
     </Card>
