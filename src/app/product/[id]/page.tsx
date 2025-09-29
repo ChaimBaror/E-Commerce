@@ -357,9 +357,12 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
                       mb: 2, 
                       py: 1.5,
                       fontSize: '1.1rem',
+                      color: '#ffffff',
+                      fontWeight: 600,
                       '&:hover': {
                         transform: 'translateY(-1px)',
-                        boxShadow: 4
+                        boxShadow: 4,
+                        color: '#ffffff',
                       },
                       transition: 'all 0.2s ease-in-out'
                     }}

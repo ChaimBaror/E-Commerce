@@ -258,7 +258,17 @@ const CheckoutForm = ({ onClose }: { onClose: () => void }) => {
           size="large"
           onClick={handlePayment}
           disabled={loading || !stripe}
-          sx={{ minWidth: 200 }}
+          sx={{ 
+            minWidth: 200,
+            color: '#ffffff',
+            fontWeight: 600,
+            '&:hover': {
+              color: '#ffffff',
+            },
+            '&:disabled': {
+              color: 'rgba(255, 255, 255, 0.6)',
+            }
+          }}
         >
           {loading ? 'Processing...' : `Pay ₪${getTotalPrice().toFixed(2)}`}
         </Button>

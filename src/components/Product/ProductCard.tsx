@@ -182,12 +182,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
           startIcon={<ShoppingCartIcon />}
           onClick={handleAddToCart}
           sx={{
-            bgcolor: isInCart(product.id) ? 'transparent' : 'primary.main',
-            color: isInCart(product.id) ? 'primary.main' : 'white',
-            borderColor: 'primary.main',
+            fontWeight: 600,
+            py: 1.2,
             '&:hover': {
-              bgcolor: isInCart(product.id) ? 'primary.light' : 'primary.dark',
-              color: 'white',
               transform: 'translateY(-1px)',
             },
             transition: 'all 0.2s ease-in-out',

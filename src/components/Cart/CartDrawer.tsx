@@ -290,11 +290,14 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
                   py: 1.5,
                   fontSize: '1.1rem',
                   fontWeight: 700,
-                  background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
+                  color: '#ffffff',
+                  backgroundColor: theme.palette.primary.main,
                   boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
                   '&:hover': {
                     transform: 'translateY(-2px)',
-                    boxShadow: '0 6px 20px rgba(0,0,0,0.3)'
+                    boxShadow: '0 6px 20px rgba(0,0,0,0.3)',
+                    backgroundColor: theme.palette.primary.dark,
+                    color: '#ffffff',
                   }
                 }}
               >

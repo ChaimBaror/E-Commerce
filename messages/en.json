@@ -1,6 +1,6 @@
 {
     "HomePage": {
-        "storeName": "My Store",
+        "storeName": "Premium Store",
         "home": "Home",
         "orderComplete": "Order Complete",
         "thankYou": "Thank you for your purchase!",
@@ -42,33 +42,33 @@
         "products": {
             "headphones": {
                 "name": "Professional Bluetooth Headphones",
-                "description": "Excellent sound quality with active noise cancellation"
+                "description": "Premium sound quality with active noise cancellation technology"
             },
             "shirt": {
                 "name": "Premium Cotton T-Shirt",
-                "description": "Comfortable 100% cotton shirt with perfect fit"
+                "description": "Ultra-comfortable 100% organic cotton with perfect fit"
             },
             "backpack": {
                 "name": "Durable Laptop Backpack",
-                "description": "Extra durable backpack with protected laptop compartment"
+                "description": "Military-grade protection with smart organization compartments"
             },
             "watch": {
                 "name": "Smart Sports Watch",
-                "description": "Fitness, heart rate and sleep tracking with built-in GPS"
+                "description": "Advanced fitness tracking with heart rate and GPS technology"
             },
             "mug": {
                 "name": "Designer Thermal Mug",
-                "description": "Keeps drinks hot for up to 8 hours"
+                "description": "Double-wall insulation keeps drinks hot for up to 8 hours"
             },
             "shoes": {
                 "name": "Professional Sports Shoes",
-                "description": "Shoes designed for running and sports activities"
+                "description": "Engineered for peak performance in running and athletic activities"
             }
         },
         "productPage": {
-            "loading": "Loading...",
+            "loading": "Loading product details...",
             "productNotFound": "Product not found",
-            "backToStore": "Back to Store",
+            "backToStore": "← Back to Store",
             "productDescription": "Product Description",
             "quantity": "Quantity",
             "total": "Total:",
@@ -78,14 +78,14 @@
             "sku": "SKU:",
             "rating": "Rating:",
             "stars": "stars",
-            "relatedProducts": "Similar Products",
+            "relatedProducts": "You Might Also Like",
             "addedToCartSuccess": "added to cart successfully! (Quantity: {quantity})"
         },
         "productList": {
-            "loadingProducts": "Loading products...",
+            "loadingProducts": "Loading our amazing products...",
             "noProductsFound": "No Products Found",
             "tryDifferentSearch": "Try adjusting your filters or browse all categories.",
-            "ourProducts": "Our Products",
+            "ourProducts": "Our Premium Collection",
             "itemsFound": "item{count, plural, =1 {} other {s}} found"
         },
         "store": {
