@@ -20,7 +20,7 @@ import Navbar from '../components/Header/Navbar';
 import { Product } from '../types';
 import CategoryFilter from '../components/Shared/CategoryFilter';
 import { allProducts } from '../data/data';
-import { useCart } from '../contexts/CartContext';
+import { useCartStore } from '../stores/cartStore';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
@@ -29,7 +29,7 @@ const OnlineStore = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(12);
-  const { addToCart, getTotalItems } = useCart();
+  const { addToCart, getTotalItems } = useCartStore();
   const router = useRouter();
   const t = useTranslations('HomePage.store');
 
@@ -87,7 +87,7 @@ const OnlineStore = () => {
     });
   };
 
-  const handleProductsPerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleProductsPerPageChange = (event: any) => {
     setProductsPerPage(Number(event.target.value));
   };
 

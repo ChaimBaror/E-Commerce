@@ -16,7 +16,7 @@ import {
   FavoriteBorder as FavoriteBorderIcon
 } from '@mui/icons-material';
 import { Product } from '../../types';
-import { useCart } from '../../contexts/CartContext';
+import { useCartStore } from '../../stores/cartStore';
 import { useTranslations } from 'next-intl';
 
 interface ProductCardProps {
@@ -31,7 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onProductClick 
 }) => {
   const [isFavorite, setIsFavorite] = React.useState(false);
-  const { isInCart } = useCart();
+  const { isInCart } = useCartStore();
   const t = useTranslations('HomePage');
 
   const handleCardClick = (e: React.MouseEvent) => {

@@ -16,7 +16,7 @@ import {
   Snackbar
 } from '@mui/material';
 import { Close, CheckCircle } from '@mui/icons-material';
-import { useCart } from '../../contexts/CartContext';
+import { useCartStore } from '../../stores/cartStore';
 import { loadStripe } from '@stripe/stripe-js';
 import {
   Elements,
@@ -32,7 +32,7 @@ interface CheckoutDialogProps {
 }
 
 const CheckoutForm = ({ onClose }: { onClose: () => void }) => {
-  const { cart, getTotalPrice, clearCart } = useCart();
+  const { cart, getTotalPrice, clearCart } = useCartStore();
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);

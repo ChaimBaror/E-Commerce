@@ -20,7 +20,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import CheckoutDialog from './CheckoutDialog';
-import { useCart } from '../../contexts/CartContext';
+import { useCartStore } from '../../stores/cartStore';
 
 interface CartDrawerProps {
   open: boolean;
@@ -30,7 +30,7 @@ interface CartDrawerProps {
 const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
   const theme = useTheme();
   const [showCheckout, setShowCheckout] = useState(false);
-  const { cart, updateQuantity, removeFromCart, getTotalPrice, getTotalItems, clearCart } = useCart();
+  const { cart, updateQuantity, removeFromCart, getTotalPrice, getTotalItems, clearCart } = useCartStore();
 
   const handleCheckout = () => {
     setShowCheckout(true);

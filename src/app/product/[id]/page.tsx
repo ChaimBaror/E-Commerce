@@ -33,17 +33,17 @@ import { Product } from '@/src/types';
 import { allProducts } from '@/src/data/data';
 import Navbar from '@/src/components/Header/Navbar';
 import Footer from '@/src/components/Shared/Footer';
-import { useCart } from '@/src/contexts/CartContext';
+import { useCartStore } from '@/src/stores/cartStore';
 
 interface ProductPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
   const router = useRouter();
-  const { addToCart, getTotalItems } = useCart();
+  const { addToCart, getTotalItems } = useCartStore();
   const t = useTranslations('HomePage.productPage');
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
@@ -51,15 +51,23 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [productId, setProductId] = useState<string>('');
 
   useEffect(() => {
-    // Find product by ID
-    const foundProduct = allProducts.find(p => p.id === params.id);
-    if (foundProduct) {
-      setProduct(foundProduct);
-    }
-    setLoading(false);
-  }, [params.id]);
+    const loadProduct = async () => {
+      const resolvedParams = await params;
+      setProductId(resolvedParams.id);
+      
+      // Find product by ID
+      const foundProduct = allProducts.find(p => p.id === resolvedParams.id);
+      if (foundProduct) {
+        setProduct(foundProduct);
+      }
+      setLoading(false);
+    };
+    
+    loadProduct();
+  }, [params]);
 
   if (loading) {
     return (
