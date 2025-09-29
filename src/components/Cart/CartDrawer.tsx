@@ -11,7 +11,7 @@ import {
   useTheme,
   alpha,
   Stack,
-  Chip
+  Chip,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -19,65 +19,25 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import { Product } from '@/src/types';
-
-interface CartItem extends Product {
-  quantity?: number; // ✅ optional quantity
-}
+import CheckoutDialog from './CheckoutDialog';
+import { useCart } from '../../contexts/CartContext';
 
 interface CartDrawerProps {
   open: boolean;
   onClose: () => void;
-  cartItems?: CartItem[];
-  onUpdateCart?: (items: CartItem[]) => void;
 }
 
-const CartDrawer = ({
-  open,
-  onClose,
-  cartItems = [],
-  onUpdateCart = () => {}
-}: CartDrawerProps) => {
+const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
   const theme = useTheme();
   const [showCheckout, setShowCheckout] = useState(false);
-
-  // Calculate total price
-  const getTotalPrice = () =>
-    cartItems.reduce(
-      (total, item) => total + item.price * (item.quantity ?? 1),
-      0
-    );
-
-  // Calculate total items
-  const getTotalItems = () =>
-    cartItems.reduce((total, item) => total + (item.quantity ?? 1), 0);
-
-  // Update item quantity
-  const updateQuantity = (itemId: string, newQuantity: number) => {
-    if (newQuantity <= 0) {
-      removeItem(itemId);
-      return;
-    }
-    const updatedItems = cartItems.map(item =>
-      item.id === itemId ? { ...item, quantity: newQuantity } : item
-    );
-    onUpdateCart(updatedItems);
-  };
-
-  // Remove item from cart
-  const removeItem = (itemId: string) => {
-    const updatedItems = cartItems.filter(item => item.id !== itemId);
-    onUpdateCart(updatedItems);
-  };
-
-  // Clear entire cart
-  const clearCart = () => {
-    onUpdateCart([]);
-  };
+  const { cart, updateQuantity, removeFromCart, getTotalPrice, getTotalItems, clearCart } = useCart();
 
   const handleCheckout = () => {
     setShowCheckout(true);
-    console.log('Proceeding to checkout with items:', cartItems);
+  };
+
+  const handleCheckoutClose = () => {
+    setShowCheckout(false);
   };
 
   const EmptyCart = () => (
@@ -150,7 +110,7 @@ const CartDrawer = ({
             <Typography variant="h6" sx={{ fontWeight: 700 }}>
               Shopping Cart
             </Typography>
-            {cartItems.length > 0 && (
+            {cart.length > 0 && (
               <Chip
                 label={getTotalItems()}
                 size="small"
@@ -166,121 +126,118 @@ const CartDrawer = ({
 
         {/* Cart Items */}
         <Box sx={{ flex: 1, overflow: 'auto' }}>
-          {cartItems.length === 0 ? (
+          {cart.length === 0 ? (
             <EmptyCart />
           ) : (
             <List sx={{ p: 0 }}>
-              {cartItems.map(item => {
-                const quantity = item.quantity ?? 1;
-                return (
-                  <ListItem
-                    key={item.id}
-                    sx={{
-                      flexDirection: 'column',
-                      alignItems: 'stretch',
-                      borderBottom: `1px solid ${alpha(
-                        theme.palette.divider,
-                        0.5
-                      )}`,
-                      py: 2
-                    }}
+              {cart.map(item => (
+                <ListItem
+                  key={item.id}
+                  sx={{
+                    flexDirection: 'column',
+                    alignItems: 'stretch',
+                    borderBottom: `1px solid ${alpha(
+                      theme.palette.divider,
+                      0.5
+                    )}`,
+                    py: 2
+                  }}
+                >
+                  <Box
+                    sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}
                   >
-                    <Box
-                      sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}
-                    >
-                      <Avatar
-                        src={item.image}
-                        alt={item.name}
-                        variant="rounded"
-                        sx={{ width: 60, height: 60 }}
-                      />
-                      <Box sx={{ flex: 1, minWidth: 0 }}>
-                        <Typography
-                          variant="subtitle2"
-                          sx={{
-                            fontWeight: 600,
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap'
-                          }}
-                        >
-                          {item.name}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          ${item.price.toFixed(2)} each
-                        </Typography>
-                      </Box>
-                      <IconButton
-                        size="small"
-                        onClick={() => removeItem(item.id)}
-                        sx={{ color: theme.palette.error.main }}
+                    <Avatar
+                      src={item.image}
+                      alt={item.name}
+                      variant="rounded"
+                      sx={{ width: 60, height: 60 }}
+                    />
+                    <Box sx={{ flex: 1, minWidth: 0 }}>
+                      <Typography
+                        variant="subtitle2"
+                        sx={{
+                          fontWeight: 600,
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap'
+                        }}
                       >
-                        <DeleteIcon fontSize="small" />
-                      </IconButton>
-                    </Box>
-
-                    {/* Quantity Controls */}
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
-                      }}
-                    >
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <IconButton
-                          size="small"
-                          onClick={() => updateQuantity(item.id, quantity - 1)}
-                          sx={{
-                            border: `1px solid ${theme.palette.divider}`,
-                            width: 32,
-                            height: 32
-                          }}
-                        >
-                          <RemoveIcon fontSize="small" />
-                        </IconButton>
-                        <Typography
-                          variant="body2"
-                          sx={{
-                            minWidth: 40,
-                            textAlign: 'center',
-                            fontWeight: 600,
-                            backgroundColor: alpha(
-                              theme.palette.primary.main,
-                              0.1
-                            ),
-                            borderRadius: 1,
-                            py: 0.5,
-                            px: 1
-                          }}
-                        >
-                          {quantity}
-                        </Typography>
-                        <IconButton
-                          size="small"
-                          onClick={() => updateQuantity(item.id, quantity + 1)}
-                          sx={{
-                            border: `1px solid ${theme.palette.divider}`,
-                            width: 32,
-                            height: 32
-                          }}
-                        >
-                          <AddIcon fontSize="small" />
-                        </IconButton>
-                      </Box>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                        ${(item.price * quantity).toFixed(2)}
+                        {item.name}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        ₪{item.price.toFixed(2)} each
                       </Typography>
                     </Box>
-                  </ListItem>
-                );
-              })}
+                    <IconButton
+                      size="small"
+                      onClick={() => removeFromCart(item.id)}
+                      sx={{ color: theme.palette.error.main }}
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+                  </Box>
+
+                  {/* Quantity Controls */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between'
+                    }}
+                  >
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <IconButton
+                        size="small"
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        sx={{
+                          border: `1px solid ${theme.palette.divider}`,
+                          width: 32,
+                          height: 32
+                        }}
+                      >
+                        <RemoveIcon fontSize="small" />
+                      </IconButton>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          minWidth: 40,
+                          textAlign: 'center',
+                          fontWeight: 600,
+                          backgroundColor: alpha(
+                            theme.palette.primary.main,
+                            0.1
+                          ),
+                          borderRadius: 1,
+                          py: 0.5,
+                          px: 1
+                        }}
+                      >
+                        {item.quantity}
+                      </Typography>
+                      <IconButton
+                        size="small"
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        sx={{
+                          border: `1px solid ${theme.palette.divider}`,
+                          width: 32,
+                          height: 32
+                        }}
+                      >
+                        <AddIcon fontSize="small" />
+                      </IconButton>
+                    </Box>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                      ₪{(item.price * item.quantity).toFixed(2)}
+                    </Typography>
+                  </Box>
+                </ListItem>
+              ))}
             </List>
           )}
         </Box>
 
         {/* Footer */}
-        {cartItems.length > 0 && (
+        {cart.length > 0 && (
           <Box
             sx={{
               borderTop: `1px solid ${theme.palette.divider}`,
@@ -319,7 +276,7 @@ const CartDrawer = ({
                     color: theme.palette.primary.main
                   }}
                 >
-                  ${getTotalPrice().toFixed(2)}
+                  ₪{getTotalPrice().toFixed(2)}
                 </Typography>
               </Box>
 
@@ -347,6 +304,12 @@ const CartDrawer = ({
           </Box>
         )}
       </Box>
+      
+      {showCheckout && (
+        <CheckoutDialog 
+          onClose={handleCheckoutClose} 
+        />
+      )}
     </Drawer>
   );
 };

@@ -15,10 +15,11 @@ import SearchOffIcon from '@mui/icons-material/SearchOff';
 interface ProductListProps {
   products: Product[];
   onAddToCart: (product: Product) => void;
+  onProductClick?: (productId: string) => void;
   loading?: boolean;
 }
 
-const ProductList = ({ products, onAddToCart, loading = false }: ProductListProps) => {
+const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: ProductListProps) => {
   const theme = useTheme();
 
   if (loading) {
@@ -181,6 +182,7 @@ const ProductList = ({ products, onAddToCart, loading = false }: ProductListProp
                 <ProductCard 
                   product={product} 
                   onAddToCart={onAddToCart}
+                  onProductClick={onProductClick}
                 />
               </Box>
             </Fade>

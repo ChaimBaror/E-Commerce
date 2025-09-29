@@ -2,6 +2,7 @@ import React from 'react';
 import { CartProvider } from '../contexts/CartContext';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
+import ThemeProvider from '../components/ThemeProvider';
 import type { Metadata } from "next";
 import '../styles/globals.css';
 
@@ -28,7 +29,9 @@ export default async function RootLayout({
       <body>
         <main>
           <NextIntlClientProvider messages={messages}>
-            <CartProvider>{children}</CartProvider>
+            <ThemeProvider>
+              <CartProvider>{children}</CartProvider>
+            </ThemeProvider>
           </NextIntlClientProvider>
         </main>
       </body>

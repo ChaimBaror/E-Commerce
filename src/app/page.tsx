@@ -1,21 +1,35 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
-import { Box, Container } from '@mui/material';
+import React, { useState, useMemo, useEffect } from 'react';
+import { 
+  Box, 
+  Container, 
+  Pagination, 
+  Typography, 
+  FormControl, 
+  Select, 
+  MenuItem, 
+  InputLabel,
+  Stack,
+  Divider
+} from '@mui/material';
 import CartDrawer from '../components/Cart/CartDrawer';
 import ProductList from '../components/Product/ProductList';
 import Footer from '../components/Shared/Footer';
-import HeroBanner from '../components/Shared/HeroBanner';
 import Navbar from '../components/Header/Navbar';
 import { Product } from '../types';
 import CategoryFilter from '../components/Shared/CategoryFilter';
 import { allProducts } from '../data/data';
+import { useCart } from '../contexts/CartContext';
+import { useRouter } from 'next/navigation';
 
 const OnlineStore = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
-  const [cartItems, setCartItems] = useState<Product[]>([]);
-  
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage, setProductsPerPage] = useState(12);
+  const { addToCart, getTotalItems } = useCart();
+  const router = useRouter();
 
   // Get unique categories
   const categories = useMemo(() => {
@@ -31,6 +45,17 @@ const OnlineStore = () => {
     return allProducts.filter(product => product.category === categoryName);
   }, [selectedCategory, categories]);
 
+  // Calculate pagination
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const endIndex = startIndex + productsPerPage;
+  const currentProducts = filteredProducts.slice(startIndex, endIndex);
+
+  // Reset to first page when category or products per page changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, productsPerPage]);
+
   const handleCartOpen = () => {
     setCartOpen(true);
   };
@@ -44,27 +69,36 @@ const OnlineStore = () => {
   };
 
   const handleAddToCart = (product: Product) => {
-    setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item.id === product.id);
-      if (existingItem) {
-        // If item already exists, you might want to increase quantity
-        // For now, we'll just add it again
-        return [...prevItems, product];
-      }
-      return [...prevItems, product];
+    addToCart(product);
+  };
+
+  const handleProductClick = (productId: string) => {
+    router.push(`/product/${productId}`);
+  };
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setCurrentPage(value);
+    // Scroll to top of products section when page changes
+    window.scrollTo({
+      top: 300,
+      behavior: 'smooth'
     });
+  };
+
+  const handleProductsPerPageChange = (event: any) => {
+    setProductsPerPage(event.target.value as number);
   };
 
   return (
     <Box sx={{ flexGrow: 1, minHeight: '100vh' }}>
       <Navbar 
         onCartOpen={handleCartOpen} 
-        cartItemCount={cartItems.length}
+        cartItemCount={getTotalItems()}
       />
       
       {/* <HeroBanner /> */}
       
-      <Container   maxWidth="lg" sx={{ py: 4 }}>
+      <Container maxWidth="lg" sx={{ py: 4 }}>
         <CategoryFilter 
           categories={categories} 
           selectedCategory={selectedCategory}
@@ -74,12 +108,69 @@ const OnlineStore = () => {
           showAllOption={true}
         />
         
-        <Box sx={{ mt: 4 }}>
+        {/* Products Info and Controls */}
+        <Box sx={{ mt: 4, mb: 3 }}>
+          <Stack 
+            direction={{ xs: 'column', sm: 'row' }} 
+            justifyContent="space-between" 
+            alignItems={{ xs: 'flex-start', sm: 'center' }}
+            spacing={2}
+          >
+            <Typography variant="body1" color="text.secondary">
+              Showing {startIndex + 1}-{Math.min(endIndex, filteredProducts.length)} of {filteredProducts.length} products
+              {selectedCategory !== null && selectedCategory !== -1 && (
+                <span> in {categories[selectedCategory]}</span>
+              )}
+            </Typography>
+            
+            <FormControl size="small" sx={{ minWidth: 120 }}>
+              <InputLabel>Per Page</InputLabel>
+              <Select
+                value={productsPerPage}
+                label="Per Page"
+                onChange={handleProductsPerPageChange}
+              >
+                <MenuItem value={6}>6</MenuItem>
+                <MenuItem value={12}>12</MenuItem>
+                <MenuItem value={24}>24</MenuItem>
+                <MenuItem value={48}>48</MenuItem>
+              </Select>
+            </FormControl>
+          </Stack>
+        </Box>
+
+        <Divider sx={{ mb: 3 }} />
+        
+        {/* Products List */}
+        <Box>
           <ProductList 
-            products={filteredProducts}
+            products={currentProducts}
             onAddToCart={handleAddToCart}
+            onProductClick={handleProductClick}
           />
         </Box>
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, mb: 2 }}>
+            <Stack spacing={2} alignItems="center">
+              <Pagination 
+                count={totalPages}
+                page={currentPage}
+                onChange={handlePageChange}
+                color="primary"
+                size="large"
+                showFirstButton 
+                showLastButton
+                siblingCount={1}
+                boundaryCount={1}
+              />
+              <Typography variant="body2" color="text.secondary">
+                Page {currentPage} of {totalPages}
+              </Typography>
+            </Stack>
+          </Box>
+        )}
       </Container>
       
       <Footer />
@@ -87,8 +178,6 @@ const OnlineStore = () => {
       <CartDrawer 
         open={cartOpen} 
         onClose={handleCartClose}
-        cartItems={cartItems}
-        onUpdateCart={setCartItems}
       />
     </Box>
   );
