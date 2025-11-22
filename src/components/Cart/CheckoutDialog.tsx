@@ -117,6 +117,34 @@ const CheckoutForm = ({ onClose }: { onClose: () => void }) => {
         console.error('Payment failed:', error);
         alert(`Payment failed: ${error.message}`);
       } else if (paymentIntent.status === 'succeeded') {
+        // Send order confirmation email
+        try {
+          const emailResponse = await fetch('/api/send-order-email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              fullName: formData.fullName,
+              email: formData.email,
+              address: formData.address,
+              phone: formData.phone,
+              cart: cart,
+              total: getTotalPrice(),
+            }),
+          });
+
+          const emailResult = await emailResponse.json();
+          
+          if (emailResult.success) {
+            console.log('Order confirmation email sent:', emailResult.orderId);
+          } else {
+            console.error('Failed to send email:', emailResult.error);
+          }
+        } catch (emailError) {
+          console.error('Error sending order email:', emailError);
+        }
+
         setOrderComplete(true);
         clearCart();
         setShowSuccess(true);
