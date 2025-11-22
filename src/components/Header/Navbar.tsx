@@ -35,6 +35,14 @@ const Navbar = ({ onCartOpen, cartItemCount = 0 }: NavbarProps) => {
   const { user, signIn, signOut } = useAuth();
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [mounted, setMounted] = React.useState(false);
+  const [displayCount, setDisplayCount] = React.useState(0);
+
+  // Handle hydration mismatch for cart count
+  React.useEffect(() => {
+    setMounted(true);
+    setDisplayCount(cartItemCount);
+  }, [cartItemCount]);
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -253,8 +261,9 @@ const Navbar = ({ onCartOpen, cartItemCount = 0 }: NavbarProps) => {
             }}
           >
             <Badge 
-              badgeContent={cartItemCount} 
+              badgeContent={mounted ? displayCount : 0} 
               color="error"
+              showZero={false}
               sx={{
                 '& .MuiBadge-badge': {
                   backgroundColor: '#ff4757',

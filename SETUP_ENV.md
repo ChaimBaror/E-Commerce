@@ -21,9 +21,9 @@ GOOGLE_CLIENT_SECRET=your_google_client_secret_here
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your_nextauth_secret_here
 
-# Stripe (אופציונלי - רק אם אתה משתמש בתשלומים)
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_publishable_key_here
-STRIPE_SECRET_KEY=sk_test_your_secret_key_here
+# Email Configuration (חובה לשליחת מיילי הזמנות!)
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_app_password_here
 ```
 
 ### 3. איך להשיג את הערכים:
@@ -55,12 +55,13 @@ GOOGLE_CLIENT_SECRET=GOCSPX-abcdefghijklmnopqrstuvwxyz
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ==
 
-# Stripe (אופציונלי)
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_51AbCdEfGhIjKlMnOpQrStUvWxYz1234567890
-STRIPE_SECRET_KEY=sk_test_51AbCdEfGhIjKlMnOpQrStUvWxYz1234567890
+# Email Configuration
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_app_password_here
 ```
 
-**הערה:** אם אתה לא משתמש ב-Stripe, אתה יכול להשאיר את השורות האלה ריקות או למחוק אותן.
+**הערות:**
+- **Email**: אם אתה לא משתמש ב-Email, ההזמנות יישמרו אבל לא יישלחו מיילים
 
 ### 5. הפעל מחדש את השרת:
 

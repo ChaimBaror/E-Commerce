@@ -23,8 +23,9 @@
         "payment": "תשלום",
         "orderSummary": "סיכום הזמנה",
         "fullName": "שם מלא",
+        "email": "אימייל",
         "address": "כתובת",
-        "phone": "טלפון",
+        "phone": "מספר טלפון",
         "creditCard": "מספר כרטיס אשראי",
         "expiryDate": "תאריך תפוגה",
         "cvv": "CVV",
@@ -139,5 +140,22 @@
         "shop": "חנות",
         "about": "אודות",
         "contact": "צור קשר"
+    },
+    "cart": {
+        "shoppingCart": "עגלת קניות",
+        "emptyCart": "העגלה שלך ריקה",
+        "addProducts": "הוסף כמה מוצרים כדי להתחיל!",
+        "continueShopping": "המשך לקנות",
+        "checkout": "תשלום",
+        "total": "סה\"כ",
+        "orderDetails": "פרטי הזמנה",
+        "orderSummary": "סיכום הזמנה",
+        "processing": "מעבד...",
+        "sendOrder": "שלח הזמנה",
+        "orderSent": "ההזמנה בוצעה בהצלחה! מייל אישור נשלח.",
+        "each": "כל אחד",
+        "remove": "הסר",
+        "clearCart": "נקה עגלה",
+        "proceedToCheckout": "המשך לתשלום"
     }
 }

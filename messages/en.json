@@ -9,6 +9,7 @@
         "orderSummary": "Order Summary",
         "total": "Total",
         "fullName": "Full Name",
+        "email": "Email",
         "address": "Address",
         "phone": "Phone Number",
         "creditCard": "Credit Card Number",
@@ -139,5 +140,22 @@
         "shop": "Shop",
         "about": "About",
         "contact": "Contact"
+    },
+    "cart": {
+        "shoppingCart": "Shopping Cart",
+        "emptyCart": "Your cart is empty",
+        "addProducts": "Add some products to get started!",
+        "continueShopping": "Continue Shopping",
+        "checkout": "Checkout",
+        "total": "Total",
+        "orderDetails": "Order Details",
+        "orderSummary": "Order Summary",
+        "processing": "Processing...",
+        "sendOrder": "Send Order",
+        "orderSent": "Order sent successfully! Confirmation email sent.",
+        "each": "each",
+        "remove": "Remove",
+        "clearCart": "Clear Cart",
+        "proceedToCheckout": "Proceed to Checkout"
     }
 }
