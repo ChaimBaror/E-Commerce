@@ -34,6 +34,7 @@ import { allProducts } from '@/src/data/data';
 import Navbar from '@/src/components/Header/Navbar';
 import Footer from '@/src/components/Shared/Footer';
 import { useCartStore } from '@/src/stores/cartStore';
+import ProductPageSkeleton from '@/src/components/Shared/Skeletons/ProductPageSkeleton';
 
 interface ProductPageProps {
   params: Promise<{
@@ -73,11 +74,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
     return (
       <Box sx={{ flexGrow: 1, minHeight: '100vh' }}>
         <Navbar onCartOpen={() => {}} cartItemCount={getTotalItems()} />
-        <Container maxWidth="lg" sx={{ py: 4 }}>
-          <Typography variant="h4" align="center">
-            {t('loading')}
-          </Typography>
-        </Container>
+        <ProductPageSkeleton />
         <Footer />
       </Box>
     );

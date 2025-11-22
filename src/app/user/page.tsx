@@ -30,6 +30,7 @@ import Navbar from '../../components/Header/Navbar';
 import Footer from '../../components/Shared/Footer';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslations } from 'next-intl';
+import UserProfileSkeleton from '../../components/Shared/Skeletons/UserProfileSkeleton';
 
 const UserProfilePage = () => {
   const { data: session, status } = useSession();
@@ -48,11 +49,7 @@ const UserProfilePage = () => {
     return (
       <Box sx={{ flexGrow: 1, minHeight: '100vh' }}>
         <Navbar onCartOpen={() => {}} cartItemCount={0} />
-        <Container maxWidth="lg" sx={{ py: 4 }}>
-          <Typography variant="h4" align="center">
-            {t('loading')}
-          </Typography>
-        </Container>
+        <UserProfileSkeleton />
         <Footer />
       </Box>
     );
