@@ -52,12 +52,10 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [productId, setProductId] = useState<string>('');
 
   useEffect(() => {
     const loadProduct = async () => {
       const resolvedParams = await params;
-      setProductId(resolvedParams.id);
       
       // Find product by ID
       const foundProduct = allProducts.find(p => p.id === resolvedParams.id);
@@ -156,9 +154,17 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
     <Box sx={{ flexGrow: 1, minHeight: '100vh', bgcolor: '#fafafa' }}>
       <Navbar onCartOpen={() => {}} cartItemCount={getTotalItems()} />
       
-      <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Container maxWidth="lg" sx={{ py: { xs: 2, md: 4 }, px: { xs: 2, sm: 3 } }}>
         {/* Breadcrumbs */}
-        <Breadcrumbs sx={{ mb: 3 }}>
+        <Breadcrumbs 
+          sx={{ 
+            mb: { xs: 2, md: 3 },
+            '& .MuiBreadcrumbs-ol': {
+              flexWrap: { xs: 'wrap', sm: 'nowrap' }
+            }
+          }}
+          maxItems={3}
+        >
           <Link 
             component="button" 
             variant="body2" 
@@ -170,16 +176,36 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
               border: 'none',
               background: 'none',
               cursor: 'pointer',
+              fontSize: { xs: '0.875rem', sm: '0.875rem' },
               '&:hover': { textDecoration: 'underline' }
             }}
           >
             <ArrowBackIcon fontSize="small" />
-            {t('backToStore')}
+            <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>
+              {t('backToStore')}
+            </Box>
           </Link>
-          <Typography variant="body2" color="text.secondary">
+          <Typography 
+            variant="body2" 
+            color="text.secondary"
+            sx={{ 
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              display: { xs: 'none', sm: 'block' }
+            }}
+          >
             {product.category}
           </Typography>
-          <Typography variant="body2" color="primary">
+          <Typography 
+            variant="body2" 
+            color="primary"
+            sx={{ 
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              maxWidth: { xs: '150px', sm: 'none' }
+            }}
+          >
             {product.name}
           </Typography>
         </Breadcrumbs>
@@ -187,12 +213,12 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
         <Box sx={{ 
           display: 'grid', 
           gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
-          gap: 4
+          gap: { xs: 2, md: 4 }
         }}>
           {/* Product Images */}
           <Box>
-            <Paper elevation={2} sx={{ p: 2, bgcolor: 'white' }}>
-              <Box sx={{ mb: 2 }}>
+            <Paper elevation={2} sx={{ p: { xs: 1, sm: 2 }, bgcolor: 'white' }}>
+              <Box sx={{ mb: { xs: 1.5, sm: 2 } }}>
                 <Image
                   src={productImages[selectedImage]}
                   alt={product.name}
@@ -200,7 +226,9 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
                   height={400}
                   style={{
                     width: '100%',
-                    height: '400px',
+                    height: 'auto',
+                    minHeight: '250px',
+                    maxHeight: '400px',
                     objectFit: 'cover',
                     borderRadius: '8px'
                   }}
@@ -212,20 +240,33 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
               </Box>
               
               {/* Thumbnail images */}
-              <Stack direction="row" spacing={1} justifyContent="center">
+              <Stack 
+                direction="row" 
+                spacing={1} 
+                justifyContent="center"
+                sx={{ 
+                  flexWrap: { xs: 'wrap', sm: 'nowrap' },
+                  gap: { xs: 0.75, sm: 1 }
+                }}
+              >
                 {productImages.map((image, index) => (
                   <Box
                     key={index}
                     onClick={() => setSelectedImage(index)}
                     sx={{
-                      width: 60,
-                      height: 60,
+                      width: { xs: 50, sm: 60 },
+                      height: { xs: 50, sm: 60 },
+                      minWidth: { xs: 50, sm: 60 },
                       borderRadius: 1,
                       overflow: 'hidden',
                       cursor: 'pointer',
                       border: selectedImage === index ? 2 : 1,
                       borderColor: selectedImage === index ? 'primary.main' : 'grey.300',
-                      '&:hover': { borderColor: 'primary.main' }
+                      '&:active': { 
+                        transform: 'scale(0.95)',
+                        transition: 'transform 0.1s'
+                      },
+                      transition: 'all 0.2s ease-in-out'
                     }}
                   >
                     <Image
@@ -250,32 +291,69 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
 
           {/* Product Details */}
           <Box>
-            <Paper elevation={2} sx={{ p: 3, bgcolor: 'white', height: 'fit-content' }}>
-              <Stack spacing={3}>
+            <Paper elevation={2} sx={{ p: { xs: 2, sm: 3 }, bgcolor: 'white', height: 'fit-content' }}>
+              <Stack spacing={{ xs: 2, sm: 3 }}>
                 {/* Category Chip */}
                 <Chip 
                   label={product.category} 
                   variant="outlined" 
                   color="primary"
                   size="small"
-                  sx={{ alignSelf: 'flex-start' }}
+                  sx={{ 
+                    alignSelf: 'flex-start',
+                    fontSize: { xs: '0.75rem', sm: '0.8125rem' }
+                  }}
                 />
 
                 {/* Product Name */}
-                <Typography variant="h4" component="h1" fontWeight="bold">
+                <Typography 
+                  variant="h4" 
+                  component="h1" 
+                  fontWeight="bold"
+                  sx={{
+                    fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' },
+                    lineHeight: { xs: 1.3, sm: 1.4 }
+                  }}
+                >
                   {product.name}
                 </Typography>
 
                 {/* Rating and Reviews */}
-                <Stack direction="row" spacing={2} alignItems="center">
-                  <Rating value={Number(product.rating)} readOnly precision={0.1} />
-                  <Typography variant="body2" color="text.secondary">
+                <Stack 
+                  direction="row" 
+                  spacing={{ xs: 1, sm: 2 }} 
+                  alignItems="center"
+                  flexWrap="wrap"
+                >
+                  <Rating 
+                    value={Number(product.rating)} 
+                    readOnly 
+                    precision={0.1}
+                    size="small"
+                    sx={{
+                      '& .MuiRating-icon': {
+                        fontSize: { xs: '1.25rem', sm: '1.5rem' }
+                      }
+                    }}
+                  />
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}
+                  >
                     ({product.reviews} {t('reviews')})
                   </Typography>
                 </Stack>
 
                 {/* Price */}
-                <Typography variant="h3" color="primary" fontWeight="bold">
+                <Typography 
+                  variant="h3" 
+                  color="primary" 
+                  fontWeight="bold"
+                  sx={{
+                    fontSize: { xs: '1.75rem', sm: '2.5rem', md: '3rem' }
+                  }}
+                >
                   ₪{product.price.toLocaleString()}
                 </Typography>
 
@@ -283,10 +361,19 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
 
                 {/* Description */}
                 <Box>
-                  <Typography variant="h6" gutterBottom>
+                  <Typography 
+                    variant="h6" 
+                    gutterBottom
+                    sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}
+                  >
                     {t('productDescription')}
                   </Typography>
-                  <Typography variant="body1" color="text.secondary" lineHeight={1.6}>
+                  <Typography 
+                    variant="body1" 
+                    color="text.secondary" 
+                    lineHeight={1.6}
+                    sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}
+                  >
                     {product.description}
                   </Typography>
                 </Box>
@@ -295,51 +382,80 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
 
                 {/* Quantity and Add to Cart */}
                 <Box>
-                  <Typography variant="h6" gutterBottom>
+                  <Typography 
+                    variant="h6" 
+                    gutterBottom
+                    sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}
+                  >
                     {t('quantity')}
                   </Typography>
-                  <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
-                    <Stack direction="row" alignItems="center" spacing={1}>
+                  <Stack 
+                    direction={{ xs: 'column', sm: 'row' }} 
+                    spacing={{ xs: 1.5, sm: 2 }} 
+                    alignItems={{ xs: 'stretch', sm: 'center' }}
+                    sx={{ mb: 2 }}
+                  >
+                    <Stack 
+                      direction="row" 
+                      alignItems="center" 
+                      spacing={1}
+                      justifyContent={{ xs: 'center', sm: 'flex-start' }}
+                    >
                       <IconButton 
                         onClick={() => handleQuantityChange(-1)}
-                        size="small"
+                        size="medium"
                         disabled={quantity <= 1}
                         sx={{ 
                           border: '1px solid',
                           borderColor: 'grey.300',
-                          '&:hover': { borderColor: 'primary.main' }
+                          minWidth: { xs: 44, sm: 32 },
+                          minHeight: { xs: 44, sm: 32 },
+                          '&:hover': { borderColor: 'primary.main' },
+                          '&:active': { transform: 'scale(0.95)' }
                         }}
                       >
-                        <RemoveIcon />
+                        <RemoveIcon sx={{ fontSize: { xs: '1.25rem', sm: '1rem' } }} />
                       </IconButton>
                       <Typography 
                         variant="h6" 
                         sx={{ 
-                          minWidth: 50, 
+                          minWidth: { xs: 60, sm: 50 }, 
                           textAlign: 'center',
-                          py: 1,
-                          px: 2,
+                          py: { xs: 1.5, sm: 1 },
+                          px: { xs: 3, sm: 2 },
                           border: '1px solid',
                           borderColor: 'grey.300',
-                          borderRadius: 1
+                          borderRadius: 1,
+                          fontSize: { xs: '1.25rem', sm: '1.25rem' }
                         }}
                       >
                         {quantity}
                       </Typography>
                       <IconButton 
                         onClick={() => handleQuantityChange(1)}
-                        size="small"
+                        size="medium"
                         sx={{ 
                           border: '1px solid',
                           borderColor: 'grey.300',
-                          '&:hover': { borderColor: 'primary.main' }
+                          minWidth: { xs: 44, sm: 32 },
+                          minHeight: { xs: 44, sm: 32 },
+                          '&:hover': { borderColor: 'primary.main' },
+                          '&:active': { transform: 'scale(0.95)' }
                         }}
                       >
-                        <AddIcon />
+                        <AddIcon sx={{ fontSize: { xs: '1.25rem', sm: '1rem' } }} />
                       </IconButton>
                     </Stack>
                     
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography 
+                      variant="body2" 
+                      color="text.secondary"
+                      sx={{ 
+                        textAlign: { xs: 'center', sm: 'left' },
+                        fontSize: { xs: '0.875rem', sm: '0.875rem' },
+                        alignSelf: { xs: 'center', sm: 'center' }
+                      }}
+                    >
                       {t('total')} ₪{(product.price * quantity).toLocaleString()}
                     </Typography>
                   </Stack>
@@ -352,14 +468,18 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
                     onClick={handleAddToCart}
                     sx={{ 
                       mb: 2, 
-                      py: 1.5,
-                      fontSize: '1.1rem',
+                      py: { xs: 1.75, sm: 1.5 },
+                      fontSize: { xs: '1rem', sm: '1.1rem' },
                       color: '#ffffff',
                       fontWeight: 600,
+                      minHeight: { xs: 48, sm: 42 },
                       '&:hover': {
                         transform: 'translateY(-1px)',
                         boxShadow: 4,
                         color: '#ffffff',
+                      },
+                      '&:active': {
+                        transform: 'translateY(0)'
                       },
                       transition: 'all 0.2s ease-in-out'
                     }}
@@ -369,30 +489,43 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
                 </Box>
 
                 {/* Action Buttons */}
-                <Stack direction="row" spacing={1} justifyContent="center">
+                <Stack 
+                  direction="row" 
+                  spacing={1} 
+                  justifyContent="center"
+                  sx={{ gap: { xs: 1.5, sm: 1 } }}
+                >
                   <IconButton
                     onClick={() => setIsFavorite(!isFavorite)}
                     color={isFavorite ? "error" : "default"}
+                    size="medium"
                     sx={{ 
                       border: '1px solid',
                       borderColor: isFavorite ? 'error.main' : 'grey.300',
+                      minWidth: { xs: 48, sm: 40 },
+                      minHeight: { xs: 48, sm: 40 },
                       '&:hover': { 
                         borderColor: isFavorite ? 'error.dark' : 'error.main',
                         bgcolor: isFavorite ? 'error.50' : 'grey.50'
-                      }
+                      },
+                      '&:active': { transform: 'scale(0.95)' }
                     }}
                   >
                     {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                   </IconButton>
                   <IconButton 
                     onClick={handleShare}
+                    size="medium"
                     sx={{ 
                       border: '1px solid',
                       borderColor: 'grey.300',
+                      minWidth: { xs: 48, sm: 40 },
+                      minHeight: { xs: 48, sm: 40 },
                       '&:hover': { 
                         borderColor: 'primary.main',
                         bgcolor: 'primary.50'
-                      }
+                      },
+                      '&:active': { transform: 'scale(0.95)' }
                     }}
                   >
                     <ShareIcon />
@@ -400,15 +533,24 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
                 </Stack>
 
                 {/* Product Info */}
-                <Box sx={{ bgcolor: 'grey.50', p: 2, borderRadius: 1 }}>
+                <Box sx={{ bgcolor: 'grey.50', p: { xs: 1.5, sm: 2 }, borderRadius: 1 }}>
                   <Stack spacing={1}>
-                    <Typography variant="body2">
+                    <Typography 
+                      variant="body2"
+                      sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}
+                    >
                       <strong>קטגוריה:</strong> {product.category}
                     </Typography>
-                    <Typography variant="body2">
+                    <Typography 
+                      variant="body2"
+                      sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}
+                    >
                       <strong>{t('sku')}</strong> {product.id}
                     </Typography>
-                    <Typography variant="body2">
+                    <Typography 
+                      variant="body2"
+                      sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}
+                    >
                       <strong>{t('rating')}</strong> {product.rating}/5 {t('stars')}
                     </Typography>
                   </Stack>
@@ -419,14 +561,22 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
         </Box>
 
         {/* Related Products Section */}
-        <Box sx={{ mt: 6 }}>
-          <Typography variant="h5" gutterBottom fontWeight="bold">
+        <Box sx={{ mt: { xs: 4, sm: 6 } }}>
+          <Typography 
+            variant="h5" 
+            gutterBottom 
+            fontWeight="bold"
+            sx={{ 
+              fontSize: { xs: '1.25rem', sm: '1.5rem' },
+              mb: { xs: 2, sm: 3 }
+            }}
+          >
             {t('relatedProducts')}
           </Typography>
           <Box sx={{
             display: 'grid',
-            gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(4, 1fr)' },
-            gap: 2
+            gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(3, 1fr)', md: 'repeat(4, 1fr)' },
+            gap: { xs: 1.5, sm: 2 }
           }}>
             {allProducts
               .filter(p => p.category === product.category && p.id !== product.id)
@@ -436,12 +586,16 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
                   key={relatedProduct.id}
                   elevation={1} 
                   sx={{ 
-                    p: 1, 
+                    p: { xs: 0.75, sm: 1 }, 
                     cursor: 'pointer',
                     transition: 'all 0.2s ease-in-out',
                     '&:hover': { 
                       elevation: 4,
                       transform: 'translateY(-2px)'
+                    },
+                    '&:active': {
+                      transform: 'translateY(0)',
+                      elevation: 2
                     }
                   }}
                   onClick={() => handleRelatedProductClick(relatedProduct.id)}
@@ -453,7 +607,9 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
                     height={120}
                     style={{
                       width: '100%',
-                      height: '120px',
+                      height: 'auto',
+                      minHeight: '100px',
+                      maxHeight: '120px',
                       objectFit: 'cover',
                       borderRadius: '4px'
                     }}
@@ -461,17 +617,25 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
                   <Typography 
                     variant="body2" 
                     sx={{ 
-                      mt: 1, 
+                      mt: { xs: 0.75, sm: 1 }, 
+                      mb: { xs: 0.5, sm: 0.75 },
                       fontWeight: 500,
+                      fontSize: { xs: '0.75rem', sm: '0.875rem' },
                       display: '-webkit-box',
                       WebkitLineClamp: 2,
                       WebkitBoxOrient: 'vertical',
                       overflow: 'hidden',
+                      minHeight: { xs: '2.5em', sm: '2.5em' }
                     }}
                   >
                     {relatedProduct.name}
                   </Typography>
-                  <Typography variant="body2" color="primary" fontWeight="bold">
+                  <Typography 
+                    variant="body2" 
+                    color="primary" 
+                    fontWeight="bold"
+                    sx={{ fontSize: { xs: '0.875rem', sm: '0.875rem' } }}
+                  >
                     ₪{relatedProduct.price.toLocaleString()}
                   </Typography>
                 </Paper>
