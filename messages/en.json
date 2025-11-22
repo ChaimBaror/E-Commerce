@@ -95,5 +95,49 @@
             "perPage": "Per Page",
             "page": "Page {current} of {total}"
         }
+    },
+    "auth": {
+        "signIn": "Sign In",
+        "signOut": "Sign Out",
+        "profile": "Profile",
+        "welcome": "Welcome to Premium Store",
+        "signInToContinue": "Sign in to your account to continue shopping",
+        "continueWithGoogle": "Continue with Google",
+        "continueAsGuest": "Continue as Guest",
+        "or": "or",
+        "termsAndPrivacy": "By signing in, you agree to our {terms} and {privacy}",
+        "termsAndPrivacyPrefix": "By signing in, you agree to our ",
+        "termsAndPrivacyMiddle": " and ",
+        "termsOfService": "Terms of Service",
+        "privacyPolicy": "Privacy Policy"
+    },
+    "userProfile": {
+        "loading": "Loading...",
+        "premiumMember": "Premium Member",
+        "accountInformation": "Account Information",
+        "fullName": "Full Name",
+        "emailAddress": "Email Address",
+        "memberSince": "Member Since",
+        "orderHistory": "Order History",
+        "noOrdersYet": "No orders yet",
+        "startShoppingMessage": "Start shopping to see your order history here",
+        "startShopping": "Start Shopping",
+        "wishlist": "Wishlist",
+        "noItemsInWishlist": "No items in wishlist",
+        "saveFavoriteItems": "Save your favorite items to your wishlist",
+        "browseProducts": "Browse Products",
+        "settings": "Settings",
+        "notificationPreferences": "Notification Preferences",
+        "privacySettings": "Privacy Settings",
+        "securitySettings": "Security Settings",
+        "helpSupport": "Help & Support",
+        "editProfile": "Edit Profile",
+        "signOut": "Sign Out"
+    },
+    "navbar": {
+        "home": "Home",
+        "shop": "Shop",
+        "about": "About",
+        "contact": "Contact"
     }
 }

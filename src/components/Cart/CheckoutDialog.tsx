@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -17,6 +17,7 @@ import {
 } from '@mui/material';
 import { Close, CheckCircle } from '@mui/icons-material';
 import { useCartStore } from '../../stores/cartStore';
+import { useAuth } from '../../contexts/AuthContext';
 import { loadStripe } from '@stripe/stripe-js';
 import {
   Elements,
@@ -33,6 +34,7 @@ interface CheckoutDialogProps {
 
 const CheckoutForm = ({ onClose }: { onClose: () => void }) => {
   const { cart, getTotalPrice, clearCart } = useCartStore();
+  const { user } = useAuth();
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
@@ -45,6 +47,17 @@ const CheckoutForm = ({ onClose }: { onClose: () => void }) => {
     phone: '',
     email: '',
   });
+
+  // Fill form with user data if logged in
+  useEffect(() => {
+    if (user) {
+      setFormData(prev => ({
+        ...prev,
+        fullName: user.name || '',
+        email: user.email || '',
+      }));
+    }
+  }, [user]);
 
   const handleInputChange = (field: keyof typeof formData) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [field]: event.target.value });
@@ -117,7 +130,7 @@ const CheckoutForm = ({ onClose }: { onClose: () => void }) => {
         console.error('Payment failed:', error);
         alert(`Payment failed: ${error.message}`);
       } else if (paymentIntent.status === 'succeeded') {
-        // Send order confirmation email
+        // Send order confirmation email through server
         try {
           const emailResponse = await fetch('/api/send-order-email', {
             method: 'POST',
@@ -129,20 +142,34 @@ const CheckoutForm = ({ onClose }: { onClose: () => void }) => {
               email: formData.email,
               address: formData.address,
               phone: formData.phone,
-              cart: cart,
+              cart: cart.map(item => ({
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                image: item.image,
+                category: item.category,
+                description: item.description,
+                quantity: item.quantity,
+              })),
               total: getTotalPrice(),
+              paymentIntentId: paymentIntent.id,
             }),
           });
 
           const emailResult = await emailResponse.json();
           
           if (emailResult.success) {
-            console.log('Order confirmation email sent:', emailResult.orderId);
+            console.log('Order confirmation email sent successfully:', {
+              orderId: emailResult.orderId,
+              messageId: emailResult.messageId,
+            });
           } else {
             console.error('Failed to send email:', emailResult.error);
+            // Still show success even if email fails
           }
         } catch (emailError) {
           console.error('Error sending order email:', emailError);
+          // Still show success even if email fails
         }
 
         setOrderComplete(true);
@@ -285,7 +312,7 @@ const CheckoutForm = ({ onClose }: { onClose: () => void }) => {
           variant="contained"
           size="large"
           onClick={handlePayment}
-          disabled={loading || !stripe}
+          // disabled={loading || !stripe}
           sx={{ 
             minWidth: 200,
             color: '#ffffff',

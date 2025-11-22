@@ -12,11 +12,13 @@ interface OrderData {
   }>;
   total: number;
   orderId: string;
+  paymentIntentId?: string | null;
+  orderDate?: string;
 }
 
 // Create transporter
 const createTransporter = () => {
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     service: 'gmail', // You can change this to other services
     auth: {
       user: process.env.EMAIL_USER,
@@ -27,23 +29,27 @@ const createTransporter = () => {
 
 // Generate order confirmation email HTML
 const generateOrderEmailHTML = (orderData: OrderData) => {
-  const itemsHTML = orderData.items.map(item => `
+  const itemsHTML = orderData.items.map(item => {
+    const itemTotal = item.product.price * item.quantity;
+    return `
     <tr>
       <td style="padding: 10px; border-bottom: 1px solid #eee;">
         <img src="${item.product.image}" alt="${item.product.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
       </td>
       <td style="padding: 10px; border-bottom: 1px solid #eee;">
         <strong>${item.product.name}</strong><br>
-        <span style="color: #666;">${item.product.category}</span>
+        <span style="color: #666; font-size: 12px;">${item.product.category || 'General'}</span>
       </td>
       <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">
-        ${item.quantity}
+        <strong>${item.quantity}</strong>
       </td>
       <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">
-        ₪${(item.product.price * item.quantity).toLocaleString()}
+        <strong>₪${itemTotal.toFixed(2)}</strong><br>
+        <span style="color: #666; font-size: 12px;">₪${item.product.price.toFixed(2)} each</span>
       </td>
     </tr>
-  `).join('');
+  `;
+  }).join('');
 
   return `
     <!DOCTYPE html>
@@ -155,6 +161,8 @@ const generateOrderEmailHTML = (orderData: OrderData) => {
           <p><strong>Email:</strong> ${orderData.email}</p>
           <p><strong>Phone:</strong> ${orderData.phone}</p>
           <p><strong>Address:</strong> ${orderData.address}</p>
+          ${orderData.orderDate ? `<p><strong>Order Date:</strong> ${new Date(orderData.orderDate).toLocaleString('he-IL', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>` : ''}
+          ${orderData.paymentIntentId ? `<p style="font-size: 12px; color: #666;"><strong>Payment ID:</strong> ${orderData.paymentIntentId}</p>` : ''}
         </div>
 
         <h3 style="color: #1e293b;">Order Items</h3>
@@ -205,9 +213,9 @@ export const sendOrderConfirmationEmail = async (orderData: OrderData) => {
     const result = await transporter.sendMail(mailOptions);
     console.log('Email sent successfully:', result.messageId);
     return { success: true, messageId: result.messageId };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error sending email:', error);
-    return { success: false, error: error.message };
+    return { success: false, error: error?.message || 'Unknown error' };
   }
 };
 

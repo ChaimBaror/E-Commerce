@@ -2,12 +2,13 @@ import React from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import ThemeProvider from '../components/ThemeProvider';
+import { AuthProvider } from '../contexts/AuthContext';
 import type { Metadata } from "next";
 import '../styles/globals.css';
 
 export const metadata: Metadata = {
-  title: "E-Commerce App",
-  description: "A simple e-commerce application built with Next.js and Material-UI",
+  title: "Online Store",
+  description: "Online Store for buying products with secure payment and free shipping in Israel",
 };
 
 export default async function RootLayout({
@@ -28,9 +29,11 @@ export default async function RootLayout({
       <body>
         <main>
           <NextIntlClientProvider messages={messages}>
-            <ThemeProvider>
-              {children}
-            </ThemeProvider>
+            <AuthProvider>
+              <ThemeProvider>
+                {children}
+              </ThemeProvider>
+            </AuthProvider>
           </NextIntlClientProvider>
         </main>
       </body>

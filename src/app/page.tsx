@@ -17,6 +17,7 @@ import CartDrawer from '../components/Cart/CartDrawer';
 import ProductList from '../components/Product/ProductList';
 import Footer from '../components/Shared/Footer';
 import Navbar from '../components/Header/Navbar';
+import HeroBanner from '../components/Shared/HeroBanner';
 import { Product } from '../types';
 import CategoryFilter from '../components/Shared/CategoryFilter';
 import { allProducts } from '../data/data';
@@ -87,7 +88,7 @@ const OnlineStore = () => {
     });
   };
 
-  const handleProductsPerPageChange = (event: any) => {
+  const handleProductsPerPageChange = (event: { target: { value: unknown } }) => {
     setProductsPerPage(Number(event.target.value));
   };
 
@@ -98,9 +99,9 @@ const OnlineStore = () => {
         cartItemCount={getTotalItems()}
       />
       
-      {/* <HeroBanner /> */}
+      <HeroBanner />
       
-      <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 }, mt: { xs: 2, md: 4 } }}>
         <CategoryFilter 
           categories={categories} 
           selectedCategory={selectedCategory}
@@ -111,7 +112,7 @@ const OnlineStore = () => {
         />
         
         {/* Products Info and Controls */}
-        <Box sx={{ mt: 4, mb: 3 }}>
+        <Box sx={{ mt: { xs: 3, md: 4 }, mb: 3 }}>
           <Stack 
             direction={{ xs: 'column', sm: 'row' }} 
             justifyContent="space-between" 

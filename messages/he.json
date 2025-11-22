@@ -1,6 +1,5 @@
 {
     "HomePage": {
-        
         "storeName": "החנות שלי",
         "home": "בית",
         "categories": "קטגוריות",
@@ -96,5 +95,49 @@
             "perPage": "לעמוד",
             "page": "עמוד {current} מתוך {total}"
         }
+    },
+    "auth": {
+        "signIn": "התחבר",
+        "signOut": "התנתק",
+        "profile": "פרופיל",
+        "welcome": "ברוכים הבאים לחנות הפרמיום",
+        "signInToContinue": "התחבר לחשבון שלך כדי להמשיך לקנות",
+        "continueWithGoogle": "המשך עם Google",
+        "continueAsGuest": "המשך כאורח",
+        "or": "או",
+        "termsAndPrivacy": "על ידי התחברות, אתה מסכים ל-{terms} ו-{privacy}",
+        "termsAndPrivacyPrefix": "על ידי התחברות, אתה מסכים ל-",
+        "termsAndPrivacyMiddle": " ו-",
+        "termsOfService": "תנאי השירות",
+        "privacyPolicy": "מדיניות הפרטיות"
+    },
+    "userProfile": {
+        "loading": "טוען...",
+        "premiumMember": "חבר פרמיום",
+        "accountInformation": "פרטי חשבון",
+        "fullName": "שם מלא",
+        "emailAddress": "כתובת אימייל",
+        "memberSince": "חבר מאז",
+        "orderHistory": "היסטוריית הזמנות",
+        "noOrdersYet": "אין הזמנות עדיין",
+        "startShoppingMessage": "התחל לקנות כדי לראות את היסטוריית ההזמנות שלך כאן",
+        "startShopping": "התחל לקנות",
+        "wishlist": "רשימת משאלות",
+        "noItemsInWishlist": "אין פריטים ברשימת המשאלות",
+        "saveFavoriteItems": "שמור את הפריטים האהובים עליך ברשימת המשאלות",
+        "browseProducts": "עיין במוצרים",
+        "settings": "הגדרות",
+        "notificationPreferences": "העדפות התראות",
+        "privacySettings": "הגדרות פרטיות",
+        "securitySettings": "הגדרות אבטחה",
+        "helpSupport": "עזרה ותמיכה",
+        "editProfile": "ערוך פרופיל",
+        "signOut": "התנתק"
+    },
+    "navbar": {
+        "home": "בית",
+        "shop": "חנות",
+        "about": "אודות",
+        "contact": "צור קשר"
     }
 }
