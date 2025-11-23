@@ -42,57 +42,104 @@ export default function ProductsPage() {
     };
 
     return (
-        <Container maxWidth="xl">
-            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4 }}>
-                <Typography variant="h4" fontWeight="bold">
+        <Container maxWidth="xl" sx={{ px: { xs: 1, sm: 2 } }}>
+            <Stack
+                direction={{ xs: 'column', sm: 'row' }}
+                justifyContent="space-between"
+                alignItems={{ xs: 'flex-start', sm: 'center' }}
+                spacing={2}
+                sx={{ mb: { xs: 2, sm: 4 } }}
+            >
+                <Typography variant="h4" fontWeight="bold" sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>
                     {t('title')}
                 </Typography>
                 <Button
                     variant="contained"
                     startIcon={<AddIcon />}
                     onClick={() => router.push('/admin/products/new')}
+                    sx={{ width: { xs: '100%', sm: 'auto' } }}
                 >
                     {t('newProduct')}
                 </Button>
             </Stack>
 
-            <TableContainer component={Paper} elevation={2} sx={{ borderRadius: 3 }}>
-                <Table>
+            <TableContainer
+                component={Paper}
+                elevation={2}
+                sx={{
+                    borderRadius: 3,
+                    overflowX: 'auto',
+                }}
+            >
+                <Table sx={{ minWidth: 650 }}>
                     <TableHead>
                         <TableRow sx={{ bgcolor: 'grey.100' }}>
-                            <TableCell><strong>{t('image')}</strong></TableCell>
+                            <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
+                                <strong>{t('image')}</strong>
+                            </TableCell>
                             <TableCell><strong>{t('name')}</strong></TableCell>
-                            <TableCell><strong>{t('categoryLabel')}</strong></TableCell>
+                            <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>
+                                <strong>{t('categoryLabel')}</strong>
+                            </TableCell>
                             <TableCell><strong>{t('priceLabel')}</strong></TableCell>
-                            <TableCell><strong>{t('rating')}</strong></TableCell>
-                            <TableCell><strong>{t('reviews')}</strong></TableCell>
+                            <TableCell sx={{ display: { xs: 'none', lg: 'table-cell' } }}>
+                                <strong>{t('rating')}</strong>
+                            </TableCell>
+                            <TableCell sx={{ display: { xs: 'none', lg: 'table-cell' } }}>
+                                <strong>{t('reviews')}</strong>
+                            </TableCell>
                             <TableCell><strong>{t('actions')}</strong></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {products.map((product) => (
                             <TableRow key={product.id} hover>
-                                <TableCell>
+                                <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
                                     <Box
                                         component="img"
-                                        src={product.image}
+                                        src={Array.isArray(product.image) ? product.image[0] : product.image}
                                         alt={product.name}
-                                        sx={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 1 }}
+                                        sx={{
+                                            width: { xs: 40, sm: 60 },
+                                            height: { xs: 40, sm: 60 },
+                                            objectFit: 'cover',
+                                            borderRadius: 1
+                                        }}
                                     />
                                 </TableCell>
                                 <TableCell>
-                                    <Typography variant="body2" fontWeight="medium">
-                                        {product.name}
-                                    </Typography>
+                                    <Stack direction="row" spacing={1} alignItems="center">
+                                        <Box
+                                            component="img"
+                                            src={Array.isArray(product.image) ? product.image[0] : product.image}
+                                            alt={product.name}
+                                            sx={{
+                                                display: { xs: 'block', sm: 'none' },
+                                                width: 40,
+                                                height: 40,
+                                                objectFit: 'cover',
+                                                borderRadius: 1
+                                            }}
+                                        />
+                                        <Typography variant="body2" fontWeight="medium" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
+                                            {product.name}
+                                        </Typography>
+                                    </Stack>
                                 </TableCell>
-                                <TableCell>
+                                <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>
                                     <Chip label={product.category} size="small" />
                                 </TableCell>
-                                <TableCell>₪{product.price}</TableCell>
-                                <TableCell>{product.rating}</TableCell>
-                                <TableCell>{product.reviews}</TableCell>
+                                <TableCell sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
+                                    ₪{product.price}
+                                </TableCell>
+                                <TableCell sx={{ display: { xs: 'none', lg: 'table-cell' } }}>
+                                    {product.rating}
+                                </TableCell>
+                                <TableCell sx={{ display: { xs: 'none', lg: 'table-cell' } }}>
+                                    {product.reviews}
+                                </TableCell>
                                 <TableCell>
-                                    <Stack direction="row" spacing={1}>
+                                    <Stack direction="row" spacing={0.5}>
                                         <IconButton
                                             size="small"
                                             onClick={() => handleEdit(product.id)}

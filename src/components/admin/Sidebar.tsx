@@ -68,7 +68,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, mobileOpen, onMobileCl
             {/* Header */}
             <Box
                 sx={{
-                    p: 3,
+                    p: { xs: 2, sm: 3 },
                     display: 'flex',
                     alignItems: 'center',
                     gap: 2,
@@ -76,14 +76,14 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, mobileOpen, onMobileCl
                     direction: isRTL ? 'rtl' : 'ltr',
                 }}
             >
-                <StoreIcon sx={{ fontSize: 32, color: theme.palette.primary.main }} />
-                <Typography variant="h6" fontWeight="bold">
+                <StoreIcon sx={{ fontSize: { xs: 28, sm: 32 }, color: theme.palette.primary.main }} />
+                <Typography variant="h6" fontWeight="bold" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>
                     {t('adminPanel')}
                 </Typography>
             </Box>
 
             {/* Menu Items */}
-            <List sx={{ flex: 1, pt: 2, direction: isRTL ? 'rtl' : 'ltr' }}>
+            <List sx={{ flex: 1, pt: { xs: 1, sm: 2 }, direction: isRTL ? 'rtl' : 'ltr' }}>
                 {menuItems.map((item) => {
                     const isActive = pathname === item.path || pathname?.startsWith(item.path + '/');
                     return (
@@ -91,11 +91,12 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, mobileOpen, onMobileCl
                             <ListItemButton
                                 onClick={() => handleNavigation(item.path)}
                                 sx={{
-                                    mx: 1,
+                                    mx: { xs: 0.5, sm: 1 },
                                     borderRadius: 2,
                                     bgcolor: isActive ? theme.palette.primary.main : 'transparent',
                                     color: isActive ? 'white' : 'inherit',
                                     flexDirection: isRTL ? 'row-reverse' : 'row',
+                                    py: { xs: 1, sm: 1.5 },
                                     '&:hover': {
                                         bgcolor: isActive ? theme.palette.primary.dark : theme.palette.action.hover,
                                     },
@@ -104,16 +105,21 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, mobileOpen, onMobileCl
                                 <ListItemIcon
                                     sx={{
                                         color: isActive ? 'white' : 'inherit',
-                                        minWidth: 40,
+                                        minWidth: { xs: 36, sm: 40 },
                                         [isRTL ? 'mr' : 'ml']: 0,
-                                        [isRTL ? 'ml' : 'mr']: 2,
+                                        [isRTL ? 'ml' : 'mr']: { xs: 1, sm: 2 },
                                     }}
                                 >
                                     {item.icon}
                                 </ListItemIcon>
                                 <ListItemText
                                     primary={item.text}
-                                    sx={{ textAlign: isRTL ? 'right' : 'left' }}
+                                    sx={{
+                                        textAlign: isRTL ? 'right' : 'left',
+                                        '& .MuiListItemText-primary': {
+                                            fontSize: { xs: '0.875rem', sm: '1rem' },
+                                        },
+                                    }}
                                 />
                             </ListItemButton>
                         </ListItem>
@@ -173,6 +179,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, mobileOpen, onMobileCl
                 sx={{
                     width: drawerWidth,
                     flexShrink: 0,
+                    display: { xs: 'none', md: 'block' },
                     '& .MuiDrawer-paper': {
                         width: drawerWidth,
                         boxSizing: 'border-box',
@@ -191,14 +198,18 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, mobileOpen, onMobileCl
                 open={mobileOpen}
                 onClose={onMobileClose}
                 ModalProps={{
-                    keepMounted: true, // Better open performance on mobile.
+                    keepMounted: true,
                 }}
                 sx={{
                     display: { xs: 'block', md: 'none' },
                     '& .MuiDrawer-paper': {
-                        width: drawerWidth,
+                        width: { xs: '80%', sm: drawerWidth },
+                        maxWidth: drawerWidth,
                         boxSizing: 'border-box',
                         direction: isRTL ? 'rtl' : 'ltr',
+                    },
+                    '& .MuiBackdrop-root': {
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
                     },
                 }}
             >

@@ -1,13 +1,15 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Button, Stack, Typography, Paper, Alert } from '@mui/material';
+import { Button, Stack, Typography, Paper, Alert, Box } from '@mui/material';
 import { ExtendedProductData, ProductVariant } from '../../types';
 import { buildProductData } from '../../lib/productBuilder';
+import { analyzeProductImage } from '../../lib/imageAnalysis';
 import ProductVariantsForm from './ProductVariantsForm';
 import ProductBasicInfoFields from './ProductBasicInfoFields';
 import ProductPricingFields from './ProductPricingFields';
 import ProductMetadataFields from './ProductMetadataFields';
+import ImageAnalysisButton from './ImageAnalysisButton';
 import { useTranslations } from 'next-intl';
 
 interface ProductFormProps {
@@ -45,6 +47,45 @@ const ProductForm: React.FC<ProductFormProps> = ({ productId, onSubmit, onCancel
         setError('');
     };
 
+    const handleImageAnalysis = async (imageUrl: string) => {
+        try {
+            const analysis = await analyzeProductImage(imageUrl);
+
+            if (analysis.title) {
+                setFormData(prev => ({ ...prev, title: analysis.title! }));
+            }
+            if (analysis.description) {
+                setFormData(prev => ({ ...prev, description: analysis.description! }));
+            }
+            if (analysis.product_type) {
+                setFormData(prev => ({ ...prev, product_type: analysis.product_type! }));
+            }
+            if (analysis.tags && analysis.tags.length > 0) {
+                setFormData(prev => ({ ...prev, tags: analysis.tags!.join(', ') }));
+            }
+            if (analysis.price) {
+                setFormData(prev => ({ ...prev, price_amount: analysis.price! }));
+            }
+            if (imageUrl) {
+                setFormData(prev => ({ ...prev, featured_image: imageUrl }));
+            }
+            if (analysis.suggestedVariants && analysis.suggestedVariants.length > 0) {
+                const newVariants: ProductVariant[] = analysis.suggestedVariants.map((v, idx) => ({
+                    id: `variant-${Date.now()}-${idx}`,
+                    color: v.color || 'Black',
+                    size: v.size || 'M',
+                    price: v.price || '30.0',
+                    available: v.available ?? true,
+                    quantity: v.quantity || 0,
+                    image: v.image || imageUrl,
+                }));
+                setVariants(newVariants);
+            }
+        } catch (err) {
+            setError(err instanceof Error ? err.message : t('imageAnalysisError'));
+        }
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -58,10 +99,19 @@ const ProductForm: React.FC<ProductFormProps> = ({ productId, onSubmit, onCancel
     };
 
     return (
-        <Paper elevation={2} sx={{ p: 4, borderRadius: 3 }}>
-            <Typography variant="h5" fontWeight="bold" gutterBottom>
-                {productId ? t('editProduct') : t('newProduct')}
-            </Typography>
+        <Paper
+            elevation={2}
+            sx={{
+                p: { xs: 2, sm: 3, md: 4 },
+                borderRadius: 3,
+                maxWidth: '100%',
+            }}
+        >
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3, flexWrap: 'wrap', gap: 2 }}>
+                <Typography variant="h5" fontWeight="bold">
+                    {productId ? t('editProduct') : t('newProduct')}
+                </Typography>
+            </Box>
 
             {error && (
                 <Alert severity="error" sx={{ mb: 3 }}>
@@ -71,6 +121,11 @@ const ProductForm: React.FC<ProductFormProps> = ({ productId, onSubmit, onCancel
 
             <form onSubmit={handleSubmit}>
                 <Stack spacing={3}>
+                    <ImageAnalysisButton
+                        onAnalyze={handleImageAnalysis}
+                        disabled={!!productId}
+                    />
+
                     <ProductBasicInfoFields
                         title={formData.title}
                         vendor={formData.vendor}
@@ -96,11 +151,24 @@ const ProductForm: React.FC<ProductFormProps> = ({ productId, onSubmit, onCancel
 
                     <ProductVariantsForm variants={variants} onChange={setVariants} />
 
-                    <Stack direction="row" spacing={2} justifyContent="flex-end">
-                        <Button variant="outlined" onClick={onCancel}>
+                    <Stack
+                        direction={{ xs: 'column', sm: 'row' }}
+                        spacing={2}
+                        justifyContent="flex-end"
+                        sx={{ pt: 2 }}
+                    >
+                        <Button
+                            variant="outlined"
+                            onClick={onCancel}
+                            sx={{ width: { xs: '100%', sm: 'auto' } }}
+                        >
                             {t('cancel')}
                         </Button>
-                        <Button type="submit" variant="contained">
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            sx={{ width: { xs: '100%', sm: 'auto' } }}
+                        >
                             {productId ? t('update') : t('create')}
                         </Button>
                     </Stack>

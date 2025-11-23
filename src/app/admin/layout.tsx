@@ -15,6 +15,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
     const [mobileOpen, setMobileOpen] = useState(false);
+
+    useEffect(() => {
+        if (isMobile) {
+            setSidebarOpen(false);
+        } else {
+            setSidebarOpen(true);
+        }
+    }, [isMobile]);
     const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
     const [loading, setLoading] = useState(true);
     const t = useTranslations('admin');
@@ -109,8 +117,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <AppBar
                 position="fixed"
                 sx={{
-                    width: { md: sidebarOpen ? `calc(100% - 260px)` : '100%' },
-                    [marginSide]: { md: sidebarOpen ? contentMargin : 0 },
+                    width: {
+                        xs: '100%',
+                        md: sidebarOpen ? `calc(100% - 260px)` : '100%'
+                    },
+                    [marginSide]: {
+                        xs: 0,
+                        md: sidebarOpen ? contentMargin : 0
+                    },
                     transition: theme.transitions.create(['width', marginSide], {
                         easing: theme.transitions.easing.sharp,
                         duration: theme.transitions.duration.leavingScreen,
@@ -119,27 +133,43 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     color: 'text.primary',
                     boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
                     direction: isRTL ? 'rtl' : 'ltr',
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
                 }}
             >
-                <Toolbar sx={{ direction: isRTL ? 'rtl' : 'ltr' }}>
+                <Toolbar sx={{
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    px: { xs: 1, sm: 2 },
+                }}>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
                         edge={isRTL ? 'start' : 'end'}
                         onClick={handleDrawerToggle}
                         sx={{
-                            // Position hamburger on the same side as sidebar
-                            // RTL: sidebar is left, so hamburger should be on left (start in RTL = left)
-                            // LTR: sidebar is right, so hamburger should be on right (end in LTR = right)
-                            [isRTL ? 'mr' : 'ml']: sidebarOpen ? 0 : 2,
+                            [isRTL ? 'mr' : 'ml']: { xs: 0, md: sidebarOpen ? 0 : 2 },
                         }}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, textAlign: isRTL ? 'right' : 'left' }}>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{
+                            flexGrow: 1,
+                            textAlign: isRTL ? 'right' : 'left',
+                            fontSize: { xs: '1rem', sm: '1.25rem' },
+                        }}
+                    >
                         {t('managementInterface')}
                     </Typography>
-                    <Typography variant="body2" sx={{ [isRTL ? 'ml' : 'mr']: 2 }}>
+                    <Typography
+                        variant="body2"
+                        sx={{
+                            [isRTL ? 'ml' : 'mr']: { xs: 1, sm: 2 },
+                            display: { xs: 'none', sm: 'block' },
+                        }}
+                    >
                         {session.user?.email}
                     </Typography>
                 </Toolbar>
@@ -158,13 +188,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 component="main"
                 sx={{
                     flexGrow: 1,
-                    width: { md: sidebarOpen ? `calc(100% - 260px)` : '100%' },
+                    width: {
+                        xs: '100%',
+                        md: sidebarOpen ? `calc(100% - 260px)` : '100%'
+                    },
                     transition: theme.transitions.create('width', {
                         easing: theme.transitions.easing.sharp,
                         duration: theme.transitions.duration.leavingScreen,
                     }),
-                    p: 3,
-                    mt: 8,
+                    p: { xs: 2, sm: 3 },
+                    mt: { xs: 7, sm: 8 },
                     direction: isRTL ? 'rtl' : 'ltr',
                 }}
             >

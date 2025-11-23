@@ -4,12 +4,12 @@ import React from 'react';
 import { Container } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import ProductForm from '../../../../components/admin/ProductForm';
-import { Product } from '../../../../types';
+import { ExtendedProductData } from '../../../../types';
 
 export default function NewProductPage() {
     const router = useRouter();
 
-    const handleSubmit = (product: Omit<Product, 'id'>) => {
+    const handleSubmit = (product: ExtendedProductData) => {
         // TODO: Implement API call to create product
         console.log('Creating product:', product);
         // After successful creation, redirect to products list

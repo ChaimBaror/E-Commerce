@@ -5,7 +5,6 @@ import { Container, Alert, Snackbar } from '@mui/material';
 import { useRouter, useParams } from 'next/navigation';
 import ProductForm from '../../../../../components/admin/ProductForm';
 import { ExtendedProduct } from '../../../../../types';
-import { saveProduct } from '../../../../../lib/productStorage';
 import { useTranslations } from 'next-intl';
 
 export default function EditProductPage() {
@@ -18,7 +17,7 @@ export default function EditProductPage() {
 
     const handleSubmit = async (product: ExtendedProduct['product']) => {
         try {
-            await saveProduct(product);
+            console.log('Product:', product);
             setSuccess(true);
             setTimeout(() => {
                 router.push('/admin/products');
