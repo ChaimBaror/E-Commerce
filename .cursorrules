@@ -1,0 +1,80 @@
+# Cursor Rules for E-Commerce Project
+
+## File Size Limits
+- **Maximum file length: 100 lines**
+- If a file exceeds 100 lines, break it into smaller, reusable components
+- Split large files into logical modules or sub-components
+
+## Component Reusability
+- **Always prefer reusable components over duplicate code**
+- Extract common patterns into shared components
+- Use composition over duplication
+- Create components in `src/components/Shared/` for reusable UI elements
+- Create utility functions in `src/lib/` for reusable logic
+
+## Code Organization
+- Keep components focused on a single responsibility
+- Break down complex components into smaller sub-components
+- Use TypeScript interfaces for component props
+- Maintain consistent naming conventions
+
+## Best Practices
+- When creating similar components, check if an existing component can be extended
+- Use props and composition to customize components rather than copying code
+- Document component props and usage in comments
+- Keep imports organized and minimal
+
+## TypeScript Type Safety
+- **NEVER use `any` type**
+- Always use specific types, interfaces, or generics
+- Use `unknown` for truly unknown types, then narrow with type guards
+- Use `Record<string, unknown>` for object types when structure is unknown
+- Prefer `unknown` over `any` for error handling and API responses
+
+## Generic Code & TypeScript Generics
+- **Use TypeScript generics for reusable, type-safe code**
+- Create generic utility functions in `src/lib/utils.ts`
+- Prefer generic types over `any` or specific types when code can be reused
+- Use generics for:
+  - API response handlers
+  - Data transformation functions
+  - Form validation utilities
+  - Table/list components that work with different data types
+
+## Generic Code Patterns
+- **API Helpers**: Create generic API request/response handlers
+- **Form Utilities**: Generic form validation and handling
+- **Data Transformers**: Generic data mapping and transformation functions
+- **Table Components**: Generic table/list components that accept any data type
+- **Error Handlers**: Generic error handling utilities
+
+## Examples
+- Instead of a 200-line component, create:
+  - Main component (50 lines)
+  - Sub-component A (30 lines)
+  - Sub-component B (30 lines)
+  - Shared utility (20 lines)
+
+- Generic utility example:
+  ```typescript
+  // Generic API handler
+  async function fetchData<T>(url: string): Promise<T> {
+    const response = await fetch(url);
+    return response.json();
+  }
+  
+  // Generic form validator
+  function validateForm<T extends Record<string, unknown>>(
+    data: T,
+    rules: ValidationRules<T>
+  ): ValidationResult<T> {
+    // validation logic
+  }
+  
+  // Error handling - use unknown, not any
+  catch (error: unknown) {
+    if (error instanceof Error) {
+      // handle Error
+    }
+  }
+  ```
