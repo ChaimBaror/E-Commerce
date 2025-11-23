@@ -1,25 +1,44 @@
-import React from 'react';
-import { Box, Typography, Container } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Container, Stack, Fade } from '@mui/material';
+import HeroBannerBackground from './HeroBanner/HeroBannerBackground';
+import HeroBannerContent from './HeroBanner/HeroBannerContent';
+import HeroBannerVisual from './HeroBanner/HeroBannerVisual';
 
 const HeroBanner = () => {
+  const [mounted, setMounted] = useState(false);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    setMounted(true);
+    const timer = setTimeout(() => {
+      setVisible(false);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <Box
-      sx={{
-        background: 'linear-gradient(135deg, #673ab7 0%, #2196f3 100%)',
-        color: 'white',
-        py: 8,
-        textAlign: 'center'
-      }}
+    <Fade 
+      in={visible} 
+      timeout={1000} 
+      unmountOnExit
+      appear={false}
     >
-      <Container maxWidth="md">
-        <Typography variant="h2" component="h1" gutterBottom>
-          Welcome to My Store
-        </Typography>
-        <Typography variant="h5" component="h2">
-          Discover amazing products at unbeatable prices!
-        </Typography>
-      </Container>
-    </Box>
+      <div>
+        <HeroBannerBackground>
+          <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+            <Stack
+              direction={{ xs: 'column', md: 'row' }}
+              spacing={6}
+              alignItems="center"
+              sx={{ minHeight: { xs: '500px', md: '600px' } }}
+            >
+              <HeroBannerContent mounted={mounted} />
+              <HeroBannerVisual mounted={mounted} />
+            </Stack>
+          </Container>
+        </HeroBannerBackground>
+      </div>
+    </Fade>
   );
 };
 

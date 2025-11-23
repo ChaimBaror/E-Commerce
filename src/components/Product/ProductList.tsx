@@ -2,7 +2,6 @@ import React from 'react';
 import { 
   Box, 
   Typography, 
-  Container,
   Fade,
   useTheme,
   alpha
@@ -11,45 +10,76 @@ import ProductCard from './ProductCard';
 import { Product } from '@/src/types';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
+import { useTranslations } from 'next-intl';
+import ProductCardSkeleton from '../Shared/Skeletons/ProductCardSkeleton';
 
 interface ProductListProps {
   products: Product[];
   onAddToCart: (product: Product) => void;
+  onProductClick?: (productId: string) => void;
   loading?: boolean;
 }
 
-const ProductList = ({ products, onAddToCart, loading = false }: ProductListProps) => {
+const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: ProductListProps) => {
   const theme = useTheme();
+  const t = useTranslations('HomePage.productList');
 
   if (loading) {
     return (
-      <Box 
-        sx={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          minHeight: '400px',
-          flexDirection: 'column',
-          gap: 2
-        }}
-      >
-        <Box
+      <Box sx={{ py: 2 }}>
+        {/* Products Header Skeleton */}
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: 1, 
+            mb: 3,
+            pb: 2,
+            borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`
+          }}
+        >
+          <ShoppingBagIcon 
+            sx={{ 
+              color: theme.palette.primary.main,
+              fontSize: 28
+            }} 
+          />
+          <Typography 
+            variant="h5" 
+            sx={{ 
+              fontWeight: 700,
+              color: theme.palette.text.primary
+            }}
+          >
+            {t('ourProducts')}
+          </Typography>
+        </Box>
+
+        {/* Products Grid Skeleton */}
+        <Box 
           sx={{
-            width: 40,
-            height: 40,
-            border: `4px solid ${alpha(theme.palette.primary.main, 0.2)}`,
-            borderTop: `4px solid ${theme.palette.primary.main}`,
-            borderRadius: '50%',
-            animation: 'spin 1s linear infinite',
-            '@keyframes spin': {
-              '0%': { transform: 'rotate(0deg)' },
-              '100%': { transform: 'rotate(360deg)' }
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: 'repeat(auto-fill, minmax(280px, 1fr))',
+              sm: 'repeat(auto-fill, minmax(300px, 1fr))',
+              md: 'repeat(auto-fill, minmax(320px, 1fr))',
+              lg: 'repeat(auto-fill, minmax(350px, 1fr))'
+            },
+            gap: { xs: 2, sm: 3, md: 4 },
+            justifyItems: 'center',
+            '& > *': {
+              width: '100%',
+              maxWidth: '400px'
             }
           }}
-        />
-        <Typography variant="h6" color="text.secondary">
-          Loading products...
-        </Typography>
+        >
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <ProductCardSkeleton key={i} />
+          ))}
+        </Box>
+
+        {/* Bottom spacing */}
+        <Box sx={{ height: 40 }} />
       </Box>
     );
   }
@@ -96,7 +126,7 @@ const ProductList = ({ products, onAddToCart, loading = false }: ProductListProp
             mb: 1
           }}
         >
-          No Products Found
+          {t('noProductsFound')}
         </Typography>
         <Typography 
           variant="body1" 
@@ -105,7 +135,7 @@ const ProductList = ({ products, onAddToCart, loading = false }: ProductListProp
             maxWidth: 400
           }}
         >
-          Try adjusting your filters or browse all categories.
+          {t('tryDifferentSearch')}
         </Typography>
       </Box>
     );
@@ -137,7 +167,7 @@ const ProductList = ({ products, onAddToCart, loading = false }: ProductListProp
             color: theme.palette.text.primary
           }}
         >
-          Our Products
+          {t('ourProducts')}
         </Typography>
         <Typography 
           variant="body2" 
@@ -147,7 +177,7 @@ const ProductList = ({ products, onAddToCart, loading = false }: ProductListProp
             fontWeight: 500
           }}
         >
-          {products.length} item{products.length !== 1 ? 's' : ''} found
+          {products.length} {t('itemsFound', { count: products.length })}
         </Typography>
       </Box>
 
@@ -181,6 +211,7 @@ const ProductList = ({ products, onAddToCart, loading = false }: ProductListProp
                 <ProductCard 
                   product={product} 
                   onAddToCart={onAddToCart}
+                  onProductClick={onProductClick}
                 />
               </Box>
             </Fade>

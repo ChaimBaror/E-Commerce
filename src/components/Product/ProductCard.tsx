@@ -1,125 +1,199 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Card,
-  CardContent,
   CardMedia,
+  CardContent,
+  CardActions,
   Typography,
   Button,
   Box,
   IconButton,
-  Snackbar,
-  Alert,
-  Rating,
   Chip
 } from '@mui/material';
-import { Favorite, FavoriteBorder, ShoppingCart } from '@mui/icons-material';
-import { Product } from '@/src/types';
+import {
+  ShoppingCart as ShoppingCartIcon,
+  Favorite as FavoriteIcon,
+  FavoriteBorder as FavoriteBorderIcon
+} from '@mui/icons-material';
+import { Product } from '../../types';
+import { useCartStore } from '../../stores/cartStore';
 import { useTranslations } from 'next-intl';
-
 
 interface ProductCardProps {
   product: Product;
   onAddToCart: (product: Product) => void;
+  onProductClick?: (productId: string) => void;
 }
 
-const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
-  const [isLiked, setIsLiked] = useState(false);
-  const [showSnackbar, setShowSnackbar] = useState(false);
-  const t = useTranslations('HomePage.products');
+const ProductCard: React.FC<ProductCardProps> = ({ 
+  product, 
+  onAddToCart, 
+  onProductClick 
+}) => {
+  const [isFavorite, setIsFavorite] = React.useState(false);
+  const { isInCart } = useCartStore();
+  const t = useTranslations('HomePage');
 
-  const discount = product.originalPrice
-    ? Math.round((((product.originalPrice as number) - (product.price as number)) / (product.originalPrice as number)) * 100)
-    : 0;
-
-  const handleAddToCart = () => {
-    onAddToCart(product);
-    setShowSnackbar(true);
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Don't trigger card click if clicking on buttons
+    if ((e.target as HTMLElement).closest('button')) {
+      return;
+    }
+    
+    if (onProductClick) {
+      onProductClick(product.id);
+    }
   };
 
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onAddToCart(product);
+  };
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsFavorite(!isFavorite);
+  };
   return (
-    <>
-      <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-        <Box position="relative">
-          <CardMedia
-            component="img"
-            height="240"
-            image={'/images/product1.jpg'} // Replace with product.image for dynamic images
-            alt={product.name}
-          />
-          <Box position="absolute" top={8} right={8}>
-            {discount > 0 && (
-              <Chip
-                label={`-${discount}%`}
-                color="error"
-                size="small"
-                sx={{ mb: 1, display: 'block' }}
-              />
-            )}
-            <IconButton
-              onClick={() => setIsLiked(!isLiked)}
-              sx={{ backgroundColor: 'white', '&:hover': { backgroundColor: 'grey.100' } }}
-              size="small"
-            >
-              {isLiked ? <Favorite color="error" /> : <FavoriteBorder />}
-            </IconButton>
-          </Box>
+    <Card
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        cursor: onProductClick ? 'pointer' : 'default',
+        transition: 'all 0.2s ease-in-out',
+        '&:hover': {
+          transform: onProductClick ? 'translateY(-4px)' : 'none',
+          boxShadow: onProductClick ? 4 : 1,
+        }
+      }}
+      onClick={handleCardClick}
+    >
+      <Box sx={{ position: 'relative' }}>
+        <CardMedia
+          component="img"
+          height="200"
+          image={product.image}
+          alt={product.name}
+          sx={{
+            objectFit: 'cover',
+          }}
+        />
+        
+        {/* Category Chip */}
+        <Chip
+          label={product.category}
+          size="small"
+          color="primary"
+          sx={{
+            position: 'absolute',
+            top: 8,
+            right: 8,
+            bgcolor: 'rgba(25, 118, 210, 0.9)',
+            color: 'white',
+            fontSize: '0.7rem',
+          }}
+        />
+
+        {/* Favorite Button */}
+        <IconButton
+          onClick={handleFavoriteClick}
+
+          sx={{
+            position: 'absolute',
+            top: 8,
+            left: 8,
+            bgcolor: 'rgba(255, 255, 255, 0.9)',
+            '&:hover': {
+              bgcolor: 'rgba(255, 255, 255, 1)',
+            },
+          }}
+          size="small"
+        >
+          {isFavorite ? (
+            <FavoriteIcon color="error" fontSize="small" />
+          ) : (
+            <FavoriteBorderIcon fontSize="small" />
+          )}
+        </IconButton>
+      </Box>
+
+      <CardContent sx={{ flexGrow: 1, p: 2 }}>
+        <Typography
+          variant="h6"
+          component="h3"
+          gutterBottom
+          sx={{
+            fontSize: '1.1rem',
+            fontWeight: 600,
+            lineHeight: 1.3,
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            mb: 1,
+          }}
+        >
+          {product.name}
+        </Typography>
+
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{
+            mb: 2,
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            minHeight: '2.5em',
+          }}
+        >
+          {product.description}
+        </Typography>
+
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+          {/* <Rating
+            value={product.rating}
+            readOnly
+            precision={0.5}
+            size="small"
+            sx={{ mr: 1 }}
+          /> */}
+          <Typography variant="caption" color="text.secondary">
+            ({product.reviews})
+          </Typography>
         </Box>
 
-        <CardContent sx={{ flexGrow: 1 }}>
-          <Box display="flex" alignItems="center" gap={1} mb={1}>
-            <Rating value={typeof product.rating === 'number' ? product.rating : Number(product.rating)} readOnly size="small" />
-            <Typography variant="caption" color="text.secondary">
-              ({product.reviews} {t('reviews')})
-            </Typography>
-          </Box>
-
-          <Typography gutterBottom variant="h6" component="h2" noWrap>
-            {t(`${product.name}.name`)}
-          </Typography>
-
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            {t(`${product.description}`)}
-          </Typography>
-
-          <Box display="flex" alignItems="center" justifyContent="space-between">
-            <Box>
-              <Typography variant="h5" color="primary" component="span" fontWeight="bold">
-                ₪{product.price}
-              </Typography>
-              {(Number(product.originalPrice) ?? 0) > Number(product.price) && (
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  component="span"
-                  sx={{ textDecoration: 'line-through', ml: 1 }}
-                >
-                  ₪{product.originalPrice}
-                </Typography>
-              )}
-            </Box>
-          </Box>
-        </CardContent>
-
-        <Button
-          variant="contained"
-          fullWidth
-          startIcon={<ShoppingCart />}
-          onClick={handleAddToCart}
+        <Typography
+          variant="h5"
+          color="primary"
+          fontWeight="bold"
+          sx={{ mb: 1 }}
         >
-          {t('addToCart')}
-        </Button>
-      </Card>
+          ₪{product.price.toLocaleString()}
+        </Typography>
+      </CardContent>
 
-      <Snackbar
-        open={showSnackbar}
-        autoHideDuration={3000}
-        onClose={() => setShowSnackbar(false)}
-      >
-        <Alert severity="success" onClose={() => setShowSnackbar(false)}>
-          {t('addedToCart')}
-        </Alert>
-      </Snackbar>
-    </>
+      <CardActions sx={{ p: 2, pt: 0 }}>
+        <Button
+          variant={isInCart(product.id) ? "outlined" : "contained"}
+          fullWidth
+          startIcon={<ShoppingCartIcon />}
+          onClick={handleAddToCart}
+          sx={{
+            fontWeight: 600,
+            py: 1.2,
+            '&:hover': {
+              transform: 'translateY(-1px)',
+            },
+            transition: 'all 0.2s ease-in-out',
+          }}
+        >
+          {isInCart(product.id) ? t('productPage.inCart') : t('addToCart')}
+        </Button>
+      </CardActions>
+    </Card>
   );
 };
 

@@ -4,7 +4,15 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https' as const,
+        hostname: 'burst.shopifycdn.com',
+        pathname: '/**',
+      },
+    ],
+  },
 };
 
 export default withNextIntl(nextConfig);

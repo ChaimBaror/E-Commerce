@@ -1,5 +1,5 @@
 {
-  "name": "e-commerce",
+  "name": "e-store",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,10 +13,14 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.2",
     "@mui/material": "^7.3.2",
-    "next": "15.5.3",
+    "@types/nodemailer": "^7.0.2",
+    "next": "^15.5.4",
+    "next-auth": "^4.24.11",
     "next-intl": "^3.17.2",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "nodemailer": "^7.0.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

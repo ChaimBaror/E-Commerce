@@ -1,7 +1,5 @@
 {
     "HomePage": {
-        
-        "reviews":"ביקורות",
         "storeName": "החנות שלי",
         "home": "בית",
         "categories": "קטגוריות",
@@ -25,8 +23,9 @@
         "payment": "תשלום",
         "orderSummary": "סיכום הזמנה",
         "fullName": "שם מלא",
+        "email": "אימייל",
         "address": "כתובת",
-        "phone": "טלפון",
+        "phone": "מספר טלפון",
         "creditCard": "מספר כרטיס אשראי",
         "expiryDate": "תאריך תפוגה",
         "cvv": "CVV",
@@ -66,6 +65,97 @@
                 "name": "נעלי ספורט מקצועיות",
                 "description": "נעליים מותאמות לריצה ופעילות ספורטיבית"
             }
+        },
+        "productPage": {
+            "loading": "טוען...",
+            "productNotFound": "מוצר לא נמצא",
+            "backToStore": "חזרה לחנות",
+            "productDescription": "תיאור המוצר",
+            "quantity": "כמות",
+            "total": "סה\"כ:",
+            "addToCart": "הוסף לעגלה",
+            "inCart": "בעגלה",
+            "reviews": "ביקורות",
+            "sku": "מק\"ט:",
+            "rating": "דירוג:",
+            "stars": "כוכבים",
+            "relatedProducts": "מוצרים דומים",
+            "addedToCartSuccess": "נוסף לעגלה בהצלחה! (כמות: {quantity})"
+        },
+        "productList": {
+            "loadingProducts": "טוען מוצרים...",
+            "noProductsFound": "לא נמצאו מוצרים",
+            "tryDifferentSearch": "נסה להתאים את המסננים שלך או עיין בכל הקטגוריות.",
+            "ourProducts": "המוצרים שלנו",
+            "itemsFound": "פריט{count, plural, =1 {} other {ים}} נמצאו"
+        },
+        "store": {
+            "shopByCategory": "קנה לפי קטגוריה",
+            "showing": "מציג {start}-{end} מתוך {total} מוצרים",
+            "inCategory": "בקטגוריה {category}",
+            "perPage": "לעמוד",
+            "page": "עמוד {current} מתוך {total}"
         }
+    },
+    "auth": {
+        "signIn": "התחבר",
+        "signOut": "התנתק",
+        "profile": "פרופיל",
+        "welcome": "ברוכים הבאים לחנות הפרמיום",
+        "signInToContinue": "התחבר לחשבון שלך כדי להמשיך לקנות",
+        "continueWithGoogle": "המשך עם Google",
+        "continueAsGuest": "המשך כאורח",
+        "or": "או",
+        "termsAndPrivacy": "על ידי התחברות, אתה מסכים ל-{terms} ו-{privacy}",
+        "termsAndPrivacyPrefix": "על ידי התחברות, אתה מסכים ל-",
+        "termsAndPrivacyMiddle": " ו-",
+        "termsOfService": "תנאי השירות",
+        "privacyPolicy": "מדיניות הפרטיות"
+    },
+    "userProfile": {
+        "loading": "טוען...",
+        "premiumMember": "חבר פרמיום",
+        "accountInformation": "פרטי חשבון",
+        "fullName": "שם מלא",
+        "emailAddress": "כתובת אימייל",
+        "memberSince": "חבר מאז",
+        "orderHistory": "היסטוריית הזמנות",
+        "noOrdersYet": "אין הזמנות עדיין",
+        "startShoppingMessage": "התחל לקנות כדי לראות את היסטוריית ההזמנות שלך כאן",
+        "startShopping": "התחל לקנות",
+        "wishlist": "רשימת משאלות",
+        "noItemsInWishlist": "אין פריטים ברשימת המשאלות",
+        "saveFavoriteItems": "שמור את הפריטים האהובים עליך ברשימת המשאלות",
+        "browseProducts": "עיין במוצרים",
+        "settings": "הגדרות",
+        "notificationPreferences": "העדפות התראות",
+        "privacySettings": "הגדרות פרטיות",
+        "securitySettings": "הגדרות אבטחה",
+        "helpSupport": "עזרה ותמיכה",
+        "editProfile": "ערוך פרופיל",
+        "signOut": "התנתק"
+    },
+    "navbar": {
+        "home": "בית",
+        "shop": "חנות",
+        "about": "אודות",
+        "contact": "צור קשר"
+    },
+    "cart": {
+        "shoppingCart": "עגלת קניות",
+        "emptyCart": "העגלה שלך ריקה",
+        "addProducts": "הוסף כמה מוצרים כדי להתחיל!",
+        "continueShopping": "המשך לקנות",
+        "checkout": "תשלום",
+        "total": "סה\"כ",
+        "orderDetails": "פרטי הזמנה",
+        "orderSummary": "סיכום הזמנה",
+        "processing": "מעבד...",
+        "sendOrder": "שלח הזמנה",
+        "orderSent": "ההזמנה בוצעה בהצלחה! מייל אישור נשלח.",
+        "each": "כל אחד",
+        "remove": "הסר",
+        "clearCart": "נקה עגלה",
+        "proceedToCheckout": "המשך לתשלום"
     }
 }
