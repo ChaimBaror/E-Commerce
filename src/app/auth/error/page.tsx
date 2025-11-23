@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import {
@@ -11,28 +11,27 @@ import {
   Button,
   Stack,
   Alert,
+  CircularProgress,
 } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
-import { useTranslations } from 'next-intl';
 
-const AuthErrorPage = () => {
+const getErrorMessage = (errorType: string | null) => {
+  switch (errorType) {
+    case 'Configuration':
+      return 'יש בעיה בהגדרת המערכת. אנא פנה למנהל המערכת.';
+    case 'AccessDenied':
+      return 'הגישה נדחתה. אנא נסה שוב.';
+    case 'Verification':
+      return 'בעיה באימות. אנא נסה שוב.';
+    default:
+      return 'אירעה שגיאה בהתחברות. אנא נסה שוב.';
+  }
+};
+
+const AuthErrorContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const error = searchParams.get('error');
-  const t = useTranslations('auth');
-
-  const getErrorMessage = (errorType: string | null) => {
-    switch (errorType) {
-      case 'Configuration':
-        return 'יש בעיה בהגדרת המערכת. אנא פנה למנהל המערכת.';
-      case 'AccessDenied':
-        return 'הגישה נדחתה. אנא נסה שוב.';
-      case 'Verification':
-        return 'בעיה באימות. אנא נסה שוב.';
-      default:
-        return 'אירעה שגיאה בהתחברות. אנא נסה שוב.';
-    }
-  };
 
   return (
     <Box
@@ -57,7 +56,7 @@ const AuthErrorPage = () => {
         >
           <Stack spacing={3}>
             <ErrorIcon sx={{ fontSize: 64, color: 'error.main', mx: 'auto' }} />
-            
+
             <Typography variant="h4" component="h1" fontWeight="bold" color="error">
               שגיאת התחברות
             </Typography>
@@ -86,6 +85,28 @@ const AuthErrorPage = () => {
         </Paper>
       </Container>
     </Box>
+  );
+};
+
+const AuthErrorPage = () => {
+  return (
+    <Suspense
+      fallback={
+        <Box
+          sx={{
+            minHeight: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      }
+    >
+      <AuthErrorContent />
+    </Suspense>
   );
 };
 

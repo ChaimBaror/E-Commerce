@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Box,
   Container,
-  Grid,
   Typography,
   Link,
   IconButton,
@@ -23,11 +22,9 @@ import {
   LocalShipping,
   Support,
 } from '@mui/icons-material';
-import { useTranslations } from 'next-intl';
 
 const Footer = () => {
   const theme = useTheme();
-  const t = useTranslations('HomePage');
 
   const socialLinks = [
     { icon: <Facebook />, href: '#', label: 'Facebook' },
@@ -66,9 +63,23 @@ const Footer = () => {
       }}
     >
       <Container maxWidth="lg" sx={{ py: 6 }}>
-        <Grid container spacing={4}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: '1fr',
+              sm: 'repeat(2, 1fr)',
+              md: 'repeat(12, 1fr)',
+            },
+            gap: 4,
+          }}
+        >
           {/* Company Info */}
-          <Grid item xs={12} md={4}>
+          <Box
+            sx={{
+              gridColumn: { xs: '1', sm: '1 / -1', md: 'span 4' },
+            }}
+          >
             <Stack spacing={3}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Storefront sx={{ fontSize: 32, color: theme.palette.primary.light }} />
@@ -86,10 +97,10 @@ const Footer = () => {
                 </Typography>
               </Box>
               <Typography variant="body1" color="rgba(255,255,255,0.8)" sx={{ lineHeight: 1.6 }}>
-                Your trusted destination for premium products. We deliver quality, style, and 
+                Your trusted destination for premium products. We deliver quality, style, and
                 exceptional customer service to enhance your shopping experience.
               </Typography>
-              
+
               {/* Contact Info */}
               <Stack spacing={1}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -139,10 +150,14 @@ const Footer = () => {
                 </Stack>
               </Box>
             </Stack>
-          </Grid>
+          </Box>
 
           {/* Quick Links */}
-          <Grid item xs={12} sm={6} md={2}>
+          <Box
+            sx={{
+              gridColumn: { xs: '1', sm: '1', md: 'span 2' },
+            }}
+          >
             <Stack spacing={2}>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
                 Quick Links
@@ -165,10 +180,14 @@ const Footer = () => {
                 </Link>
               ))}
             </Stack>
-          </Grid>
+          </Box>
 
           {/* Customer Service */}
-          <Grid item xs={12} sm={6} md={2}>
+          <Box
+            sx={{
+              gridColumn: { xs: '1', sm: '2', md: 'span 2' },
+            }}
+          >
             <Stack spacing={2}>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
                 Customer Service
@@ -191,10 +210,14 @@ const Footer = () => {
                 </Link>
               ))}
             </Stack>
-          </Grid>
+          </Box>
 
           {/* Legal */}
-          <Grid item xs={12} sm={6} md={2}>
+          <Box
+            sx={{
+              gridColumn: { xs: '1', sm: '1', md: 'span 2' },
+            }}
+          >
             <Stack spacing={2}>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
                 Legal
@@ -217,10 +240,14 @@ const Footer = () => {
                 </Link>
               ))}
             </Stack>
-          </Grid>
+          </Box>
 
           {/* Features */}
-          <Grid item xs={12} sm={6} md={2}>
+          <Box
+            sx={{
+              gridColumn: { xs: '1', sm: '2', md: 'span 2' },
+            }}
+          >
             <Stack spacing={2}>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
                 Why Choose Us
@@ -246,8 +273,8 @@ const Footer = () => {
                 </Box>
               </Stack>
             </Stack>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
 
         <Divider sx={{ my: 4, borderColor: 'rgba(255,255,255,0.2)' }} />
 

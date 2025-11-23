@@ -1,7 +1,6 @@
 import React from 'react';
-import { Box, Typography, Stack, Fade } from '@mui/material';
-import { FlashOn, ShoppingBag, TrendingUp } from '@mui/icons-material';
-import { useRouter } from 'next/navigation';
+import { Box, Typography, Fade } from '@mui/material';
+import { FlashOn } from '@mui/icons-material';
 import HeroBannerButtons from './HeroBannerButtons';
 import HeroBannerFeatures from './HeroBannerFeatures';
 
@@ -78,7 +77,7 @@ const HeroBannerContent = ({ mounted }: HeroBannerContentProps) => {
               Premium Store
             </Box>
           </Typography>
-          
+
           <Typography
             variant="h5"
             component="h2"
@@ -92,7 +91,7 @@ const HeroBannerContent = ({ mounted }: HeroBannerContentProps) => {
               textShadow: '0 2px 10px rgba(0,0,0,0.2)',
             }}
           >
-            Discover amazing products at unbeatable prices! 
+            Discover amazing products at unbeatable prices!
             <Box component="span" sx={{ display: 'block', mt: 1, fontWeight: 400 }}>
               Shop with confidence and enjoy premium quality with exceptional service.
             </Box>

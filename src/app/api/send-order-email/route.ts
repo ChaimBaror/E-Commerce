@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendOrderConfirmationEmail, generateOrderId } from '../../../lib/email';
+import { CartItem } from '../../../types';
 
 export async function POST(request: NextRequest) {
   try {
@@ -31,7 +32,7 @@ export async function POST(request: NextRequest) {
       email,
       address,
       phone,
-      items: cart.map((item: any) => ({
+      items: cart.map((item: CartItem) => ({
         product: {
           id: item.id,
           name: item.name,
@@ -39,6 +40,8 @@ export async function POST(request: NextRequest) {
           image: item.image,
           category: item.category || 'General',
           description: item.description || '',
+          rating: item.rating || 0,
+          reviews: item.reviews || 0,
         },
         quantity: item.quantity || 1, // Use quantity from cart item
       })),
@@ -69,12 +72,13 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error in send-order-email API:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
       { 
         error: 'Internal server error',
-        details: error?.message || 'Unknown error'
+        details: errorMessage
       },
       { status: 500 }
     );

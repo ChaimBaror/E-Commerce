@@ -7,9 +7,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
+        protocol: 'https' as const,
         hostname: 'burst.shopifycdn.com',
-        port: '',
         pathname: '/**',
       },
     ],

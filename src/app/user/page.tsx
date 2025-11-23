@@ -11,8 +11,6 @@ import {
   Avatar,
   Button,
   Stack,
-  Divider,
-  Grid,
   Card,
   CardContent,
   IconButton,
@@ -48,7 +46,7 @@ const UserProfilePage = () => {
   if (status === 'loading') {
     return (
       <Box sx={{ flexGrow: 1, minHeight: '100vh' }}>
-        <Navbar onCartOpen={() => {}} cartItemCount={0} />
+        <Navbar onCartOpen={() => { }} cartItemCount={0} />
         <UserProfileSkeleton />
         <Footer />
       </Box>
@@ -70,8 +68,8 @@ const UserProfilePage = () => {
 
   return (
     <Box sx={{ flexGrow: 1, minHeight: '100vh', bgcolor: '#fafafa' }}>
-      <Navbar onCartOpen={() => {}} cartItemCount={0} />
-      
+      <Navbar onCartOpen={() => { }} cartItemCount={0} />
+
       <Container maxWidth="lg" sx={{ py: 4 }}>
         {/* Profile Header */}
         <Paper elevation={2} sx={{ p: 4, mb: 4, borderRadius: 3 }}>
@@ -114,7 +112,7 @@ const UserProfilePage = () => {
               >
                 <EditIcon />
               </IconButton>
-                <Button
+              <Button
                 variant="outlined"
                 startIcon={<LogoutIcon />}
                 onClick={handleSignOut}
@@ -135,153 +133,151 @@ const UserProfilePage = () => {
         </Paper>
 
         {/* Profile Sections */}
-        <Grid container spacing={3}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
+            gap: 3,
+          }}
+        >
           {/* Account Information */}
-          <Grid item xs={12} md={6}>
-            <Card elevation={2} sx={{ height: '100%', borderRadius: 3 }}>
-              <CardContent sx={{ p: 3 }}>
-                <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
-                  <PersonIcon color="primary" sx={{ fontSize: 32 }} />
-                  <Typography variant="h5" fontWeight="bold">
-                    {t('accountInformation')}
+          <Card elevation={2} sx={{ height: '100%', borderRadius: 3 }}>
+            <CardContent sx={{ p: 3 }}>
+              <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
+                <PersonIcon color="primary" sx={{ fontSize: 32 }} />
+                <Typography variant="h5" fontWeight="bold">
+                  {t('accountInformation')}
+                </Typography>
+              </Stack>
+              <Stack spacing={2}>
+                <Box>
+                  <Typography variant="body2" color="text.secondary">
+                    {t('fullName')}
                   </Typography>
-                </Stack>
-                <Stack spacing={2}>
-                  <Box>
-                    <Typography variant="body2" color="text.secondary">
-                      {t('fullName')}
-                    </Typography>
-                    <Typography variant="body1" fontWeight="medium">
-                      {session.user?.name}
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant="body2" color="text.secondary">
-                      {t('emailAddress')}
-                    </Typography>
-                    <Typography variant="body1" fontWeight="medium">
-                      {session.user?.email}
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant="body2" color="text.secondary">
-                      {t('memberSince')}
-                    </Typography>
-                    <Typography variant="body1" fontWeight="medium">
-                      {new Date().toLocaleDateString()}
-                    </Typography>
-                  </Box>
-                </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
+                  <Typography variant="body1" fontWeight="medium">
+                    {session.user?.name}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography variant="body2" color="text.secondary">
+                    {t('emailAddress')}
+                  </Typography>
+                  <Typography variant="body1" fontWeight="medium">
+                    {session.user?.email}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography variant="body2" color="text.secondary">
+                    {t('memberSince')}
+                  </Typography>
+                  <Typography variant="body1" fontWeight="medium">
+                    {new Date().toLocaleDateString()}
+                  </Typography>
+                </Box>
+              </Stack>
+            </CardContent>
+          </Card>
 
           {/* Order History */}
-          <Grid item xs={12} md={6}>
-            <Card elevation={2} sx={{ height: '100%', borderRadius: 3 }}>
-              <CardContent sx={{ p: 3 }}>
-                <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
-                  <ShoppingCartIcon color="primary" sx={{ fontSize: 32 }} />
-                  <Typography variant="h5" fontWeight="bold">
-                    {t('orderHistory')}
-                  </Typography>
-                </Stack>
-                <Box sx={{ textAlign: 'center', py: 4 }}>
-                  <ShoppingCartIcon sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
-                  <Typography variant="h6" color="text.secondary" gutterBottom>
-                    {t('noOrdersYet')}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                    {t('startShoppingMessage')}
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    onClick={() => router.push('/')}
-                    sx={{ borderRadius: 2 }}
-                  >
-                    {t('startShopping')}
-                  </Button>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
+          <Card elevation={2} sx={{ height: '100%', borderRadius: 3 }}>
+            <CardContent sx={{ p: 3 }}>
+              <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
+                <ShoppingCartIcon color="primary" sx={{ fontSize: 32 }} />
+                <Typography variant="h5" fontWeight="bold">
+                  {t('orderHistory')}
+                </Typography>
+              </Stack>
+              <Box sx={{ textAlign: 'center', py: 4 }}>
+                <ShoppingCartIcon sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
+                <Typography variant="h6" color="text.secondary" gutterBottom>
+                  {t('noOrdersYet')}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                  {t('startShoppingMessage')}
+                </Typography>
+                <Button
+                  variant="contained"
+                  onClick={() => router.push('/')}
+                  sx={{ borderRadius: 2 }}
+                >
+                  {t('startShopping')}
+                </Button>
+              </Box>
+            </CardContent>
+          </Card>
 
           {/* Wishlist */}
-          <Grid item xs={12} md={6}>
-            <Card elevation={2} sx={{ height: '100%', borderRadius: 3 }}>
-              <CardContent sx={{ p: 3 }}>
-                <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
-                  <FavoriteIcon color="primary" sx={{ fontSize: 32 }} />
-                  <Typography variant="h5" fontWeight="bold">
-                    {t('wishlist')}
-                  </Typography>
-                </Stack>
-                <Box sx={{ textAlign: 'center', py: 4 }}>
-                  <FavoriteIcon sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
-                  <Typography variant="h6" color="text.secondary" gutterBottom>
-                    {t('noItemsInWishlist')}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                    {t('saveFavoriteItems')}
-                  </Typography>
-                  <Button
-                    variant="outlined"
-                    onClick={() => router.push('/')}
-                    sx={{ borderRadius: 2 }}
-                  >
-                    {t('browseProducts')}
-                  </Button>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
+          <Card elevation={2} sx={{ height: '100%', borderRadius: 3 }}>
+            <CardContent sx={{ p: 3 }}>
+              <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
+                <FavoriteIcon color="primary" sx={{ fontSize: 32 }} />
+                <Typography variant="h5" fontWeight="bold">
+                  {t('wishlist')}
+                </Typography>
+              </Stack>
+              <Box sx={{ textAlign: 'center', py: 4 }}>
+                <FavoriteIcon sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
+                <Typography variant="h6" color="text.secondary" gutterBottom>
+                  {t('noItemsInWishlist')}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                  {t('saveFavoriteItems')}
+                </Typography>
+                <Button
+                  variant="outlined"
+                  onClick={() => router.push('/')}
+                  sx={{ borderRadius: 2 }}
+                >
+                  {t('browseProducts')}
+                </Button>
+              </Box>
+            </CardContent>
+          </Card>
 
           {/* Settings */}
-          <Grid item xs={12} md={6}>
-            <Card elevation={2} sx={{ height: '100%', borderRadius: 3 }}>
-              <CardContent sx={{ p: 3 }}>
-                <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
-                  <SettingsIcon color="primary" sx={{ fontSize: 32 }} />
-                  <Typography variant="h5" fontWeight="bold">
-                    {t('settings')}
-                  </Typography>
-                </Stack>
-                <Stack spacing={2}>
-                  <Button
-                    variant="outlined"
-                    fullWidth
-                    sx={{ justifyContent: 'flex-start', py: 1.5 }}
-                  >
-                    {t('notificationPreferences')}
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    fullWidth
-                    sx={{ justifyContent: 'flex-start', py: 1.5 }}
-                  >
-                    {t('privacySettings')}
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    fullWidth
-                    sx={{ justifyContent: 'flex-start', py: 1.5 }}
-                  >
-                    {t('securitySettings')}
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    fullWidth
-                    sx={{ justifyContent: 'flex-start', py: 1.5 }}
-                  >
-                    {t('helpSupport')}
-                  </Button>
-                </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
+          <Card elevation={2} sx={{ height: '100%', borderRadius: 3 }}>
+            <CardContent sx={{ p: 3 }}>
+              <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
+                <SettingsIcon color="primary" sx={{ fontSize: 32 }} />
+                <Typography variant="h5" fontWeight="bold">
+                  {t('settings')}
+                </Typography>
+              </Stack>
+              <Stack spacing={2}>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  sx={{ justifyContent: 'flex-start', py: 1.5 }}
+                >
+                  {t('notificationPreferences')}
+                </Button>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  sx={{ justifyContent: 'flex-start', py: 1.5 }}
+                >
+                  {t('privacySettings')}
+                </Button>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  sx={{ justifyContent: 'flex-start', py: 1.5 }}
+                >
+                  {t('securitySettings')}
+                </Button>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  sx={{ justifyContent: 'flex-start', py: 1.5 }}
+                >
+                  {t('helpSupport')}
+                </Button>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Box>
       </Container>
-      
+
       <Footer />
     </Box>
   );

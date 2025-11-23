@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField, TextFieldProps } from '@mui/material';
 
-interface FormFieldProps extends Omit<TextFieldProps, 'fullWidth'> {
+interface FormFieldProps extends Omit<TextFieldProps, 'fullWidth' | 'onChange'> {
   name: string;
   value: string;
   onChange: (value: string) => void;
