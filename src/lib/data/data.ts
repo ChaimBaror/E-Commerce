@@ -12,38 +12,38 @@ export const allProducts: ProductBasicInfo[] = [
     reviews: 42
   },
   {
-    id: "9932707234107",
-    name: "Ella Smoothing Seamless Short Suit",
+      id: "9932707234107",
+      name: "Amarillo Short Ribs",
     price: 300,
-    image: ["https://cdn.shopify.com/s/files/1/0930/6551/1226/files/BDS019-RESIZEDBLACK2_png.png?v=1755179735"],
-    category: "Bodysuits",
+    image: ["https://slimages.macysassets.com/is/image/MCY/products/7/optimized/31987607_fpx.tif"],
+    category: "Pajamas",
     rating: 4.5,
     reviews: 42
   },
   {
     id: "9932707234108",
-    name: "Ella Smoothing Seamless Short Suit",
+    name: "Linen Fitted Sheet Set",
     price: 250,
-    image: ["https://cdn.shopify.com/s/files/1/0930/6551/1226/files/BDS019-RESIZEDBLACK2_png.png?v=1755179735"],
-    category: "Bodysuits",
+    image: ["https://slimages.macysassets.com/is/image/MCY/products/8/optimized/33535418_fpx.tif"],
+    category: "Pajamas",
     rating: 4.5,
     reviews: 42
   },
   {
     id: "9932707234109",
-    name: "Ella Smoothing Seamless Short Suit",
+    name: "Lightweight Duvet Cover Set",
     price: 200,
-    image: ["https://cdn.shopify.com/s/files/1/0930/6551/1226/files/BDS019-RESIZEDBLACK2_png.png?v=1755179735"],
-    category: "Bodysuits",
+    image: ["https://slimages.macysassets.com/is/image/MCY/products/3/optimized/33523743_fpx.tif","https://slimages.macysassets.com/is/image/MCY/products/1/optimized/33523811_fpx.tif"],
+    category: "Pajamas",
     rating: 4.5,
     reviews: 42
   },
   {
     id: "9932707234110",
-    name: "Ella Smoothing Seamless Short Suit",
-    price: 150,
-    image: ["https://cdn.shopify.com/s/files/1/0930/6551/1226/files/BDS019-RESIZEDBLACK2_png.png?v=1755179735"],
-    category: "Bodysuits",
+    name: "Linen Duvet Cover Set",
+    price: 1000,
+    image: ["https://slimages.macysassets.com/is/image/MCY/products/3/optimized/33523743_fpx.tif","https://slimages.macysassets.com/is/image/MCY/products/1/optimized/33523811_fpx.tif"],
+    category: "Pajamas",
     rating: 4.5,
     reviews: 42
   },
@@ -53,6 +53,15 @@ export const allProducts: ProductBasicInfo[] = [
     price: 100,
     image: ["https://cdn.shopify.com/s/files/1/0930/6551/1226/files/BDS019-RESIZEDBLACK2_png.png?v=1755179735"],
     category: "Bodysuits",
+    rating: 4.5,
+    reviews: 42
+  },
+  {
+    id: "9932707234112",
+    name: "T Shirt Black",
+    price: 50,
+    image: ["https://cdn.shopify.com/s/files/1/0930/6551/1226/files/T-SHIRT-BLACK_png_6935102f-57a0-4267-9282-5c2b64347c67.png?v=1750290086"],
+    category: "T-Shirts",
     rating: 4.5,
     reviews: 42
   }
