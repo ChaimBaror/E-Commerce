@@ -233,7 +233,8 @@
             "actions": "Actions",
             "edit": "Edit",
             "delete": "Delete",
-            "fillAllFields": "Please fill all required fields"
+            "fillAllFields": "Please fill all required fields",
+            "productNotFound": "Product not found"
         },
         "orders": {
             "title": "Order Management",

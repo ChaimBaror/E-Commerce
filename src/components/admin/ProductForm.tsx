@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useActionState } from 'react';
+import React, { useState, useEffect, useActionState, startTransition } from 'react';
 import { Button, Stack, Typography, Paper, Box } from '@mui/material';
 import { ExtendedProductData, ProductVariant } from '../../types';
 import { buildProductData } from '../../lib/productBuilder';
@@ -144,7 +144,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ productId, onCancel }) => {
         const product = buildProductData(formData, variants, productId);
         const formDataObj = new FormData();
         formDataObj.append('productData', JSON.stringify(product));
-        formAction(formDataObj);
+        
+        startTransition(() => {
+            formAction(formDataObj);
+        });
     };
 
     return (

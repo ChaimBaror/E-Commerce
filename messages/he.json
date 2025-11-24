@@ -233,7 +233,8 @@
             "actions": "פעולות",
             "edit": "ערוך",
             "delete": "מחק",
-            "fillAllFields": "אנא מלא את כל השדות הנדרשים"
+            "fillAllFields": "אנא מלא את כל השדות הנדרשים",
+            "productNotFound": "מוצר לא נמצא"
         },
         "orders": {
             "title": "ניהול הזמנות",
