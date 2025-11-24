@@ -55,15 +55,6 @@ export const allProducts: ProductBasicInfo[] = [
     category: "Bodysuits",
     rating: 4.5,
     reviews: 42
-  },
-  {
-    id: "9932707234112",
-    name: "T Shirt Black",
-    price: 50,
-    image: ["https://cdn.shopify.com/s/files/1/0930/6551/1226/files/T-SHIRT-BLACK_png_6935102f-57a0-4267-9282-5c2b64347c67.png?v=1750290086"],
-    category: "T-Shirts",
-    rating: 4.5,
-    reviews: 42
   }
 ];
 

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node -e \"const fs = require('fs'); const path = require('path'); const dir = '.next'; if (fs.existsSync(dir)) { try { fs.rmSync(dir, { recursive: true, force: true }); } catch(e) { console.log('Note: Could not remove .next directory:', e.message); } }\"",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

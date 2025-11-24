@@ -91,7 +91,9 @@ const CheckoutDialog = ({ onClose }: CheckoutDialogProps) => {
         setShowSuccess(true);
       } else {
         console.error('Failed to send email:', emailResult.error);
-        toast.warning('ההזמנה נשמרה, אבל לא הצלחנו לשלוח מייל אישור. אנא צור קשר עם התמיכה');
+        toast('ההזמנה נשמרה, אבל לא הצלחנו לשלוח מייל אישור. אנא צור קשר עם התמיכה', {
+          icon: '⚠️',
+        });
         setOrderComplete(true);
         clearCart();
       }
