@@ -80,7 +80,9 @@
             "rating": "דירוג:",
             "stars": "כוכבים",
             "relatedProducts": "מוצרים דומים",
-            "addedToCartSuccess": "נוסף לעגלה בהצלחה! (כמות: {quantity})"
+            "addedToCartSuccess": "נוסף לעגלה בהצלחה! (כמות: {quantity})",
+            "selectColor": "בחר צבע",
+            "selectSize": "בחר גודל"
         },
         "productList": {
             "loadingProducts": "טוען מוצרים...",

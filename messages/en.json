@@ -80,7 +80,9 @@
             "rating": "Rating:",
             "stars": "stars",
             "relatedProducts": "You Might Also Like",
-            "addedToCartSuccess": "added to cart successfully! (Quantity: {quantity})"
+            "addedToCartSuccess": "added to cart successfully! (Quantity: {quantity})",
+            "selectColor": "Select Color",
+            "selectSize": "Select Size"
         },
         "productList": {
             "loadingProducts": "Loading our amazing products...",
