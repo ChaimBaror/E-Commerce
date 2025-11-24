@@ -8,7 +8,7 @@ import ImageUploadTab from './ImageUploadTab';
 import ImageUrlTab from './ImageUrlTab';
 
 interface ImageAnalysisButtonProps {
-    onAnalyze: (imageUrl: string) => Promise<void>;
+    onAnalyze: (data: File | string) => Promise<void>;
     disabled?: boolean;
 }
 
@@ -32,12 +32,7 @@ const ImageAnalysisButton: React.FC<ImageAnalysisButtonProps> = ({
         setError('');
 
         try {
-            const formData = new FormData();
-            formData.append('image', file);
-            const response = await fetch('/api/upload-image', { method: 'POST', body: formData });
-            if (!response.ok) throw new Error(t('uploadFailed'));
-            const data = await response.json();
-            await onAnalyze(data.url);
+            await onAnalyze(file);
         } catch (err) {
             setError(err instanceof Error ? err.message : t('imageAnalysisError'));
         } finally {

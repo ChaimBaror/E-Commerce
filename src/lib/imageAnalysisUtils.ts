@@ -8,6 +8,7 @@ export interface AnalysisResult {
   price?: string;
   colors?: string[];
   suggestedVariants?: Partial<ProductVariant>[];
+  featured_image_url?: string;
 }
 
 export function analyzeImageFromUrl(imageUrl: string): AnalysisResult {

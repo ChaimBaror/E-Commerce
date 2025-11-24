@@ -47,9 +47,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ productId, onSubmit, onCancel
         setError('');
     };
 
-    const handleImageAnalysis = async (imageUrl: string) => {
+    const handleImageAnalysis = async (data: File | string) => {
         try {
-            const analysis = await analyzeProductImage(imageUrl);
+            const analysis = await analyzeProductImage(data);
 
             if (analysis.title) {
                 setFormData(prev => ({ ...prev, title: analysis.title! }));
@@ -66,11 +66,15 @@ const ProductForm: React.FC<ProductFormProps> = ({ productId, onSubmit, onCancel
             if (analysis.price) {
                 setFormData(prev => ({ ...prev, price_amount: analysis.price! }));
             }
+
+            // Update featured_image from analysis result or input data
+            const imageUrl = analysis.featured_image_url || (typeof data === 'string' ? data : '');
             if (imageUrl) {
                 setFormData(prev => ({ ...prev, featured_image: imageUrl }));
             }
+
             if (analysis.suggestedVariants && analysis.suggestedVariants.length > 0) {
-                const newVariants: ProductVariant[] = analysis.suggestedVariants.map((v, idx) => ({
+                const newVariants: ProductVariant[] = analysis.suggestedVariants.map((v: Partial<ProductVariant>, idx: number) => ({
                     id: `variant-${Date.now()}-${idx}`,
                     color: v.color || 'Black',
                     size: v.size || 'M',
