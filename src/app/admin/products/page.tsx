@@ -12,7 +12,6 @@ import {
     TableHead,
     TableRow,
     Chip,
-    Alert,
     Button,
     Link,
 } from '@mui/material';
@@ -56,10 +55,11 @@ export default async function ProductsPage() {
             </Stack>
 
             {dbError === 'tables_not_created' && (
-                <Alert
-                    severity="warning"
-                    sx={{ mb: 3 }}
-                    action={
+                <Box sx={{ mb: 3, p: 2, bgcolor: 'warning.light', borderRadius: 1 }}>
+                    <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+                        <Typography variant="body1" fontWeight="bold">
+                            Database tables not created yet!
+                        </Typography>
                         <Button
                             component={Link}
                             href="/api/db/init"
@@ -70,24 +70,20 @@ export default async function ProductsPage() {
                         >
                             Create Tables
                         </Button>
-                    }
-                >
-                    <Typography variant="body1" fontWeight="bold" sx={{ mb: 1 }}>
-                        Database tables not created yet!
-                    </Typography>
+                    </Stack>
                     <Typography variant="body2">
                         Click the button above to create the database tables, or run:
                     </Typography>
                     <Box component="code" sx={{ display: 'block', mt: 1, p: 1, bgcolor: 'grey.100', borderRadius: 1 }}>
                         curl http://localhost:3000/api/db/init
                     </Box>
-                </Alert>
+                </Box>
             )}
 
             {dbError && dbError !== 'tables_not_created' && (
-                <Alert severity="error" sx={{ mb: 3 }}>
+                <Typography color="error" sx={{ mb: 3 }}>
                     Database error: {dbError}
-                </Alert>
+                </Typography>
             )}
 
             <TableContainer

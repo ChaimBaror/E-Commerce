@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import toast from 'react-hot-toast';
 import {
     Box,
     Container,
@@ -16,9 +16,7 @@ import {
     Breadcrumbs,
     Link,
     Paper,
-    Divider,
-    Alert,
-    Snackbar
+    Divider
 } from '@mui/material';
 import {
     Add as AddIcon,
@@ -48,7 +46,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
     const [quantity, setQuantity] = useState(1);
     const [selectedImage, setSelectedImage] = useState(0);
     const [isFavorite, setIsFavorite] = useState(false);
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [selectedSize, setSelectedSize] = useState<string | null>(null);
     const [selectedColor, setSelectedColor] = useState<string | null>(null);
 
@@ -60,7 +57,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
         for (let i = 0; i < quantity; i++) {
             addToCart(product);
         }
-        setShowSuccessMessage(true);
+        toast.success(`${product.name} ${t('addedToCartSuccess', { quantity })}`);
     };
 
     const handleBack = () => {
@@ -77,7 +74,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                 });
             } else {
                 await navigator.clipboard.writeText(window.location.href);
-                alert('הקישור הועתק ללוח');
+                toast.success('הקישור הועתק ללוח');
             }
         } catch (error) {
             console.error('Error sharing:', error);
@@ -504,21 +501,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
             </Container>
 
             <Footer />
-
-            <Snackbar
-                open={showSuccessMessage}
-                autoHideDuration={3000}
-                onClose={() => setShowSuccessMessage(false)}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            >
-                <Alert
-                    onClose={() => setShowSuccessMessage(false)}
-                    severity="success"
-                    sx={{ width: '100%' }}
-                >
-                    {product.name} {t('addedToCartSuccess', { quantity })}
-                </Alert>
-            </Snackbar>
         </Box>
     );
 }

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Container, Alert } from '@mui/material';
-import { useTranslations } from 'next-intl';
+import { Container } from '@mui/material';
 import ProductFormWrapper from '../../../../../components/admin/ProductFormWrapper';
 
 interface EditProductPageProps {
@@ -10,7 +9,6 @@ interface EditProductPageProps {
 }
 
 export default async function EditProductPage({ params }: EditProductPageProps) {
-    const t = useTranslations('admin.products');
     const resolvedParams = await params;
     const productId = resolvedParams.id ? decodeURIComponent(resolvedParams.id) : '';
 

@@ -28,7 +28,7 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }: CartItemProps) => {
       }}
     >
       <Avatar
-        src={item.image}
+        src={item.image[0] || ''}
         alt={item.name}
         variant="rounded"
         sx={{ width: 80, height: 80 }}

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useActionState } from 'react';
-import { Button, Stack, Typography, Paper, Alert, Box } from '@mui/material';
+import { Button, Stack, Typography, Paper, Box } from '@mui/material';
 import { ExtendedProductData, ProductVariant } from '../../types';
 import { buildProductData } from '../../lib/productBuilder';
 import { analyzeProductImage } from '../../lib/imageAnalysis';
@@ -12,6 +12,7 @@ import ProductMetadataFields from './ProductMetadataFields';
 import ImageAnalysisButton from './ImageAnalysisButton';
 import { useTranslations } from 'next-intl';
 import { createProduct, updateProduct, type ActionResult } from '../../app/admin/products/actions';
+import toast from 'react-hot-toast';
 
 interface ProductFormProps {
     productId?: string;
@@ -34,7 +35,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ productId, onCancel }) => {
         collections: [] as string[],
     });
     const [variants, setVariants] = useState<ProductVariant[]>([]);
-    const [validationError, setValidationError] = useState<string>('');
 
     const createProductAction = productId
         ? (prevState: ActionResult | null, formData: FormData) => updateProduct(productId, prevState, formData)
@@ -44,6 +44,14 @@ const ProductForm: React.FC<ProductFormProps> = ({ productId, onCancel }) => {
         createProductAction,
         null
     );
+
+    useEffect(() => {
+        if (actionState?.error) {
+            toast.error(actionState.error);
+        } else if (actionState?.success) {
+            toast.success(productId ? t('productUpdated') : t('productCreated'));
+        }
+    }, [actionState, productId, t]);
 
     useEffect(() => {
         if (productId) {
@@ -127,10 +135,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ productId, onCancel }) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setValidationError('');
 
         if (!formData.title || !formData.vendor || !formData.price_amount || !formData.description) {
-            setValidationError(t('fillAllFields'));
+            toast.error(t('fillAllFields'));
             return;
         }
 
@@ -154,12 +161,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ productId, onCancel }) => {
                     {productId ? t('editProduct') : t('newProduct')}
                 </Typography>
             </Box>
-
-            {(validationError || (actionState && actionState.error)) && (
-                <Alert severity="error" sx={{ mb: 3 }}>
-                    {validationError || actionState?.error}
-                </Alert>
-            )}
 
             <form onSubmit={handleSubmit}>
                 <Stack spacing={3}>

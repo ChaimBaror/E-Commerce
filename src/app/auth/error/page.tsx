@@ -1,8 +1,9 @@
 "use client";
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 import {
   Box,
   Container,
@@ -10,7 +11,6 @@ import {
   Typography,
   Button,
   Stack,
-  Alert,
   CircularProgress,
 } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
@@ -32,6 +32,12 @@ const AuthErrorContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const error = searchParams.get('error');
+
+  useEffect(() => {
+    if (error) {
+      toast.error(getErrorMessage(error));
+    }
+  }, [error]);
 
   return (
     <Box
@@ -60,10 +66,6 @@ const AuthErrorContent = () => {
             <Typography variant="h4" component="h1" fontWeight="bold" color="error">
               שגיאת התחברות
             </Typography>
-
-            <Alert severity="error" sx={{ textAlign: 'right' }}>
-              {getErrorMessage(error)}
-            </Alert>
 
             <Stack direction="row" spacing={2} justifyContent="center">
               <Button

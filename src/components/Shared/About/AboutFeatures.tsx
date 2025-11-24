@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Grid } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import {
     Favorite,
     LocalFlorist,
@@ -44,9 +44,19 @@ const AboutFeatures = ({ mounted }: AboutFeaturesProps) => {
         <Box sx={{ py: { xs: 6, md: 8 }, bgcolor: 'background.default' }}>
             <Container maxWidth="lg">
                 <AboutFeaturesHeader mounted={mounted} />
-                <Grid container spacing={4}>
+                <Box
+                    sx={{
+                        display: 'grid',
+                        gridTemplateColumns: {
+                            xs: '1fr',
+                            sm: 'repeat(2, 1fr)',
+                            md: 'repeat(4, 1fr)'
+                        },
+                        gap: 4
+                    }}
+                >
                     {features.map((feature, index) => (
-                        <Grid item xs={12} sm={6} md={3} key={index}>
+                        <Box key={index}>
                             <AboutFeatureCard
                                 icon={feature.icon}
                                 title={feature.title}
@@ -54,9 +64,9 @@ const AboutFeatures = ({ mounted }: AboutFeaturesProps) => {
                                 mounted={mounted}
                                 delay={600 + index * 100}
                             />
-                        </Grid>
+                        </Box>
                     ))}
-                </Grid>
+                </Box>
             </Container>
         </Box>
     );

@@ -29,17 +29,27 @@ export function buildProductData(
     bySize[v.size] = (bySize[v.size] || 0) + v.quantity;
   });
 
+  // Collect unique images from variants and featured image
+  const images = new Set<string>();
+  if (formData.featured_image) {
+    images.add(formData.featured_image);
+  }
+  variants.forEach(v => {
+    if (v.image) {
+      images.add(v.image);
+    }
+  });
+  const imageArray = Array.from(images);
+
   return {
     basic_info: {
       id: productId || `gid://shopify/Product/${Date.now()}`,
-      title: formData.title,
-      vendor: formData.vendor,
-      product_type: formData.product_type,
-      handle: formData.handle || formData.title.toLowerCase().replace(/\s+/g, '-'),
-      created_at: new Date().toISOString(),
-      published_at: new Date().toISOString(),
-      available_for_sale: true,
-      total_inventory: totalInventory,
+      name: formData.title,
+      price: parseFloat(formData.price_amount) || 0,
+      image: imageArray.length > 0 ? imageArray : (formData.featured_image ? [formData.featured_image] : []),
+      category: formData.product_type || 'Uncategorized',
+      rating: 0,
+      reviews: 0,
     },
     description: formData.description,
     pricing: {

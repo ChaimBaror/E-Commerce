@@ -14,7 +14,7 @@ import {
     TableHead,
     TableRow,
 } from '@mui/material';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import BackButton from '../../../../components/admin/BackButton';
 
 // Mock data - TODO: Replace with API call
@@ -41,9 +41,8 @@ interface OrderDetailPageProps {
 }
 
 export default async function OrderDetailPage({ params }: OrderDetailPageProps) {
-    const t = useTranslations('admin.orders');
+    const t = await getTranslations('admin.orders');
     const resolvedParams = await params;
-    const orderId = resolvedParams.id;
 
     // TODO: Fetch order by ID from API
     const order = mockOrder;

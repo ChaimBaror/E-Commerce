@@ -3,10 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Box, AppBar, Toolbar, IconButton, Typography, useTheme, useMediaQuery, Alert, CircularProgress } from '@mui/material';
+import { Box, AppBar, Toolbar, IconButton, Typography, useTheme, useMediaQuery, CircularProgress } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from '../../components/admin/Sidebar';
 import { useTranslations, useLocale } from 'next-intl';
+import toast from 'react-hot-toast';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const { data: session, status } = useSession();
@@ -52,10 +53,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
                     if (!data.isAdmin) {
                         console.log('Admin check failed:', data);
+                        toast.error(t('noAccess'));
                     }
                 } catch (error) {
                     console.error('Error checking admin status:', error);
                     setIsAdmin(false);
+                    toast.error(t('noAccess'));
                 } finally {
                     setLoading(false);
                 }
@@ -63,7 +66,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         };
 
         checkAdminStatus();
-    }, [status, session, router]);
+    }, [status, session, router, t]);
 
     if (status === 'loading' || loading) {
         return (
@@ -82,7 +85,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     if (isAdmin === false) {
         return (
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', p: 3 }}>
-                <Alert severity="error" sx={{ maxWidth: 600 }}>
+                <Box sx={{ maxWidth: 600 }}>
                     <Typography variant="h6" gutterBottom>
                         {t('noAccess')}
                     </Typography>
@@ -95,7 +98,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     <Typography variant="body2" component="pre" sx={{ mt: 1, p: 2, bgcolor: 'grey.100', borderRadius: 1, fontSize: '0.875rem' }}>
                         ADMIN_EMAILS={session.user?.email}
                     </Typography>
-                </Alert>
+                </Box>
             </Box>
         );
     }

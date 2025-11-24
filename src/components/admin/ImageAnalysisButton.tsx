@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Box, Tabs, Tab, Alert } from '@mui/material';
+import { Box, Tabs, Tab } from '@mui/material';
 import { CloudUpload, Link as LinkIcon } from '@mui/icons-material';
 import { useTranslations } from 'next-intl';
+import toast from 'react-hot-toast';
 import ImageUploadTab from './ImageUploadTab';
 import ImageUrlTab from './ImageUrlTab';
 
@@ -18,23 +19,22 @@ const ImageAnalysisButton: React.FC<ImageAnalysisButtonProps> = ({
 }) => {
     const t = useTranslations('admin.products');
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
     const [tabValue, setTabValue] = useState(0);
     const [imageUrl, setImageUrl] = useState('');
 
     const handleFileUpload = async (file: File) => {
         if (!file.type.startsWith('image/')) {
-            setError(t('invalidImageFile'));
+            toast.error(t('invalidImageFile'));
             return;
         }
 
         setLoading(true);
-        setError('');
 
         try {
             await onAnalyze(file);
+            toast.success(t('imageAnalyzed'));
         } catch (err) {
-            setError(err instanceof Error ? err.message : t('imageAnalysisError'));
+            toast.error(err instanceof Error ? err.message : t('imageAnalysisError'));
         } finally {
             setLoading(false);
         }
@@ -42,22 +42,22 @@ const ImageAnalysisButton: React.FC<ImageAnalysisButtonProps> = ({
 
     const handleUrlAnalyze = async () => {
         if (!imageUrl.trim()) {
-            setError(t('enterImageUrl'));
+            toast.error(t('enterImageUrl'));
             return;
         }
         try {
             new URL(imageUrl);
         } catch {
-            setError(t('invalidImageUrl'));
+            toast.error(t('invalidImageUrl'));
             return;
         }
         setLoading(true);
-        setError('');
         try {
             await onAnalyze(imageUrl.trim());
             setImageUrl('');
+            toast.success(t('imageAnalyzed'));
         } catch (err) {
-            setError(err instanceof Error ? err.message : t('imageAnalysisError'));
+            toast.error(err instanceof Error ? err.message : t('imageAnalysisError'));
         } finally {
             setLoading(false);
         }
@@ -86,12 +86,6 @@ const ImageAnalysisButton: React.FC<ImageAnalysisButtonProps> = ({
                     loading={loading}
                     disabled={disabled}
                 />
-            )}
-
-            {error && (
-                <Alert severity="error" sx={{ mt: 2 }} onClose={() => setError('')}>
-                    {error}
-                </Alert>
             )}
         </Box>
     );
