@@ -1,5 +1,3 @@
-"use client";
-
 import React from 'react';
 import {
     Container,
@@ -15,11 +13,9 @@ import {
     TableContainer,
     TableHead,
     TableRow,
-    Button,
 } from '@mui/material';
-import { useParams, useRouter } from 'next/navigation';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useTranslations } from 'next-intl';
+import BackButton from '../../../../components/admin/BackButton';
 
 // Mock data - TODO: Replace with API call
 const mockOrder = {
@@ -38,11 +34,16 @@ const mockOrder = {
     ],
 };
 
-export default function OrderDetailPage() {
-    const params = useParams();
-    const router = useRouter();
+interface OrderDetailPageProps {
+    params: Promise<{
+        id: string;
+    }>;
+}
+
+export default async function OrderDetailPage({ params }: OrderDetailPageProps) {
     const t = useTranslations('admin.orders');
-    const orderId = params.id as string;
+    const resolvedParams = await params;
+    const orderId = resolvedParams.id;
 
     // TODO: Fetch order by ID from API
     const order = mockOrder;
@@ -65,12 +66,7 @@ export default function OrderDetailPage() {
     return (
         <Container maxWidth="lg">
             <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 4 }}>
-                <Button
-                    startIcon={<ArrowBackIcon />}
-                    onClick={() => router.push('/admin/orders')}
-                >
-                    {t('back')}
-                </Button>
+                <BackButton href="/admin/orders" label={t('back')} />
                 <Typography variant="h4" fontWeight="bold">
                     {t('orderDetails')}
                 </Typography>

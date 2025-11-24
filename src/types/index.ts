@@ -1,5 +1,6 @@
 // This file exports TypeScript types and interfaces used throughout the application to ensure type safety.
 
+// Detailed product info for product detail page
 export interface Product {
   id: string;
   name: string;
@@ -10,6 +11,22 @@ export interface Product {
   rating: number | string;
   reviews: number | string;
   description: string;
+  // Additional detailed fields
+  specifications?: Record<string, string>;
+  features?: string[];
+  materials?: string[];
+  careInstructions?: string;
+  shippingInfo?: string;
+  returnPolicy?: string;
+  inStock?: boolean;
+  stockQuantity?: number;
+  sku?: string;
+  brand?: string;
+  tags?: string[];
+  // Variants for size and color selection
+  variants?: ProductVariant[];
+  availableSizes?: string[];
+  availableColors?: string[];
 }
 
 export interface CartItem extends Product {
@@ -41,16 +58,15 @@ export interface ProductVariant {
   image: string;
 }
 
+// Simple product info for listings (products page)
 export interface ProductBasicInfo {
   id: string;
-  title: string;
-  vendor: string;
-  product_type: string;
-  handle: string;
-  created_at: string;
-  published_at: string;
-  available_for_sale: boolean;
-  total_inventory: number;
+  name: string;
+  price: number;
+  image: string[];
+  category: string;
+  rating?: number;
+  reviews?: number;
 }
 
 export interface ProductPricing {

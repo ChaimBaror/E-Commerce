@@ -15,7 +15,7 @@ import {
     AttachMoney as AttachMoneyIcon,
     People as PeopleIcon,
 } from '@mui/icons-material';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 const StatCard = ({ title, value, icon, color }: { title: string; value: string | number; icon: React.ReactNode; color: string }) => (
     <Card elevation={2} sx={{ height: '100%', borderRadius: 3 }}>
@@ -44,8 +44,8 @@ const StatCard = ({ title, value, icon, color }: { title: string; value: string 
     </Card>
 );
 
-export default function AdminDashboard() {
-    const t = useTranslations('admin');
+export default async function AdminDashboard() {
+    const t = await getTranslations('admin');
 
     // TODO: Fetch real data from API
     const stats = {
@@ -58,7 +58,7 @@ export default function AdminDashboard() {
     return (
         <Container maxWidth="xl" sx={{ px: { xs: 1, sm: 2 } }}>
             <Typography variant="h4" fontWeight="bold" gutterBottom sx={{ mb: { xs: 2, sm: 4 }, fontSize: { xs: '1.5rem', sm: '2rem' } }}>
-                {t('dashboard')}
+                {t('menu.dashboard')}
             </Typography>
 
             <Box

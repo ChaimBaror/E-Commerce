@@ -1,11 +1,8 @@
-"use client";
-
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Box,
     Container,
     Typography,
-    Button,
     Stack,
     Paper,
     Table,
@@ -14,32 +11,16 @@ import {
     TableContainer,
     TableHead,
     TableRow,
-    IconButton,
     Chip,
 } from '@mui/material';
-import {
-    Add as AddIcon,
-    Edit as EditIcon,
-    Delete as DeleteIcon,
-} from '@mui/icons-material';
-import { useRouter } from 'next/navigation';
-import { allProducts } from '../../../data/data';
-import { Product } from '../../../types';
-import { useTranslations } from 'next-intl';
+import { allProducts } from '../../../lib/data/data';
+import { getTranslations } from 'next-intl/server';
+import NewProductButton from '../../../components/admin/NewProductButton';
+import ProductTableRowActions from '../../../components/admin/ProductTableRowActions';
 
-export default function ProductsPage() {
-    const router = useRouter();
-    const t = useTranslations('admin.products');
-    const [products] = useState<Product[]>(allProducts);
-
-    const handleEdit = (id: string) => {
-        router.push(`/admin/products/${id}/edit`);
-    };
-
-    const handleDelete = (id: string) => {
-        // TODO: Implement delete functionality
-        console.log('Delete product:', id);
-    };
+export default async function ProductsPage() {
+    const t = await getTranslations('admin.products');
+    const products = allProducts;
 
     return (
         <Container maxWidth="xl" sx={{ px: { xs: 1, sm: 2 } }}>
@@ -53,14 +34,7 @@ export default function ProductsPage() {
                 <Typography variant="h4" fontWeight="bold" sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>
                     {t('title')}
                 </Typography>
-                <Button
-                    variant="contained"
-                    startIcon={<AddIcon />}
-                    onClick={() => router.push('/admin/products/new')}
-                    sx={{ width: { xs: '100%', sm: 'auto' } }}
-                >
-                    {t('newProduct')}
-                </Button>
+                <NewProductButton label={t('newProduct')} />
             </Stack>
 
             <TableContainer
@@ -139,24 +113,11 @@ export default function ProductsPage() {
                                     {product.reviews}
                                 </TableCell>
                                 <TableCell>
-                                    <Stack direction="row" spacing={0.5}>
-                                        <IconButton
-                                            size="small"
-                                            onClick={() => handleEdit(product.id)}
-                                            color="primary"
-                                            title={t('edit')}
-                                        >
-                                            <EditIcon fontSize="small" />
-                                        </IconButton>
-                                        <IconButton
-                                            size="small"
-                                            onClick={() => handleDelete(product.id)}
-                                            color="error"
-                                            title={t('delete')}
-                                        >
-                                            <DeleteIcon fontSize="small" />
-                                        </IconButton>
-                                    </Stack>
+                                    <ProductTableRowActions
+                                        productId={product.id}
+                                        editLabel={t('edit')}
+                                        deleteLabel={t('delete')}
+                                    />
                                 </TableCell>
                             </TableRow>
                         ))}

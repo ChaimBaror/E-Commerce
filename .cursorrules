@@ -48,6 +48,30 @@
 - **Table Components**: Generic table/list components that accept any data type
 - **Error Handlers**: Generic error handling utilities
 
+## Server Components & Data Loading
+- **Always load data in Server Components** - Use `searchParams` and `params` props in Server Components to load and filter data on the server
+- **Pass initial state from Server to Client** - Server Components should pass initial values (from URL params, searchParams) to Client Components as props
+- **Update URL on state changes** - When Client Components change state that affects what should be displayed, update the URL using `router.push()` with query parameters
+- **Server-side filtering** - Filter data in Server Components based on `searchParams` before passing to Client Components
+- **Example pattern**:
+  ```typescript
+  // Server Component (page.tsx)
+  export default async function Page({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+    const params = await searchParams;
+    const filteredData = data.filter(item => !params.category || item.category === params.category);
+    return <ClientComponent data={filteredData} initialCategory={params.category} />;
+  }
+  
+  // Client Component
+  "use client";
+  export default function ClientComponent({ data, initialCategory }) {
+    const router = useRouter();
+    const handleCategoryChange = (category: string) => {
+      router.push(`/?category=${category}`);
+    };
+  }
+  ```
+
 ## Examples
 - Instead of a 200-line component, create:
   - Main component (50 lines)

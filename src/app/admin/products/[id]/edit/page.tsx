@@ -1,35 +1,19 @@
-"use client";
-
-import React, { useState } from 'react';
-import { Container, Alert, Snackbar } from '@mui/material';
-import { useRouter, useParams } from 'next/navigation';
-import ProductForm from '../../../../../components/admin/ProductForm';
-import { ExtendedProduct } from '../../../../../types';
+import React from 'react';
+import { Container, Alert } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import ProductFormWrapper from '../../../../../components/admin/ProductFormWrapper';
+import { updateProduct } from '../../actions';
 
-export default function EditProductPage() {
-    const router = useRouter();
-    const params = useParams();
-    const productId = params.id ? decodeURIComponent(params.id as string) : '';
+interface EditProductPageProps {
+    params: Promise<{
+        id: string;
+    }>;
+}
+
+export default async function EditProductPage({ params }: EditProductPageProps) {
     const t = useTranslations('admin.products');
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState('');
-
-    const handleSubmit = async (product: ExtendedProduct['product']) => {
-        try {
-            console.log('Product:', product);
-            setSuccess(true);
-            setTimeout(() => {
-                router.push('/admin/products');
-            }, 1000);
-        } catch (err) {
-            setError(err instanceof Error ? err.message : t('saveError'));
-        }
-    };
-
-    const handleCancel = () => {
-        router.push('/admin/products');
-    };
+    const resolvedParams = await params;
+    const productId = resolvedParams.id ? decodeURIComponent(resolvedParams.id) : '';
 
     if (!productId) {
         return (
@@ -39,29 +23,13 @@ export default function EditProductPage() {
         );
     }
 
+    const handleSubmit = async (product: Parameters<typeof updateProduct>[1]) => {
+        await updateProduct(productId, product);
+    };
+
     return (
         <Container maxWidth="lg">
-            <ProductForm productId={productId} onSubmit={handleSubmit} onCancel={handleCancel} />
-            <Snackbar
-                open={success}
-                autoHideDuration={2000}
-                onClose={() => setSuccess(false)}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            >
-                <Alert severity="success" onClose={() => setSuccess(false)}>
-                    {t('productUpdated')}
-                </Alert>
-            </Snackbar>
-            <Snackbar
-                open={!!error}
-                autoHideDuration={4000}
-                onClose={() => setError('')}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            >
-                <Alert severity="error" onClose={() => setError('')}>
-                    {error}
-                </Alert>
-            </Snackbar>
+            <ProductFormWrapper productId={productId} onSubmit={handleSubmit} />
         </Container>
     );
 }

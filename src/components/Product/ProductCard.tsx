@@ -15,20 +15,20 @@ import {
   Favorite as FavoriteIcon,
   FavoriteBorder as FavoriteBorderIcon
 } from '@mui/icons-material';
-import { Product } from '../../types';
+import { ProductBasicInfo } from '../../types';
 import { useCartStore } from '../../stores/cartStore';
 import { useTranslations } from 'next-intl';
 
 interface ProductCardProps {
-  product: Product;
-  onAddToCart: (product: Product) => void;
+  product: ProductBasicInfo;
+  onAddToCart: (product: ProductBasicInfo) => void;
   onProductClick?: (productId: string) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ 
-  product, 
-  onAddToCart, 
-  onProductClick 
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  onAddToCart,
+  onProductClick
 }) => {
   const [isFavorite, setIsFavorite] = React.useState(false);
   const { isInCart } = useCartStore();
@@ -39,7 +39,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     if ((e.target as HTMLElement).closest('button')) {
       return;
     }
-    
+
     if (onProductClick) {
       onProductClick(product.id);
     }
@@ -73,13 +73,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <CardMedia
           component="img"
           height="200"
-          image={product.image}
+          image={Array.isArray(product.image) ? product.image[0] : product.image}
           alt={product.name}
           sx={{
             objectFit: 'cover',
           }}
         />
-        
+
         {/* Category Chip */}
         <Chip
           label={product.category}
@@ -137,20 +137,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
           {product.name}
         </Typography>
 
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{
-            mb: 2,
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            minHeight: '2.5em',
-          }}
-        >
-          {product.description}
-        </Typography>
 
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
           {/* <Rating
