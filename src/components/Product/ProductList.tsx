@@ -7,7 +7,7 @@ import {
   alpha
 } from '@mui/material';
 import ProductCard from './ProductCard';
-import { ProductBasicInfo } from '@/src/types';
+import { ProductBasicInfo } from '@/types';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import { useTranslations } from 'next-intl';

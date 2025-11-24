@@ -1,8 +1,8 @@
 import React from 'react';
-import { detailedProducts, getDetailedProduct } from '@/src/lib/data/data';
-import ProductPageClient from '@/src/components/Product/ProductPageClient';
-import ProductNotFound from '@/src/components/Product/ProductNotFound';
-import { Product } from '@/src/types';
+import { detailedProducts, getDetailedProduct } from '@/lib/data/data';
+import ProductPageClient from '@/components/Product/ProductPageClient';
+import ProductNotFound from '@/components/Product/ProductNotFound';
+import { Product } from '@/types';
 
 interface ProductPageProps {
   params: Promise<{

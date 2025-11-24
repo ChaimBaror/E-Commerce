@@ -4,7 +4,7 @@ import React from 'react';
 import { Stack, IconButton } from '@mui/material';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
-import { deleteProduct } from '@/src/app/admin/products/actions';
+import { deleteProduct } from '@/app/admin/products/actions';
 
 interface ProductTableRowActionsProps {
     productId: string;

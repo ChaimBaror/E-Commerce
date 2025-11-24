@@ -29,10 +29,10 @@ import {
     ArrowBack as ArrowBackIcon,
     FavoriteBorder as FavoriteBorderIcon
 } from '@mui/icons-material';
-import { Product } from '@/src/types';
-import Navbar from '@/src/components/Header/Navbar';
-import Footer from '@/src/components/Shared/Footer';
-import { useCartStore } from '@/src/stores/cartStore';
+import { Product } from '@/types';
+import Navbar from '@/components/Header/Navbar';
+import Footer from '@/components/Shared/Footer';
+import { useCartStore } from '@/stores/cartStore';
 import SizeSelector from './SizeSelector';
 import ColorSelector from './ColorSelector';
 import ProductImageGallery from './ProductImageGallery';

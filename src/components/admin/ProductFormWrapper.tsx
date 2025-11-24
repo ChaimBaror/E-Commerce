@@ -3,20 +3,14 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import ProductForm from './ProductForm';
-import { ExtendedProductData } from '@/src/types';
 
 interface ProductFormWrapperProps {
     productId?: string;
-    onSubmit: (product: ExtendedProductData) => Promise<void>;
     onCancel?: () => void;
 }
 
-export default function ProductFormWrapper({ productId, onSubmit, onCancel }: ProductFormWrapperProps) {
+export default function ProductFormWrapper({ productId, onCancel }: ProductFormWrapperProps) {
     const router = useRouter();
-
-    const handleSubmit = async (product: ExtendedProductData) => {
-        await onSubmit(product);
-    };
 
     const handleCancel = () => {
         if (onCancel) {
@@ -27,7 +21,7 @@ export default function ProductFormWrapper({ productId, onSubmit, onCancel }: Pr
     };
 
     return (
-        <ProductForm productId={productId} onSubmit={handleSubmit} onCancel={handleCancel} />
+        <ProductForm productId={productId} onCancel={handleCancel} />
     );
 }
 
