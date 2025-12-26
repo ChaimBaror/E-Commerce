@@ -1,26 +1,26 @@
 import React from 'react';
-import { 
-  Box, 
-  Typography, 
+import {
+  Box,
+  Typography,
   Fade,
   useTheme,
   alpha
 } from '@mui/material';
 import ProductCard from './ProductCard';
-import { Product } from '@/src/types';
+import { ProductBasicInfo } from '@/types';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import { useTranslations } from 'next-intl';
 import ProductCardSkeleton from '../Shared/Skeletons/ProductCardSkeleton';
 
 interface ProductListProps {
-  products: Product[];
-  onAddToCart: (product: Product) => void;
+  products: ProductBasicInfo[];
+  onAddToCart: (product: ProductBasicInfo) => void;
   onProductClick?: (productId: string) => void;
   loading?: boolean;
 }
 
-const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: ProductListProps) => {
+const ProductList = ({ products, onAddToCart, loading = false, onProductClick }: ProductListProps) => {
   const theme = useTheme();
   const t = useTranslations('HomePage.productList');
 
@@ -28,25 +28,25 @@ const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: 
     return (
       <Box sx={{ py: 2 }}>
         {/* Products Header Skeleton */}
-        <Box 
-          sx={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: 1, 
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
             mb: 3,
             pb: 2,
             borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`
           }}
         >
-          <ShoppingBagIcon 
-            sx={{ 
+          <ShoppingBagIcon
+            sx={{
               color: theme.palette.primary.main,
               fontSize: 28
-            }} 
+            }}
           />
-          <Typography 
-            variant="h5" 
-            sx={{ 
+          <Typography
+            variant="h5"
+            sx={{
               fontWeight: 700,
               color: theme.palette.text.primary
             }}
@@ -56,7 +56,7 @@ const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: 
         </Box>
 
         {/* Products Grid Skeleton */}
-        <Box 
+        <Box
           sx={{
             display: 'grid',
             gridTemplateColumns: {
@@ -86,11 +86,11 @@ const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: 
 
   if (!products || products.length === 0) {
     return (
-      <Box 
-        sx={{ 
-          display: 'flex', 
+      <Box
+        sx={{
+          display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center', 
+          alignItems: 'center',
           justifyContent: 'center',
           minHeight: '400px',
           textAlign: 'center',
@@ -110,17 +110,17 @@ const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: 
             mb: 3
           }}
         >
-          <SearchOffIcon 
-            sx={{ 
-              fontSize: 60, 
-              color: theme.palette.grey[400] 
-            }} 
+          <SearchOffIcon
+            sx={{
+              fontSize: 60,
+              color: theme.palette.grey[400]
+            }}
           />
         </Box>
-        <Typography 
-          variant="h5" 
-          gutterBottom 
-          sx={{ 
+        <Typography
+          variant="h5"
+          gutterBottom
+          sx={{
             fontWeight: 600,
             color: theme.palette.text.primary,
             mb: 1
@@ -128,9 +128,9 @@ const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: 
         >
           {t('noProductsFound')}
         </Typography>
-        <Typography 
-          variant="body1" 
-          sx={{ 
+        <Typography
+          variant="body1"
+          sx={{
             color: theme.palette.text.secondary,
             maxWidth: 400
           }}
@@ -144,34 +144,34 @@ const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: 
   return (
     <Box sx={{ py: 2 }}>
       {/* Products Header */}
-      <Box 
-        sx={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          gap: 1, 
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1,
           mb: 3,
           pb: 2,
           borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`
         }}
       >
-        <ShoppingBagIcon 
-          sx={{ 
+        <ShoppingBagIcon
+          sx={{
             color: theme.palette.primary.main,
             fontSize: 28
-          }} 
+          }}
         />
-        <Typography 
-          variant="h5" 
-          sx={{ 
+        <Typography
+          variant="h5"
+          sx={{
             fontWeight: 700,
             color: theme.palette.text.primary
           }}
         >
           {t('ourProducts')}
         </Typography>
-        <Typography 
-          variant="body2" 
-          sx={{ 
+        <Typography
+          variant="body2"
+          sx={{
             ml: 'auto',
             color: theme.palette.text.secondary,
             fontWeight: 500
@@ -183,7 +183,7 @@ const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: 
 
       {/* Products Grid */}
       <Fade in timeout={600}>
-        <Box 
+        <Box
           sx={{
             display: 'grid',
             gridTemplateColumns: {
@@ -208,8 +208,8 @@ const ProductList = ({ products, onAddToCart, loading = false,onProductClick }: 
               style={{ transitionDelay: `${index * 50}ms` }}
             >
               <Box sx={{ width: '100%' }}>
-                <ProductCard 
-                  product={product} 
+                <ProductCard
+                  product={product}
                   onAddToCart={onAddToCart}
                   onProductClick={onProductClick}
                 />

@@ -80,7 +80,9 @@
             "rating": "Rating:",
             "stars": "stars",
             "relatedProducts": "You Might Also Like",
-            "addedToCartSuccess": "added to cart successfully! (Quantity: {quantity})"
+            "addedToCartSuccess": "added to cart successfully! (Quantity: {quantity})",
+            "selectColor": "Select Color",
+            "selectSize": "Select Size"
         },
         "productList": {
             "loadingProducts": "Loading our amazing products...",
@@ -157,5 +159,162 @@
         "remove": "Remove",
         "clearCart": "Clear Cart",
         "proceedToCheckout": "Proceed to Checkout"
+    },
+    "admin": {
+        "dashboard": "Dashboard",
+        "adminPanel": "Admin Panel",
+        "managementInterface": "Management Interface",
+        "loading": "Loading...",
+        "checkingPermissions": "Checking permissions...",
+        "noAccess": "No access to admin panel",
+        "noAccessMessage": "Your email ({email}) is not in the admin list.",
+        "noAccessContact": "Please contact the system administrator.",
+        "configureEmail": "Configure your email in ADMIN_EMAILS in .env.local file:",
+        "menu": {
+            "dashboard": "Dashboard",
+            "products": "Products",
+            "orders": "Orders",
+            "users": "Users",
+            "analytics": "Analytics"
+        },
+        "signOut": "Sign Out",
+        "stats": {
+            "totalProducts": "Total Products",
+            "totalOrders": "Total Orders",
+            "totalRevenue": "Total Revenue",
+            "totalUsers": "Total Users"
+        },
+        "products": {
+            "newProduct": "New Product",
+            "editProduct": "Edit Product",
+            "productName": "Product Name",
+            "title": "Title",
+            "vendor": "Vendor",
+            "productType": "Product Type",
+            "handle": "Handle",
+            "handleHelper": "URL-friendly identifier (auto-generated if empty)",
+            "price": "Price",
+            "currency": "Currency",
+            "compareAtPrice": "Compare at Price",
+            "description": "Description",
+            "imageUrl": "Image URL",
+            "featuredImage": "Featured Image URL",
+            "tags": "Tags",
+            "tagsHelper": "Comma-separated tags",
+            "collections": "Collections",
+            "category": "Category",
+            "rating": "Rating",
+            "reviews": "Number of Reviews",
+            "variants": "Variants",
+            "addVariant": "Add Variant",
+            "variant": "Variant",
+            "color": "Color",
+            "size": "Size",
+            "quantity": "Quantity",
+            "noVariants": "No variants added. Click 'Add Variant' to create one.",
+            "fillFromImage": "Fill from Image",
+            "analyzing": "Analyzing...",
+            "invalidImageFile": "Please select a valid image file",
+            "imageAnalysisError": "Failed to analyze image. Please try again.",
+            "uploadFailed": "Failed to upload image",
+            "uploadFile": "Upload File",
+            "enterUrl": "Enter URL",
+            "uploadAndAnalyze": "Upload & Analyze Image",
+            "analyzeFromUrl": "Analyze from URL",
+            "enterImageUrl": "Please enter an image URL",
+            "invalidImageUrl": "Please enter a valid image URL (http:// or https://)",
+            "imagePreview": "Image Preview",
+            "imageLoadError": "Failed to load image. Please check the URL.",
+            "cancel": "Cancel",
+            "create": "Create",
+            "update": "Update",
+            "image": "Image",
+            "name": "Name",
+            "categoryLabel": "Category",
+            "priceLabel": "Price",
+            "actions": "Actions",
+            "edit": "Edit",
+            "delete": "Delete",
+            "fillAllFields": "Please fill all required fields",
+            "productNotFound": "Product not found"
+        },
+        "orders": {
+            "title": "Order Management",
+            "orderDetails": "Order Details",
+            "back": "Back",
+            "orderNumber": "Order #{orderId}",
+            "customerName": "Customer Name",
+            "email": "Email",
+            "phone": "Phone",
+            "orderDate": "Order Date",
+            "shippingAddress": "Shipping Address",
+            "orderItems": "Order Items",
+            "product": "Product",
+            "quantity": "Quantity",
+            "price": "Price",
+            "subtotal": "Subtotal",
+            "total": "Total",
+            "orderId": "Order ID",
+            "customer": "Customer",
+            "amount": "Amount",
+            "status": "Status",
+            "date": "Date",
+            "actions": "Actions",
+            "view": "View",
+            "noOrders": "No orders",
+            "statuses": {
+                "pending": "Pending",
+                "processing": "Processing",
+                "shipped": "Shipped",
+                "delivered": "Delivered",
+                "cancelled": "Cancelled"
+            }
+        },
+        "users": {
+            "title": "User Management",
+            "name": "Name",
+            "email": "Email",
+            "ordersCount": "Number of Orders",
+            "totalSpent": "Total Spent",
+            "status": "Status",
+            "active": "Active",
+            "inactive": "Inactive"
+        },
+        "analytics": {
+            "title": "Analytics & Reports",
+            "salesByMonth": "Sales by Month",
+            "popularProducts": "Popular Products",
+            "newCustomers": "New Customers",
+            "revenueByCategory": "Revenue by Category",
+            "chartPlaceholder": "Chart will be displayed here",
+            "listPlaceholder": "List will be displayed here"
+        },
+        "dashboard": {
+            "recentOrders": "Recent Orders",
+            "popularProducts": "Popular Products"
+        }
+    },
+    "about": {
+        "title": "ABOUT US",
+        "subtitle": "Where Romance Meets Rebellion",
+        "description": "Bed of Roses is a lingerie brand that blends the playful, feminine essence of the West Coast with an effortlessly cool East Coast edge. Designed for the modern woman who balances softness with strength, our pieces are equal parts romantic and rebellious—think delicate lace, sleek silhouettes, and a touch of attitude. Whether you're lounging at home or stepping out with confidence, Bed of Roses is your go-to for lingerie that feels as good as it looks. Welcome to the cool girl's take on intimates.",
+        "featuresTitle": "What Makes Us Special",
+        "featuresSubtitle": "Discover the essence of Bed of Roses",
+        "feature1": {
+            "title": "Feminine & Playful",
+            "description": "Embodying the West Coast's playful, feminine essence with delicate designs"
+        },
+        "feature2": {
+            "title": "Cool & Edgy",
+            "description": "Effortlessly cool East Coast edge that adds attitude to every piece"
+        },
+        "feature3": {
+            "title": "Softness & Strength",
+            "description": "Designed for the modern woman who balances softness with strength"
+        },
+        "feature4": {
+            "title": "Romantic & Rebellious",
+            "description": "Equal parts romantic and rebellious—delicate lace meets sleek silhouettes"
+        }
     }
 }

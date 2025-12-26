@@ -8,7 +8,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https' as const,
-        hostname: 'burst.shopifycdn.com',
+        hostname: 'cdn.shopify.com',
         pathname: '/**',
       },
     ],

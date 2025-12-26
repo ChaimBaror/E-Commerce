@@ -24,6 +24,9 @@ NEXTAUTH_SECRET=your_nextauth_secret_here
 # Email Configuration (חובה לשליחת מיילי הזמנות!)
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_app_password_here
+
+# Gemini AI (אופציונלי - לניתוח תמונות מתקדם)
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
 ### 3. איך להשיג את הערכים:
@@ -58,6 +61,9 @@ NEXTAUTH_SECRET=abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ==
 # Email Configuration
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_app_password_here
+
+# Gemini AI (אופציונלי)
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
 **הערות:**

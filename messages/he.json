@@ -80,7 +80,9 @@
             "rating": "דירוג:",
             "stars": "כוכבים",
             "relatedProducts": "מוצרים דומים",
-            "addedToCartSuccess": "נוסף לעגלה בהצלחה! (כמות: {quantity})"
+            "addedToCartSuccess": "נוסף לעגלה בהצלחה! (כמות: {quantity})",
+            "selectColor": "בחר צבע",
+            "selectSize": "בחר גודל"
         },
         "productList": {
             "loadingProducts": "טוען מוצרים...",
@@ -157,5 +159,162 @@
         "remove": "הסר",
         "clearCart": "נקה עגלה",
         "proceedToCheckout": "המשך לתשלום"
+    },
+    "admin": {
+        "dashboard": "דשבורד",
+        "adminPanel": "ממשק אדמין",
+        "managementInterface": "ממשק ניהול",
+        "loading": "טוען...",
+        "checkingPermissions": "בודק הרשאות...",
+        "noAccess": "אין הרשאה לגשת לממשק האדמין",
+        "noAccessMessage": "האימייל שלך ({email}) לא נמצא ברשימת האדמינים.",
+        "noAccessContact": "אנא פנה למנהל המערכת.",
+        "configureEmail": "הגדר את האימייל שלך ב-ADMIN_EMAILS בקובץ .env.local:",
+        "menu": {
+            "dashboard": "דשבורד",
+            "products": "מוצרים",
+            "orders": "הזמנות",
+            "users": "משתמשים",
+            "analytics": "אנליטיקה"
+        },
+        "signOut": "התנתק",
+        "stats": {
+            "totalProducts": "סה״כ מוצרים",
+            "totalOrders": "סה״כ הזמנות",
+            "totalRevenue": "סה״כ הכנסות",
+            "totalUsers": "סה״כ משתמשים"
+        },
+        "products": {
+            "newProduct": "מוצר חדש",
+            "editProduct": "ערוך מוצר",
+            "productName": "שם המוצר",
+            "title": "כותרת",
+            "vendor": "יצרן",
+            "productType": "סוג מוצר",
+            "handle": "מזהה URL",
+            "handleHelper": "מזהה ידידותי ל-URL (נוצר אוטומטית אם ריק)",
+            "price": "מחיר",
+            "currency": "מטבע",
+            "compareAtPrice": "מחיר השוואה",
+            "description": "תיאור",
+            "imageUrl": "קישור לתמונה",
+            "featuredImage": "קישור לתמונה ראשית",
+            "tags": "תגיות",
+            "tagsHelper": "תגיות מופרדות בפסיק",
+            "collections": "אוספים",
+            "category": "קטגוריה",
+            "rating": "דירוג",
+            "reviews": "מספר ביקורות",
+            "variants": "גרסאות",
+            "addVariant": "הוסף גרסה",
+            "variant": "גרסה",
+            "color": "צבע",
+            "size": "גודל",
+            "quantity": "כמות",
+            "noVariants": "לא נוספו גרסאות. לחץ על 'הוסף גרסה' כדי ליצור אחת.",
+            "fillFromImage": "מלא מתמונה",
+            "analyzing": "מנתח...",
+            "invalidImageFile": "אנא בחר קובץ תמונה תקין",
+            "imageAnalysisError": "נכשל בניתוח התמונה. אנא נסה שוב.",
+            "uploadFailed": "נכשל בהעלאת התמונה",
+            "uploadFile": "העלה קובץ",
+            "enterUrl": "הזן כתובת",
+            "uploadAndAnalyze": "העלה ונתח תמונה",
+            "analyzeFromUrl": "נתח מכתובת",
+            "enterImageUrl": "אנא הזן כתובת תמונה",
+            "invalidImageUrl": "אנא הזן כתובת תמונה תקינה (http:// או https://)",
+            "imagePreview": "תצוגה מקדימה",
+            "imageLoadError": "נכשל בטעינת התמונה. אנא בדוק את הכתובת.",
+            "cancel": "ביטול",
+            "create": "צור",
+            "update": "עדכן",
+            "image": "תמונה",
+            "name": "שם",
+            "categoryLabel": "קטגוריה",
+            "priceLabel": "מחיר",
+            "actions": "פעולות",
+            "edit": "ערוך",
+            "delete": "מחק",
+            "fillAllFields": "אנא מלא את כל השדות הנדרשים",
+            "productNotFound": "מוצר לא נמצא"
+        },
+        "orders": {
+            "title": "ניהול הזמנות",
+            "orderDetails": "פרטי הזמנה",
+            "back": "חזרה",
+            "orderNumber": "הזמנה #{orderId}",
+            "customerName": "שם לקוח",
+            "email": "אימייל",
+            "phone": "טלפון",
+            "orderDate": "תאריך הזמנה",
+            "shippingAddress": "כתובת משלוח",
+            "orderItems": "פריטים בהזמנה",
+            "product": "מוצר",
+            "quantity": "כמות",
+            "price": "מחיר",
+            "subtotal": "סה״כ",
+            "total": "סה״כ",
+            "orderId": "מספר הזמנה",
+            "customer": "לקוח",
+            "amount": "סכום",
+            "status": "סטטוס",
+            "date": "תאריך",
+            "actions": "פעולות",
+            "view": "צפה",
+            "noOrders": "אין הזמנות",
+            "statuses": {
+                "pending": "ממתין",
+                "processing": "מעבד",
+                "shipped": "נשלח",
+                "delivered": "נמסר",
+                "cancelled": "בוטל"
+            }
+        },
+        "users": {
+            "title": "ניהול משתמשים",
+            "name": "שם",
+            "email": "אימייל",
+            "ordersCount": "מספר הזמנות",
+            "totalSpent": "סה״כ הוצאות",
+            "status": "סטטוס",
+            "active": "פעיל",
+            "inactive": "לא פעיל"
+        },
+        "analytics": {
+            "title": "אנליטיקה ודוחות",
+            "salesByMonth": "מכירות לפי חודש",
+            "popularProducts": "מוצרים פופולריים",
+            "newCustomers": "לקוחות חדשים",
+            "revenueByCategory": "הכנסות לפי קטגוריה",
+            "chartPlaceholder": "גרף יוצג כאן",
+            "listPlaceholder": "רשימה תוצג כאן"
+        },
+        "dashboard": {
+            "recentOrders": "הזמנות אחרונות",
+            "popularProducts": "מוצרים פופולריים"
+        }
+    },
+    "about": {
+        "title": "אודותינו",
+        "subtitle": "איפה רומנטיקה פוגשת מרדנות",
+        "description": "Bed of Roses הוא מותג הלבשה תחתונה שמשלב את המהות המשחקית והנשית של החוף המערבי עם קצה מזרחי קריר ללא מאמץ. מעוצב עבור האישה המודרנית שמאזנת בין רכות לכוח, הפריטים שלנו הם שילוב שווה של רומנטי ומרדני—חשוב על תחרה עדינה, סילואטות חלקות, ונגיעה של גישה. בין אם אתה נח בבית או יוצא בביטחון, Bed of Roses הוא המקום שלך להלבשה תחתונה שמרגישה טוב כמו שהיא נראית. ברוכים הבאים לגישה הקרירה של הבחורה לאינטימיים.",
+        "featuresTitle": "מה שהופך אותנו למיוחדים",
+        "featuresSubtitle": "גלו את המהות של Bed of Roses",
+        "feature1": {
+            "title": "נשי ומשחקי",
+            "description": "מגלמים את המהות המשחקית והנשית של החוף המערבי עם עיצובים עדינים"
+        },
+        "feature2": {
+            "title": "קריר וחד",
+            "description": "קצה מזרחי קריר ללא מאמץ שמוסיף גישה לכל פריט"
+        },
+        "feature3": {
+            "title": "רכות וכוח",
+            "description": "מעוצב עבור האישה המודרנית שמאזנת בין רכות לכוח"
+        },
+        "feature4": {
+            "title": "רומנטי ומרדני",
+            "description": "שילוב שווה של רומנטי ומרדני—תחרה עדינה פוגשת סילואטות חלקות"
+        }
     }
 }

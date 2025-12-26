@@ -97,3 +97,4 @@ const HeroBannerVisual = ({ mounted }: HeroBannerVisualProps) => {
 export default HeroBannerVisual;
 
 
+

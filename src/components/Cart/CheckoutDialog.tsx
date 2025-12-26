@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, LinearProgress, Box } from '@mui/material';
+import toast from 'react-hot-toast';
 import { useCartStore } from '../../stores/cartStore';
 import { useAuth } from '../../contexts/AuthContext';
 import OrderSummary from './OrderSummary';
@@ -45,7 +46,7 @@ const CheckoutDialog = ({ onClose }: CheckoutDialogProps) => {
 
     // Basic form validation
     if (!formData.fullName || !formData.address || !formData.phone || !formData.email) {
-      alert('אנא מלא את כל השדות הנדרשים');
+      toast.error('אנא מלא את כל השדות הנדרשים');
       return;
     }
 
@@ -90,13 +91,15 @@ const CheckoutDialog = ({ onClose }: CheckoutDialogProps) => {
         setShowSuccess(true);
       } else {
         console.error('Failed to send email:', emailResult.error);
-        alert('ההזמנה נשמרה, אבל לא הצלחנו לשלוח מייל אישור. אנא צור קשר עם התמיכה');
+        toast('ההזמנה נשמרה, אבל לא הצלחנו לשלוח מייל אישור. אנא צור קשר עם התמיכה', {
+          icon: '⚠️',
+        });
         setOrderComplete(true);
         clearCart();
       }
     } catch (error) {
       console.error('Error sending order:', error);
-      alert('שגיאה בשליחת ההזמנה. אנא נסה שוב.');
+      toast.error('שגיאה בשליחת ההזמנה. אנא נסה שוב.');
     } finally {
       setLoading(false);
     }

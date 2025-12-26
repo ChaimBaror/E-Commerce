@@ -4,6 +4,7 @@ import { getLocale, getMessages } from 'next-intl/server';
 import ThemeProvider from '../components/ThemeProvider';
 import { AuthProvider } from '../contexts/AuthContext';
 import type { Metadata } from "next";
+import { Toaster } from 'react-hot-toast';
 import '../styles/globals.css';
 
 export const metadata: Metadata = {
@@ -32,6 +33,7 @@ export default async function RootLayout({
             <AuthProvider>
               <ThemeProvider>
                 {children}
+                <Toaster position="top-center" />
               </ThemeProvider>
             </AuthProvider>
           </NextIntlClientProvider>
